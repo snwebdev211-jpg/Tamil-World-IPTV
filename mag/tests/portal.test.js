@@ -69,7 +69,7 @@ test('channel ids are stable positive numbers, not position numbers',async()=>{
   const r=await query('itv','get_all_channels');
   const entries=r.body.data;
   assert.equal(entries.length,19);
-  assert.ok(entries.every(c=>/^\\d+$/.test(c.id)&&Number(c.id)>0&&Number(c.id)<2147483648));
+  assert.ok(entries.every(c=>/^\d+$/.test(c.id)&&Number(c.id)>0&&Number(c.id)<2147483648));
   assert.equal(new Set(entries.map(c=>c.id)).size,entries.length);
   assert.ok(entries.some(c=>c.id!==c.number),'Stable IDs are not index numbers');
 });
