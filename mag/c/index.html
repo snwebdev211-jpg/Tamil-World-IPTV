@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#05364f">
+<title>Santhos IPTV — MAG Portal</title>
+<style>
+html,body{margin:0;padding:0;background:#062740;color:#edf8fc;font-family:Arial,Helvetica,sans-serif;width:100%;height:100%;overflow:hidden}
+*{box-sizing:border-box}
+button{font-family:Arial,Helvetica,sans-serif;cursor:pointer}
+#outer{height:100%;min-height:340px;width:100%;position:relative;background:#083650}
+#top{height:74px;background:#052c43;border-bottom:3px solid #167897;position:relative;padding:9px 32px;overflow:hidden}
+#logo{height:54px;width:72px;float:left;object-fit:contain;background:#fafdfd;border:2px solid #c8e8f4;border-radius:5px}
+#brand{margin-left:90px;padding-top:5px;color:#fff;font-size:26px;font-weight:bold;letter-spacing:1px}
+#brand b{color:#74dfea}
+#byline{margin-left:91px;font-size:10px;color:#c9e6e9;letter-spacing:3px}
+#clock{position:absolute;right:35px;top:20px;font-size:15px;color:#d1f4fc;letter-spacing:1px}
+#layout{height:calc(100% - 112px);overflow:hidden;display:block}
+#sidebar{position:absolute;left:0;top:74px;bottom:38px;width:216px;background:#063147;border-right:2px solid #155876;padding:18px 11px;overflow-y:auto}
+.group-title{color:#83c0d4;font-weight:bold;font-size:12px;padding:8px 9px 14px;text-transform:uppercase;letter-spacing:1.7px}
+.menu{display:block;width:100%;border:1px solid transparent;text-align:left;background:transparent;color:#d1e8f0;font-size:18px;line-height:21px;padding:13px 12px;margin-bottom:5px;border-radius:4px}
+.menu:hover,.menu.selected{background:#136384;color:#fff;border-color:#3bc0ce}
+.menu.active{background:#17658c;border-color:#61dceb}
+#main{position:absolute;left:216px;right:0;top:74px;bottom:38px;padding:28px 32px;overflow:auto;background:#064165}
+.headline{margin:0;font-size:30px;line-height:36px;letter-spacing:-.7px}
+.subhead{color:#9fc9d8;font-size:14px;margin:6px 0 16px}
+#status{color:#9ddce9;font-size:13px;margin:3px 0 15px;min-height:17px}
+#cards{display:block}
+.tile{display:inline-block;vertical-align:top;width:calc(25% - 13px);height:172px;background:#0c5476;border:2px solid #297597;margin:0 11px 12px 0;border-radius:6px;color:#fff;text-align:left;position:relative;overflow:hidden}
+.tile.selected,.tile:focus,.tile:hover{outline:0;border-color:#b7f4e8;background:#206e88;box-shadow:0 0 0 3px #26b6ba}
+.tile .icon{display:block;text-align:center;font-size:52px;font-weight:bold;padding:18px 0 5px;color:#b2e6e9}
+.tile .name{display:block;padding:8px 12px;font-size:16px;font-weight:bold;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.tile .hint{display:block;color:#b7d3e2;padding:1px 12px;font-size:12px}
+.row{display:block;width:100%;max-width:900px;min-height:58px;text-align:left;border:1px solid #2e7e98;background:#0d5373;border-radius:4px;padding:6px 13px;margin-bottom:6px;color:#fff;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row:hover,.row:focus,.row.selected{outline:0;background:#197697;border:2px solid #b8f3e8}
+.row img{height:38px;width:65px;float:left;object-fit:contain;margin-right:12px;background:#e4ebeb;border-radius:3px}
+.row small{display:block;color:#c0dfeb;font-size:11px;margin-top:3px}
+#videoPanel{display:none;position:absolute;inset:0;z-index:50;background:#010b11}
+#playerTop{height:57px;background:#082b40;padding:11px 22px;font-size:19px}
+#closePlayer{float:right;font-size:16px;background:#155c79;border:1px solid #83cddd;color:#fff;padding:8px 15px}
+#video{width:100%;height:calc(100% - 112px);background:#000}
+#playerBottom{height:55px;background:#0d334d;padding:12px 20px;color:#d1e9ef;font-size:12px}
+#playerBottom button{background:#125875;border:1px solid #83bdcd;color:#fff;padding:7px 13px;margin-right:9px}
+#message{display:none;position:absolute;left:20%;right:20%;top:45%;padding:20px;background:#103e58;border:2px solid #88c3cd;color:#fff;text-align:center;font-size:15px;z-index:53}
+#bottom{position:absolute;bottom:0;left:0;right:0;height:38px;padding:10px 20px;background:#05283c;color:#a4ccd7;font-size:12px}
+#bottom span{float:right;color:#81bfcb}
+.empty{border:1px solid #3683a0;color:#cbe8ed;background:#0a4d6b;padding:35px 20px;max-width:700px;line-height:1.6}
+#goBack{background:#0d7193;border:1px solid #80d3db;color:#fff;border-radius:4px;padding:11px 18px;font-size:14px;margin-bottom:16px}
+#filter{display:block;width:100%;max-width:530px;margin:0 0 16px;height:40px;background:#eaf8f7;border:2px solid #3baabc;color:#082e42;border-radius:4px;font-size:15px;padding:0 10px}
+#pageControls{margin:16px 0}
+#pageControls button{background:#116488;border:1px solid #4bb6cd;color:#fff;padding:10px 16px;margin-right:7px;font-size:15px}
+@media(max-width:900px){#sidebar{width:165px}#main{left:165px;padding:20px}.menu{font-size:15px;padding:11px 8px}.tile{width:calc(50% - 10px);margin-right:5px;height:145px}.tile .icon{font-size:36px;padding:12px}.row{font-size:14px}}
+@media(max-width:600px){#top{padding:8px 13px}#brand{font-size:20px;margin-left:74px}#byline{margin-left:74px;letter-spacing:1px}#logo{width:60px;height:51px}#clock{display:none}#sidebar{width:110px;padding:10px 3px}#main{left:110px;padding:10px}#main .headline{font-size:19px}.menu{font-size:12px;padding:9px 4px}#status{font-size:11px}.tile{height:112px;width:calc(50% - 8px)}.tile .icon{font-size:23px}.tile .name{font-size:11px;padding:4px 5px}.tile .hint{font-size:9px;padding:0 5px}.row{font-size:12px;padding:5px}.row img{width:42px;height:28px}.subhead{font-size:11px}}
+</style>
+</head>
+<body>
+<div id="outer">
+<div id="top">
+<img id="logo" src="/c/snwd-logo.jpg" alt="SNWD company logo">
+<div id="brand">SANTHOS <b>IPTV</b></div>
+<div id="byline">POWERED BY SNWD</div>
+<div id="clock"></div>
+</div>
+<div id="layout">
+<div id="sidebar"><div class="group-title">Main Menu</div>
+<button id="nav-home" class="menu active" onclick="go('home')">⌂ &nbsp; Home</button>
+<button id="nav-tv" class="menu" onclick="go('tv')">▣ &nbsp; Live TV</button>
+<button id="nav-tamil" class="menu" onclick="go('tamil')">அ &nbsp; Tamil TV</button>
+<button id="nav-movies" class="menu" onclick="go('movies')">▶ &nbsp; Movies</button>
+<button id="nav-sports" class="menu" onclick="go('sports')">◉ &nbsp; Sports</button>
+<button id="nav-news" class="menu" onclick="go('news')">⌁ &nbsp; News</button>
+<button id="nav-music" class="menu" onclick="go('music')">♫ &nbsp; Music</button>
+<button id="nav-kids" class="menu" onclick="go('kids')">✳ &nbsp; Kids</button>
+<button id="nav-search" class="menu" onclick="go('search')">⌕ &nbsp; Search</button>
+<button id="nav-guide" class="menu" onclick="go('guide')">▤ &nbsp; TV Guide</button>
+<button id="nav-settings" class="menu" onclick="go('settings')">⚙ &nbsp; Settings</button></div>
+<div id="main"><h1 class="headline">Santhos IPTV</h1><p class="subhead">Loading your channel directory…</p><div id="status">Connecting…</div><div id="cards"></div></div>
+</div>
+<div id="bottom">SANTHOS IPTV &nbsp;·&nbsp; OK: Select &nbsp;·&nbsp; ARROWS: Navigate &nbsp;·&nbsp; BACK: Previous <span>SNWD ORIGINALS</span></div>
+<div id="videoPanel">
+<div id="playerTop"><span id="playerTitle">TV</span><button id="closePlayer" onclick="closeVideo()">✕ &nbsp; BACK</button></div>
+<video id="video" controls autoplay playsinline></video>
+<div id="playerBottom"><button onclick="prevStream()">◀ Prev</button><button onclick="nextStream()">Next ▶</button><button onclick="retryStream()">↻ Retry</button><span id="playerStatus">Checking stream…</span></div>
+<div id="message"></div>
+</div>
+</div>
+<script>
+(function(){
+'use strict';
+var BASE='/stalker_portal/server/load.php?JsHttpRequest=1-xml&';
+var nav='home',genre='*',channels=[],groups=[],page=1,playing=null,video=document.getElementById('video'),selected=0;
+var focusables=[], searchTerm='';
+function elem(s){return document.getElementById(s);}
+function txt(x){return String(x===undefined||x===null?'':x);}
+function escapeHTML(s){return txt(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function req(type,action,params,done){
+ var xhr=new XMLHttpRequest(),query=BASE+'type='+encodeURIComponent(type)+'&action='+encodeURIComponent(action),k;
+ for(k in params){if(params.hasOwnProperty(k))query+='&'+encodeURIComponent(k)+'='+encodeURIComponent(params[k]);}
+ xhr.open('GET',query,true);xhr.timeout=11000;
+ xhr.onreadystatechange=function(){if(xhr.readyState===4){if(xhr.status===200){try{var obj=JSON.parse(xhr.responseText);done(null,obj.js);}catch(e){done('Invalid portal response');}}else{done('Portal HTTP '+xhr.status);}}};
+ xhr.ontimeout=function(){done('Portal request timed out');};
+ xhr.onerror=function(){done('Cannot connect to portal backend');};
+ xhr.send(null);
+}
+function title(a,b){elem('main').innerHTML='<h1 class="headline">'+escapeHTML(a)+'</h1><p class="subhead">'+escapeHTML(b)+'</p><div id="status"></div><div id="cards"></div><div id="pageControls"></div>'; }
+function message(x){if(elem('status'))elem('status').innerHTML=escapeHTML(x);}
+function button(label,hint,action,icon){
+ return '<button class="tile" data-action="'+escapeHTML(action)+'" onclick="tileAction(this)" type="button"><span class="icon">'+icon+'</span><span class="name">'+escapeHTML(label)+'</span><span class="hint">'+escapeHTML(hint)+'</span></button>';
+}
+function clock(){var d=new Date();elem('clock').innerHTML=d.toDateString().toUpperCase()+' &nbsp; '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
+function setNav(n){var els=document.getElementsByClassName('menu'),i;for(i=0;i<els.length;i++)els[i].className='menu'+(els[i].id==='nav-'+n?' active':'');}
+function home(){
+ title('Welcome to Santhos IPTV','Live television and movie channels. Powered by the SNWD company.');
+ var body=button('LIVE TV','Browse channels','tv','▣')+
+ button('TAMIL TV','Tamil entertainment & news','tamil','அ')+
+ button('MOVIE CHANNELS','Live cinema television','movies','▶')+
+ button('SPORTS','Live sports channels','sports','◉')+
+ button('NEWS','Worldwide news','news','⌁')+
+ button('MUSIC','Hits and music stations','music','♫')+
+ button('KIDS','Family television','kids','✳')+
+ button('SEARCH','Find a channel','search','⌕');
+ elem('cards').innerHTML=body;
+ message(channels.length?channels.length+' channels indexed · actual playback depends on channel and TV codec':'Connecting to public TV channels…');
+ resetFocus();
+}
+function tileAction(el){go(el.getAttribute('data-action'));}
+window.tileAction=tileAction;
+function categoryScreen(target){
+ title(target==='tamil'?'Tamil TV':target==='movies'?'Movie Channels':target==='sports'?'Sports':target==='news'?'News':target==='music'?'Music':target==='kids'?'Kids TV':'Live Television','Select a category. Then choose a channel and press OK.');
+ var filtered=[],i,c,group;
+ for(i=0;i<groups.length;i++){
+  c=groups[i];
+  if(target==='tamil' && c.alias.indexOf('Tamil |')!==0)continue;
+  if(target==='movies' && c.title.toLowerCase().indexOf('movie')<0)continue;
+  if(target==='sports' && c.title.toLowerCase().indexOf('sport')<0)continue;
+  if(target==='news' && c.title.toLowerCase().indexOf('news')<0)continue;
+  if(target==='music' && c.title.toLowerCase().indexOf('music')<0)continue;
+  if(target==='kids' && c.title.toLowerCase().indexOf('kids')<0)continue;
+  if(c.id!=='*')filtered.push(c);
+ }
+ var h='',count=0;
+ if(target==='tv')h+=button('ALL CHANNELS',channels.length+' public feeds','group:*','▣');
+ for(i=0;i<filtered.length;i++){group=filtered[i];count=group.number||0;h+=button(group.title,count+' channels','group:'+group.id,target==='tamil'?'அ':'▣');}
+ elem('cards').innerHTML=h||'<div class="empty">No categories available for this section.</div>';
+ message('Use the arrows and OK / Enter to select a category.');
+ resetFocus();
+}
+function renderRows(items,total,current){
+ var h='<button id="goBack" onclick="goBack()">← Back to categories</button>',i,c;
+ if(!items.length){elem('cards').innerHTML=h+'<div class="empty">No matching channels found. This may also indicate a temporary upstream outage.</div>';resetFocus();return;}
+ for(i=0;i<items.length;i++){
+   c=items[i];var number=escapeHTML(c.number),name=escapeHTML(c.name);
+   h+='<button class="row" data-channel="'+escapeHTML(c.id)+'" onclick="chooseChannel(this)" type="button">'+(c.logo?'<img src="'+escapeHTML(c.logo)+'" alt="" onerror="this.style.display=\'none\'">':'')+number+'. '+name+'<small>LIVE &nbsp;·&nbsp; Select to try playback</small></button>';
+ }
+ elem('cards').innerHTML=h;
+ var controls='';
+ if(current>1)controls+='<button onclick="changePage(-1)">← PREVIOUS</button>';
+ if(current*50<total)controls+='<button onclick="changePage(1)">NEXT →</button>';
+ controls+=' &nbsp; '+escapeHTML('Page '+current+' · '+total+' channels');
+ elem('pageControls').innerHTML=controls;
+ message('TV channels · '+total+' total · some streams may fail depending on location or codec.');
+ resetFocus();
+}
+function loadGroup(id){
+ genre=id||'*';page=1;loadPage();
+}
+function loadPage(){
+ title('Live Channels','Select a channel to play. Use Previous / Next to browse.');
+ message('Loading channel list…');
+ req('itv','get_ordered_list',{genre:genre,p:page},function(err,response){
+  if(err){message(err);return;}
+  var items=response.data||[];
+  renderRows(items,Number(response.total_items)||0,page);
+ });
+}
+function chooseChannel(el){play(el.getAttribute('data-channel'));}
+window.chooseChannel=chooseChannel;
+function videoMessage(text,show){
+ elem('message').innerHTML=escapeHTML(text);
+ elem('message').style.display=show?'block':'none';
+ elem('playerStatus').innerHTML=escapeHTML(text);
+}
+function play(id){
+ req('itv','create_link',{ch_id:id},function(err,r){
+  if(err||!r||!r.url){message('This stream is not available: '+(err||'Unknown channel'));return;}
+  var source=r.url;
+  playing=id;
+  elem('videoPanel').style.display='block';
+  elem('playerTitle').innerHTML='SANTHOS IPTV · CHANNEL '+escapeHTML(id);
+  videoMessage('Connecting to broadcast…',false);
+  try {video.pause();video.src=source;video.load();var promise=video.play();if(promise&&promise['catch'])promise['catch'](function(){videoMessage('Press Play or try another channel.',true);});}
+  catch(e){videoMessage('This device cannot play this stream.',true);}
+ });
+}
+function closeVideo(){video.pause();video.removeAttribute('src');video.load();elem('videoPanel').style.display='none';elem('message').style.display='none';}
+window.closeVideo=closeVideo;
+function retryStream(){if(playing)play(playing);} window.retryStream=retryStream;
+function switchStream(n){
+ var rows=document.querySelectorAll('.row'),id=-1,i;
+ for(i=0;i<rows.length;i++)if(rows[i].getAttribute('data-channel')===playing)id=i;
+ if(rows.length)play(rows[(id+n+rows.length)%rows.length].getAttribute('data-channel'));
+}
+function nextStream(){switchStream(1);}function prevStream(){switchStream(-1);}
+window.nextStream=nextStream;window.prevStream=prevStream;
+function emptyPage(name,desc){
+ title(name,desc);elem('cards').innerHTML='<div class="empty">'+escapeHTML(desc)+'</div>';resetFocus();
+}
+function go(next){
+ nav=next;setNav(next);
+ if(next.indexOf('group:')===0){loadGroup(next.slice(6));return;}
+ if(next==='home')return home();
+ if(next==='guide')return emptyPage('TV Guide','EPG schedules have not been supplied by the broadcasters. Live channel browsing is available under TV.');
+ if(next==='settings'){
+  title('Santhos IPTV · Settings','Powered by SNWD');
+  elem('cards').innerHTML='<div class="empty"><b>MAG / Stalker test portal</b><p>Original playlist remains available on GitHub. Back = previous screen. OK = select. This portal is not an Infomir-certified implementation.</p><p>Channel playback depends on broadcast permissions and your TV decoder.</p></div>';
+  resetFocus();return;
+ }
+ if(next==='search'){
+  title('Channel Search','Enter a channel name and press Search.');
+  elem('cards').innerHTML='<input id="filter" placeholder="Search channels by name" type="text"><button class="row" onclick="searchNow()">SEARCH CHANNELS</button>';resetFocus();return;
+ }
+ categoryScreen(next);
+}
+window.go=go;
+function searchNow(){var f=elem('filter');if(!f)return;searchTerm=f.value.toLowerCase();genre='*';page=1;
+ title('Search results','Results matching '+searchTerm);
+ req('itv','get_ordered_list',{genre:'*',search:searchTerm,p:page},function(err,r){if(err){message(err);return;}renderRows(r.data||[],Number(r.total_items)||0,1);});
+}
+window.searchNow=searchNow;
+function goBack(){if(elem('videoPanel').style.display==='block'){closeVideo();return;}go(nav==='home'?'home':nav);}
+window.goBack=goBack;
+function changePage(n){page=Math.max(1,page+n);loadPage();}
+window.changePage=changePage;
+function resetFocus(){selected=0;setTimeout(function(){var targets=elem('main').getElementsByTagName('button');if(targets.length)targets[0].focus();},70);}
+function allFocus(){
+ var list=document.getElementsByTagName('button'),out=[],i,b,rect;
+ for(i=0;i<list.length;i++){
+  b=list[i];rect=b.getBoundingClientRect();
+  if(rect.width&&rect.height&&!(elem('videoPanel').style.display==='block' && b.id.indexOf('nav-')===0))out.push(b);
+ }
+ return out;
+}
+document.onkeydown=function(ev){
+ ev=ev||window.event;var k=ev.keyCode||ev.which,t=ev.target||ev.srcElement;
+ if(t&&t.tagName==='INPUT'&&k!==27&&k!==13)return;
+ if(k===8||k===27||k===461){if(ev.preventDefault)ev.preventDefault();goBack();return false;}
+ if(k===13){if(t&&t.click)t.click();return;}
+ if(k!==37&&k!==38&&k!==39&&k!==40)return;
+ if(ev.preventDefault)ev.preventDefault();
+ var all=allFocus(),a=document.activeElement,cur=a.getBoundingClientRect(),cx=cur.left+cur.width/2,cy=cur.top+cur.height/2,i,b,r,dx,dy,primary,secondary,score,best=1e20,win=null;
+ for(i=0;i<all.length;i++){b=all[i];if(b===a)continue;
+  r=b.getBoundingClientRect();dx=(r.left+r.width/2)-cx;dy=(r.top+r.height/2)-cy;
+  if(k===37&&dx>=-8||k===39&&dx<=8||k===38&&dy>=-8||k===40&&dy<=8)continue;
+  primary=k===37||k===39?Math.abs(dx):Math.abs(dy);
+  secondary=k===37||k===39?Math.abs(dy):Math.abs(dx);
+  score=primary+secondary*3;if(score<best){best=score;win=b;}
+ }
+ if(win)win.focus();return false;
+};
+video.onerror=function(){videoMessage('Cannot decode or access this stream on your device. Try another channel.',true);};
+video.onplaying=function(){videoMessage('Playing live stream',false);};
+clock();setInterval(clock,60000);
+req('stb','handshake',{},function(e,token){
+ if(e){message(e);return;}
+ req('itv','get_genres',{},function(er,gr){if(er){message(er);return;}groups=gr||[];
+   req('itv','get_ordered_list',{genre:'*',p:1},function(err,data){
+     if(!err&&data){channels.length=Number(data.total_items)||0;}go('home');
+   });
+ });
+});
+})();
+</script>
+</body>
+</html>
