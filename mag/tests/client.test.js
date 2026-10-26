@@ -59,7 +59,7 @@ test('classic Santhos MAG UI navigates all key screens, bookmarks and player',as
     d.querySelector('.classic-tile[title="Live television"]').click();
     assert.match(d.querySelector('#main').textContent,/Live Television/,'TV tile opens categories');
     w.go('home');
-    assert.match(d.querySelector('#main').textContent,/3 channels indexed/);
+    assert.match(d.querySelector('#main').textContent,/3 streams indexed/);
     w.go('tamil');
     assert.match(d.querySelector('#main').textContent,/Tamil News/);
     w.go('group:3');
