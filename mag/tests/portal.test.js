@@ -16,6 +16,9 @@ const SAMPLE=[
 'https://media.example.org/family.m3u8',
 '#EXTINF:-1 tvg-id="b1" group-title="Business",Business Channel',
 'https://media.example.org/business.m3u8',
+'#EXTINF:-1 tvg-id="ua1" http-user-agent="Mozilla/5.0 (KHTML, like Gecko) Chrome/144" group-title="Entertainment",Warner TV Asia (720p)',
+'#EXTVLCOPT:http-user-agent=Mozilla/5.0 (KHTML, like Gecko) Chrome/144',
+'https://media.example.org/warner.m3u8',
 ...Array.from({length:16},(_,i)=>'#EXTINF:-1 group-title="News",News '+i+'\nhttps://media.example.org/n'+i+'.m3u8')
 ].join('\n');
 
@@ -52,7 +55,7 @@ test('channel paging and categories are correct',async()=>{
   assert.equal(r.body.data[0].name,'Tamil Family HD');
   assert.equal(r.body.data[0].tv_genre_id,'1');
   const all=await query('itv','get_ordered_list','&genre=%2A&p=1');
-  assert.equal(all.body.total_items,22);
+  assert.equal(all.body.total_items,23);
   assert.equal(all.body.max_page_items,50);
   const kids=await query('itv','get_ordered_list','&genre=17&p=1');
   assert.equal(kids.body.total_items,1);
@@ -82,7 +85,9 @@ test('EPG graceful empty and unknown actions graceful',async()=>{
 test('channel ids are stable positive numbers, not position numbers',async()=>{
   const r=await query('itv','get_all_channels');
   const entries=r.body.data;
-  assert.equal(entries.length,22);
+  assert.equal(entries.length,23);
+  assert.ok(entries.some(c=>c.name==='Warner TV Asia'),
+    'Commas inside quoted M3U user-agent attributes must not corrupt titles');
   assert.ok(entries.every(c=>/^\d+$/.test(c.id)&&Number(c.id)>0&&Number(c.id)<2147483648));
   assert.equal(new Set(entries.map(c=>c.id)).size,entries.length);
   assert.ok(entries.some(c=>c.id!==c.number),'Stable IDs are not index numbers');
