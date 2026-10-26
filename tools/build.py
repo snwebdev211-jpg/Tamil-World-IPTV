@@ -9,13 +9,55 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-WORLD = 'https://iptv-org.github.io/iptv/index.m3u'
+WORLD = 'https://iptv-org.github.io/iptv/index.category.m3u'
 TAMIL = 'https://iptv-org.github.io/iptv/languages/tam.m3u'
 BLOCKED = 'https://iptv-org.github.io/api/blocklist.json'
 HEAD = '#EXTM3U\n'
 ATTR = re.compile(r'([\w-]+)="([^"]*)"')
 SECRET = {'token', 'key', 'api_key', 'apikey', 'auth', 'signature', 'sig', 'expires',
           'exp', 'password', 'user', 'username', 'session', 'jwt', 'access_token'}
+
+# Group order keeps Tamil channels first even when the app shows only a numbered list.
+CATEGORY_ORDER = ('Entertainment', 'Movies', 'Sports', 'News', 'Music', 'Kids',
+                  'Series', 'Comedy', 'Documentary', 'Education', 'Religious',
+                  'Culture', 'Lifestyle', 'Family', 'Business', 'Travel', 'General', 'Other')
+CATEGORY_ALIASES = {'film': 'Movies', 'movie': 'Movies', 'movies': 'Movies',
+                    'sport': 'Sports', 'sports': 'Sports',
+                    'children': 'Kids', 'kids': 'Kids',
+                    'series': 'Series', 'animation': 'Kids',
+                    'religious': 'Religious', 'relax': 'Lifestyle',
+                    'undefined': 'Other', 'shop': 'Lifestyle',
+                    'auto': 'Lifestyle', 'weather': 'News',
+                    'legislative': 'News', 'public': 'General',
+                    'outdoor': 'Lifestyle', 'classic': 'Entertainment',
+                    'cooking': 'Lifestyle', 'science': 'Documentary',
+                    'interactive': 'Entertainment'}
+
+def category(c):
+    raw = c['group'].strip().casefold()
+    if raw in CATEGORY_ALIASES:
+        return CATEGORY_ALIASES[raw]
+    match = next((name for name in CATEGORY_ORDER if raw == name.casefold()), None)
+    if match:
+        return match
+    if re.search(r'\b(movies?|cinema|films?)\b', c['title'], re.I):
+        return 'Movies'
+    if re.search(r'\b(sports?|cricket|football)\b', c['title'], re.I):
+        return 'Sports'
+    if re.search(r'\bnews\b', c['title'], re.I):
+        return 'News'
+    if re.search(r'\b(music|hits|radio)\b', c['title'], re.I):
+        return 'Music'
+    return 'Other' if not raw or raw in ('tamil', 'unknown') else raw.title()
+
+
+def order(c, groups):
+    group = groups[key(c)]
+    tamil = group.startswith('Tamil | ')
+    label = group.split(' | ', 1)[-1]
+    return (0 if tamil else 1,
+            CATEGORY_ORDER.index(label) if label in CATEGORY_ORDER else len(CATEGORY_ORDER),
+            c['title'].casefold(), c['url'])
 
 
 def get(url):
@@ -87,8 +129,7 @@ def key(c):
 
 
 def is_movie(c):
-    g, name = c['group'].casefold(), c['title'].casefold()
-    return 'movie' in g or bool(re.search(r'\b(movies?|cinema|films?)\b', name))
+    return category(c) == 'Movies'
 
 
 def put_category(c, category):
@@ -127,7 +168,7 @@ def main():
     tamil_ids = {c['id'].split('@', 1)[0].casefold() for c in tamil if permitted(c) and c['id']}
     records = {}
     vod_keys = set()
-    for c in tamil + additions + world:
+    for c in world + tamil + additions:
         if not permitted(c):
             continue
         k = key(c)
@@ -146,12 +187,11 @@ def main():
         k = key(c)
         if k in vod_keys:
             return 'Tamil Movies - On Demand'
-        if k in tamil_keys:
-            return 'Tamil Movies' if is_movie(c) else 'Tamil'
-        return c['group'] or 'Other'
+        label = category(c)
+        return 'Tamil | ' + label if k in tamil_keys else label
 
     groups = {k: group(c) for k, c in records.items()}
-    all_items = sorted(records.values(), key=lambda c: (key(c) not in tamil_keys, c['title'].casefold(), c['url']))
+    all_items = sorted(records.values(), key=lambda c: order(c, groups))
     tamil_items = [c for c in all_items if key(c) in tamil_keys]
     movie_items = [c for c in all_items if is_movie(c) and key(c) not in vod_keys]
     tamil_movie_items = [c for c in movie_items if key(c) in tamil_keys]
@@ -159,6 +199,17 @@ def main():
     outputs = {'all.m3u': all_items, 'tamil.m3u': tamil_items,
                'movies.m3u': movie_items, 'tamil-movies.m3u': tamil_movie_items,
                'tamil-movies-on-demand.m3u': vod_items}
+    for section in ('Sports', 'Entertainment', 'News', 'Music', 'Kids', 'Movies',
+                    'Documentary', 'Religious', 'Series', 'Comedy'):
+        outputs[section.lower() + '.m3u'] = [
+            c for c in all_items if groups[key(c)].split(' | ')[-1] == section
+            and key(c) not in vod_keys]
+    outputs['tamil-entertainment.m3u'] = [
+        c for c in tamil_items if groups[key(c)] == 'Tamil | Entertainment']
+    outputs['tamil-news.m3u'] = [
+        c for c in tamil_items if groups[key(c)] == 'Tamil | News']
+    outputs['tamil-music.m3u'] = [
+        c for c in tamil_items if groups[key(c)] == 'Tamil | Music']
     output = ROOT / 'playlists'
     output.mkdir(exist_ok=True)
     for name, items in outputs.items():
@@ -167,6 +218,7 @@ def main():
               'total': len(all_items), 'tamil': len(tamil_items),
               'movie_channels': len(movie_items), 'tamil_movie_channels': len(tamil_movie_items),
               'authorized_tamil_on_demand_films': len(vod_items),
+              'categories': {name: len(items) for name, items in outputs.items() if name.endswith('.m3u')},
               'source': 'iptv-org public directory; custom channels require authorization'}
     (output / 'status.json').write_text(json.dumps(status, indent=2) + '\n', encoding='utf-8')
     print(status)
