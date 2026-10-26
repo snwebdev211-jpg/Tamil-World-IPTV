@@ -189,11 +189,28 @@ function play(id){
   elem('videoPanel').style.display='block';
   elem('playerTitle').innerHTML='SANTHOS IPTV · CHANNEL '+escapeHTML(id);
   videoMessage('Connecting to broadcast…',false);
-  try {video.pause();video.src=source;video.load();var promise=video.play();if(promise&&promise['catch'])promise['catch'](function(){videoMessage('Press Play or try another channel.',true);});}
-  catch(e){videoMessage('This device cannot play this stream.',true);}
+  try {
+    // MAG/Smart-STB's built-in player may support HLS better than the HTML video tag.
+    if(window.stb && typeof window.stb.Play==='function') {
+      try {
+        if(typeof window.stb.Stop==='function')window.stb.Stop();
+        if(typeof window.stb.SetVideoControlState==='function')window.stb.SetVideoControlState(1);
+        window.stb.Play(source);
+        video.style.display='none';
+        videoMessage('Playing using MAG native player (Back to stop).',false);
+        return;
+      } catch(nativeError) {
+        video.style.display='block';
+      }
+    }
+    video.style.display='block';
+    video.pause();video.src=source;video.load();
+    var promise=video.play();
+    if(promise&&promise['catch'])promise['catch'](function(){videoMessage('Press Play or try another channel.',true);});
+  }catch(e){videoMessage('This device cannot play this stream.',true);}
  });
 }
-function closeVideo(){video.pause();video.removeAttribute('src');video.load();elem('videoPanel').style.display='none';elem('message').style.display='none';}
+function closeVideo(){try{if(window.stb && typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}video.pause();video.removeAttribute('src');video.load();video.style.display='block';elem('videoPanel').style.display='none';elem('message').style.display='none';}
 window.closeVideo=closeVideo;
 function retryStream(){if(playing)play(playing);} window.retryStream=retryStream;
 function switchStream(n){
