@@ -113,6 +113,35 @@ body.is-home #main{overflow-y:auto;overflow-x:hidden}
 .classic-bottom-actions button{display:inline-block;margin:4px}
 .classic-caption{margin:9px auto}
 @media(max-height:800px){.classic-category{padding:5px 12px;margin:3px 0;font-size:15px}.classic-categories{padding:7px 12px}.classic-tile{height:92px}.classic-tile .art svg{height:85px}.classic-home{gap:0}.classic-right{display:none}}
+
+/* Screenshot-matched MAG 250 home, 2014 Samsung-compatible positioning */
+body.is-home #top{height:55px;background:transparent;border:0}
+body.is-home #logo{height:39px;width:52px}
+body.is-home #brand{font-size:20px;margin-left:65px;padding-top:0}
+body.is-home #byline{font-size:8px;margin-left:65px;letter-spacing:1px}
+body.is-home #clock{top:12px;right:28px;background:#042544;border:1px solid #215273;padding:8px 18px;font-size:16px;font-weight:bold}
+body.is-home #main{top:55px;bottom:27px;padding:0;overflow:hidden;background:#00385e;background:radial-gradient(ellipse at center,#034f7d 0%,#003c65 48%,#002c50 100%)}
+body.is-home #bottom{height:27px;background:#002d4e;border:0;font-size:10px;padding:6px 14px}
+.classic-home{position:relative;width:100%;height:100%;min-height:0;display:block;text-align:center;overflow:hidden}
+.classic-main{position:absolute;top:2%;left:0;width:100%;height:55%;padding:0;display:block}
+.classic-categories{display:block;position:absolute;top:0;left:35%;width:30%;max-width:none;padding:34px 12px 28px;border:0;border-radius:13px;background:#426887;box-shadow:none;text-align:left}
+.classic-category-head{position:absolute;top:1px;left:0;width:100%;font-size:0;height:30px;margin:0}
+.classic-category-head:after{content:"▲";font-size:25px;position:absolute;left:45%;top:0;color:#e7f1f8}
+.classic-categories:after{content:"▼";position:absolute;bottom:0;left:45%;font-size:25px;color:#e7f1f8}
+.classic-category{height:35px;margin:3px 0;padding:5px 12px;border:1px solid #315e8b;border-radius:4px;background:#174d80;background:linear-gradient(#31659b,#103e70);font-size:17px;font-weight:normal;box-shadow:inset 0 1px 2px #6691b2}
+.classic-category.is-selected,.classic-category:focus{background:#e9edf0;background:linear-gradient(#fff,#d4d7dc);color:#12273d;border-color:#d3dce3}
+.classic-right{display:none}
+.classic-carousel{position:absolute;top:63%;left:4%;width:92%;height:31%;margin:0;display:block;white-space:nowrap}
+#classic-carousel-cards{width:88%;height:100%;display:inline-block!important;vertical-align:top;white-space:nowrap}
+.classic-card-box{display:inline-block;width:31%;max-width:none;height:100%;margin:0 1%;vertical-align:top;white-space:normal}
+.classic-tile{width:100%;height:81%;border:0;border-radius:5px;background:#184d75;box-shadow:none}
+.classic-tile .art{display:block;height:100%;background:#1c5479;text-align:center}
+.classic-tile .art svg{width:44%;height:94%;margin:auto}
+.classic-tile-name{font-size:22px;font-weight:normal;margin:2px 0;color:#e8edf4}
+.classic-arrow{display:inline-block;vertical-align:middle;font-size:54px;padding:0;width:5%;height:75%;color:#bed5e7}
+.classic-bottom-actions,.classic-caption{display:none}
+@media(max-height:800px){.classic-categories{padding-top:27px;padding-bottom:23px}.classic-category{height:29px;margin:2px 0;padding:4px 10px;font-size:14px}.classic-category-head{height:25px}.classic-category-head:after,.classic-categories:after{font-size:19px}.classic-carousel{top:64%}.classic-tile-name{font-size:16px}}
+@media(max-width:700px){.classic-categories{left:26%;width:48%}.classic-carousel{left:1%;width:98%}.classic-tile-name{font-size:12px}.classic-arrow{font-size:30px}}
 </style>
 </head>
 <body>
@@ -223,6 +252,7 @@ function classicGroupButton(title,action,selected){
 
 function home(){
  document.body.className='is-home';
+ homeCarouselPage=0;
  title('Santhos IPTV','Powered by SNWD');
  var h='<div class="classic-home">'+
  '<div class="classic-main">'+
@@ -477,7 +507,7 @@ function goBack(){if(elem('videoPanel').style.display==='block'){closeVideo();re
 window.goBack=goBack;
 function changePage(n){page=Math.max(1,page+n);loadPage();}
 window.changePage=changePage;
-function resetFocus(){selected=0;setTimeout(function(){var targets=elem('main').getElementsByTagName('button');if(targets.length){targets[0].focus();if(targets[0].scrollIntoView)targets[0].scrollIntoView(false);}},70);}
+function resetFocus(){selected=0;setTimeout(function(){var targets=elem('main').getElementsByTagName('button');if(targets.length){targets[0].focus();}},70);}
 function allFocus(){
  var list=document.getElementsByTagName('button'),out=[],i,b,rect,isPlaying=elem('videoPanel').style.display==='block';
  for(i=0;i<list.length;i++){
@@ -515,7 +545,7 @@ function handleRemote(ev){
   score=primary+secondary*3;
   if(score<best){best=score;win=b;}
  }
- if(win){win.focus();if(win.scrollIntoView)win.scrollIntoView(false);}
+ if(win){win.focus();}
  return false;
 }
 document.addEventListener('keydown',handleRemote,true);
