@@ -55,10 +55,12 @@ async function main(){
     assert.ok(await page.locator('.row[data-channel="123"]').isVisible());
     await page.locator('.star').first().click();
     await page.locator('#nav-favorites').click();
+    await page.locator('.row[data-channel="123"]').waitFor({timeout:10000});
     assert.ok(await page.locator('.row[data-channel="123"]').isVisible(),'favorite saved');
     await page.locator('#nav-search').click();
     await page.locator('#filter').fill('Sport');
     await page.getByText('SEARCH CHANNELS').click();
+    await page.locator('.row[data-channel="456"]').waitFor({timeout:10000});
     assert.ok(await page.locator('.row[data-channel="456"]').isVisible(),'search finds sports');
     await page.locator('#nav-home').click();
     assert.ok(await page.locator('.classic-home').isVisible(),'Home restores');
