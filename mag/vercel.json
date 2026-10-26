@@ -1,0 +1,50 @@
+{
+  "version": 2,
+  "functions": {
+    "api/portal.js": {
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/stalker_portal/server/load.php",
+      "destination": "/api/portal"
+    },
+    {
+      "source": "/server/load.php",
+      "destination": "/api/portal"
+    },
+    {
+      "source": "/portal.php",
+      "destination": "/api/portal"
+    },
+    {
+      "source": "/stalker_portal/c",
+      "destination": "/c/index.html"
+    },
+    {
+      "source": "/stalker_portal/c/",
+      "destination": "/c/index.html"
+    },
+    {
+      "source": "/stalker_portal/c/index.html",
+      "destination": "/c/index.html"
+    },
+    {
+      "source": "/stalker_portal/c/:path*",
+      "destination": "/c/:path*"
+    },
+    {
+      "source": "/c",
+      "destination": "/c/index.html"
+    },
+    {
+      "source": "/c/",
+      "destination": "/c/index.html"
+    },
+    {
+      "source": "/",
+      "destination": "/c/index.html"
+    }
+  ]
+}
