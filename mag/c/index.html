@@ -137,6 +137,7 @@ body.is-home .headline,body.is-home .subhead{display:none}
 var BASE='/stalker_portal/server/load.php?JsHttpRequest=1-xml&';
 var nav='home',genre='*',channels=[],groups=[],page=1,playing=null,video=document.getElementById('video'),selected=0;
 var lastCategory='tv',favoriteIds=[],recentIds=[],lastChannelFocus=null,showMode='normal';
+var currentStreams=[],currentStreamIndex=0;
 function readStore(k){try{var v=JSON.parse(window.localStorage.getItem(k)||'[]');return Object.prototype.toString.call(v)==='[object Array]'?v:[];}catch(e){return [];}}
 function persist(){try{window.localStorage.setItem('snwd_santhos_favorites',JSON.stringify(favoriteIds));window.localStorage.setItem('snwd_santhos_recent',JSON.stringify(recentIds));}catch(e){}}
 favoriteIds=readStore('snwd_santhos_favorites');
@@ -346,23 +347,59 @@ function playUrl(source,label,isDiagnostic){
   },16000);
  }catch(e){videoMessage('This device could not start playback.',true);}
 }
+function startSelectedStream(){
+ var source=currentStreams[currentStreamIndex];
+ if(!source){videoMessage('No source is available for this channel.',true);return;}
+ videoMessage('Connecting to source '+(currentStreamIndex+1)+' of '+currentStreams.length+'…',false);
+ try {
+  if(window.stb&&typeof window.stb.Play==='function'){
+   try {
+    if(typeof window.stb.Stop==='function')window.stb.Stop();
+    if(typeof window.stb.SetVideoControlState==='function')window.stb.SetVideoControlState(1);
+    window.stb.Play(source);
+    video.style.display='none';
+    elem('playerStatus').innerHTML='Native MAG player · Source '+(currentStreamIndex+1)+' of '+currentStreams.length;
+    return;
+   }catch(nativeError){video.style.display='block';}
+  }
+  video.style.display='block';
+  video.pause();video.src=source;video.load();
+  var promise=video.play();
+  if(promise&&promise['catch'])promise['catch'](function(){
+   videoMessage('Playback blocked or unsupported. Press Retry to try another source.',true);
+  });
+ }catch(e){videoMessage('This device cannot play the selected stream.',true);}
+}
 function play(id){
  req('itv','create_link',{ch_id:id},function(err,r){
   if(err||!r||!r.url){message('This stream is not available: '+(err||'Unknown channel'));return;}
+  var links=[r.url].concat(r.alternatives||[]),deduped=[];
+  for(var x=0;x<links.length;x++)if(links[x]&&deduped.indexOf(links[x])===-1)deduped.push(links[x]);
+  currentStreams=deduped;currentStreamIndex=0;
   playing=String(id);
   recentIds=[playing].concat(recentIds.filter(function(x){return String(x)!==playing;})).slice(0,40);
   persist();
-  playUrl(r.url,'SANTHOS IPTV · CHANNEL '+playing,false);
+  elem('videoPanel').style.display='block';
+  elem('playerTitle').innerHTML='SANTHOS IPTV · CHANNEL '+escapeHTML(playing);
+  startSelectedStream();
  });
 }
-function testPlayback(){
- playing=null;
- playUrl('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8','HLS DIAGNOSTIC · TEST VIDEO',true);
+function closeVideo(){
+ try{if(window.stb&&typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}
+ video.pause();video.removeAttribute('src');video.load();video.style.display='block';
+ elem('videoPanel').style.display='none';elem('message').style.display='none';
+ currentStreams=[];currentStreamIndex=0;
+ if(lastChannelFocus&&lastChannelFocus.focus)lastChannelFocus.focus();
 }
-window.testPlayback=testPlayback;
-function closeVideo(){if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}try{if(window.stb && typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}video.pause();video.removeAttribute('src');video.load();video.style.display='block';elem('videoPanel').style.display='none';elem('message').style.display='none';isTestVideo=false;if(lastChannelFocus&&lastChannelFocus.focus)lastChannelFocus.focus();}
 window.closeVideo=closeVideo;
-function retryStream(){if(playing)play(playing);} window.retryStream=retryStream;
+function retryStream(){
+ if(!playing)return;
+ if(currentStreams.length>1){
+  currentStreamIndex=(currentStreamIndex+1)%currentStreams.length;
+  startSelectedStream();
+ }else play(playing);
+}
+window.retryStream=retryStream;
 function switchStream(n){
  var rows=document.querySelectorAll('.row'),id=-1,i;
  for(i=0;i<rows.length;i++)if(rows[i].getAttribute('data-channel')===playing)id=i;
@@ -424,7 +461,14 @@ document.onkeydown=function(ev){
  }
  if(win)win.focus();return false;
 };
-video.onerror=function(){videoMessage('Cannot decode or access this stream on your device. Try another channel.',true);};
+video.onerror=function(){
+ if(currentStreamIndex+1<currentStreams.length){
+  currentStreamIndex++;
+  startSelectedStream();
+ } else {
+  videoMessage('No working source on this device. This may be a codec, location, or broadcaster restriction. Choose another channel.',true);
+ }
+};
 video.onplaying=function(){if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}videoMessage(isTestVideo?'Diagnostic video playing':'Live video playing',false);};
 clock();setInterval(clock,60000);
 req('stb','handshake',{},function(e,token){
