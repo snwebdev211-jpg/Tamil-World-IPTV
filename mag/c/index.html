@@ -227,7 +227,8 @@ function home(){
  '<div class="classic-bottom-actions">'+
  '<button onclick="go(\'tv\')">▶ WATCH TV</button>'+
  '<button onclick="go(\'favorites\')">♡ FAVORITES</button>'+
- '<button onclick="go(\'settings\')">⚙ SETTINGS</button></div>'+
+ '<button onclick="go(\'settings\')">⚙ SETTINGS</button>'+
+ '<button onclick="retryPortal()">↻ RECONNECT</button></div>'+
  '<p class="classic-caption">'+(channels.length?channels.length+' streams indexed · ':'')+
  'Use LEFT / RIGHT / OK on your remote to select a section. Movie channels are not an on-demand film library.</p>'+
  '</div>';
@@ -419,7 +420,7 @@ function go(next){
  if(next==='guide')return emptyPage('TV Guide','EPG schedules have not been supplied by the broadcasters. Live channel browsing is available under TV.');
  if(next==='settings'){
   title('Santhos IPTV · Settings','Powered by SNWD');
-  elem('cards').innerHTML='<div class="empty"><b>SANTHOS IPTV · SNWD DIAGNOSTICS</b><p>Test your TV decoder separately from live channels using the sample video below. If that fails too, old TV codec support, TLS/HTTPS or network settings may be responsible.</p><button class="row" onclick="testPlayback()">▶ PLAY SAMPLE HLS VIDEO (NOT A TV CHANNEL)</button><p>If the sample works but live TV does not, broadcaster links or regional restrictions are more likely.</p><p>Original playlist remains on GitHub. Back = previous screen. OK = select. Full on-demand movies and EPG are not yet populated.</p></div>';
+  elem('cards').innerHTML='<div class="empty"><b>SANTHOS IPTV · SNWD DIAGNOSTICS</b><p>Test your TV decoder separately from live channels using the sample video below. If that fails too, old TV codec support, TLS/HTTPS or network settings may be responsible.</p><button class="row" onclick="testPlayback()">▶ PLAY SAMPLE HLS VIDEO (NOT A TV CHANNEL)</button><button class="row" onclick="retryPortal()">↻ RECONNECT MAG PORTAL</button><p>If the sample works but live TV does not, broadcaster links or regional restrictions are more likely.</p><p>Original playlist remains on GitHub. Back = previous screen. OK = select. Full on-demand movies and EPG are not yet populated.</p></div>';
   resetFocus();return;
  }
  if(next==='search'){
@@ -471,14 +472,40 @@ video.onerror=function(){
 };
 video.onplaying=function(){if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}videoMessage(isTestVideo?'Diagnostic video playing':'Live video playing',false);};
 clock();setInterval(clock,60000);
-req('stb','handshake',{},function(e,token){
- if(e){message(e);return;}
- req('itv','get_genres',{},function(er,gr){if(er){message(er);return;}groups=gr||[];
-   req('itv','get_ordered_list',{genre:'*',p:1},function(err,data){
-     if(!err&&data){channels.length=Number(data.total_items)||0;}go('home');
+var connectionError='',connecting=false;
+function connectPortal(){
+ if(connecting)return;
+ connecting=true;
+ req('stb','handshake',{},function(error,token){
+  if(error||!token||!token.token){
+   connecting=false;
+   connectionError='Unable to reach portal server. Check your internet connection and retry.';
+   go('home');message(connectionError);return;
+  }
+  req('itv','get_genres',{},function(err,foundGroups){
+   if(err||!foundGroups||!foundGroups.length){
+    connecting=false;
+    connectionError='Channel categories unavailable. Press RETRY CONNECTION.';
+    go('home');message(connectionError);return;
+   }
+   groups=foundGroups;
+   req('itv','get_ordered_list',{genre:'*',p:1},function(lastError,data){
+    connecting=false;
+    if(lastError||!data){
+     connectionError='Channel directory could not be loaded. Press RETRY CONNECTION.';
+    }else{
+     channels.length=Number(data.total_items)||0;
+     connectionError='';
+    }
+    go('home');
+    if(connectionError)message(connectionError);
    });
+  });
  });
-});
+}
+function retryPortal(){connectionError='';connectPortal();}
+window.retryPortal=retryPortal;
+connectPortal();
 })();
 </script>
 </body>
