@@ -197,10 +197,11 @@ function req(type,action,params,done){
  var xhr=new XMLHttpRequest(),query=BASE+'type='+encodeURIComponent(type)+'&action='+encodeURIComponent(action),k;
  for(k in params){if(params.hasOwnProperty(k))query+='&'+encodeURIComponent(k)+'='+encodeURIComponent(params[k]);}
  xhr.open('GET',query,true);xhr.timeout=11000;
- xhr.onreadystatechange=function(){if(xhr.readyState===4){if(xhr.status===200){try{var obj=JSON.parse(xhr.responseText);done(null,obj.js);}catch(e){done('Invalid portal response');}}else{done('Portal HTTP '+xhr.status);}}};
- xhr.ontimeout=function(){done('Portal request timed out');};
- xhr.onerror=function(){done('Cannot connect to portal backend');};
+ var completed=false;function finish(err,data){if(completed)return;completed=true;done(err,data);}xhr.onreadystatechange=function(){if(xhr.readyState===4){if(xhr.status===200){try{var obj=JSON.parse(xhr.responseText);finish(null,obj.js);}catch(e){finish('Invalid portal response');}}else{finish('Portal HTTP '+xhr.status);}}};
+ xhr.ontimeout=function(){finish('Portal request timed out');};
+ xhr.onerror=function(){finish('Cannot connect to portal backend');};
  xhr.send(null);
+ setTimeout(function(){finish('Portal connection timed out');},12000);
 }
 function title(a,b){elem('main').innerHTML='<h1 class="headline">'+escapeHTML(a)+'</h1><p class="subhead">'+escapeHTML(b)+'</p><div id="status"></div><div id="cards"></div><div id="pageControls"></div>'; }
 function message(x){if(elem('status'))elem('status').innerHTML=escapeHTML(x);}
@@ -561,6 +562,8 @@ video.onerror=function(){
 };
 video.onplaying=function(){if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}videoMessage(isTestVideo?'Diagnostic video playing':'Live video playing',false);};
 clock();setInterval(clock,60000);
+/* Render the complete home screen before any network handshake. */
+go('home');
 var connectionError='',connecting=false;
 function connectPortal(){
  if(connecting)return;
