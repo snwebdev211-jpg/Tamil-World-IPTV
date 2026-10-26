@@ -22,6 +22,10 @@ jobs:
         run: |
           node --check mag/api/portal.js
           node --test mag/tests/portal.test.js
+      - name: Simulate classic MAG TV menus, Favorites, search and video navigation
+        run: |
+          npm install --no-save --no-package-lock jsdom@25.0.1
+          node --test mag/tests/client.test.js
       - name: Check classic MAG menu and rewrite map
         run: |
           python - <<'PY'
