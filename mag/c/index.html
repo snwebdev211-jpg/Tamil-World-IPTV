@@ -57,7 +57,7 @@ button{font-family:Arial,Helvetica,sans-serif;cursor:pointer}
 <body>
 <div id="outer">
 <div id="top">
-<img id="logo" src="/c/snwd-logo.jpg" alt="SNWD company logo">
+<img id="logo" src="/c/snwd-logo.svg" alt="SNWD company logo">
 <div id="brand">SANTHOS <b>IPTV</b></div>
 <div id="byline">POWERED BY SNWD</div>
 <div id="clock"></div>
@@ -228,7 +228,7 @@ function searchNow(){var f=elem('filter');if(!f)return;searchTerm=f.value.toLowe
  req('itv','get_ordered_list',{genre:'*',search:searchTerm,p:page},function(err,r){if(err){message(err);return;}renderRows(r.data||[],Number(r.total_items)||0,1);});
 }
 window.searchNow=searchNow;
-function goBack(){if(elem('videoPanel').style.display==='block'){closeVideo();return;}go(nav==='home'?'home':nav);}
+function goBack(){if(elem('videoPanel').style.display==='block'){closeVideo();return;}if(nav.indexOf('group:')===0){go('tv');return;}go('home');}
 window.goBack=goBack;
 function changePage(n){page=Math.max(1,page+n);loadPage();}
 window.changePage=changePage;
@@ -244,7 +244,7 @@ function allFocus(){
 document.onkeydown=function(ev){
  ev=ev||window.event;var k=ev.keyCode||ev.which,t=ev.target||ev.srcElement;
  if(t&&t.tagName==='INPUT'&&k!==27&&k!==13)return;
- if(k===8||k===27||k===461){if(ev.preventDefault)ev.preventDefault();goBack();return false;}
+ if(k===8||k===27||k===461||k===10009){if(ev.preventDefault)ev.preventDefault();goBack();return false;}
  if(k===13){if(t&&t.click)t.click();return;}
  if(k!==37&&k!==38&&k!==39&&k!==40)return;
  if(ev.preventDefault)ev.preventDefault();
