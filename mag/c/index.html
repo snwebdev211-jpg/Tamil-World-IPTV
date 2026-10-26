@@ -53,6 +53,49 @@ button{font-family:Arial,Helvetica,sans-serif;cursor:pointer}
 @media(max-width:900px){#sidebar{width:165px}#main{left:165px;padding:20px}.menu{font-size:15px;padding:11px 8px}.tile{width:calc(50% - 10px);margin-right:5px;height:145px}.tile .icon{font-size:36px;padding:12px}.row{font-size:14px}}
 @media(max-width:600px){#top{padding:8px 13px}#brand{font-size:20px;margin-left:74px}#byline{margin-left:74px;letter-spacing:1px}#logo{width:60px;height:51px}#clock{display:none}#sidebar{width:110px;padding:10px 3px}#main{left:110px;padding:10px}#main .headline{font-size:19px}.menu{font-size:12px;padding:9px 4px}#status{font-size:11px}.tile{height:112px;width:calc(50% - 8px)}.tile .icon{font-size:23px}.tile .name{font-size:11px;padding:4px 5px}.tile .hint{font-size:9px;padding:0 5px}.row{font-size:12px;padding:5px}.row img{width:42px;height:28px}.subhead{font-size:11px}}
 .channel-line{display:flex;align-items:stretch;max-width:920px;gap:6px;margin-bottom:6px}.channel-line .row{flex:1;margin-bottom:0}.star{min-width:52px;border:1px solid #3c96a8;color:#aff0e4;background:#0e526e;font-size:27px;border-radius:4px}.star:hover,.star:focus{outline:2px solid #a3eee1;background:#166d87}
+
+/* Classic MAG home: inspired by the familiar blue category/TV/Video Club layout */
+body.is-home #sidebar{display:none}
+body.is-home #main{left:0;top:74px;right:0;bottom:38px;overflow:auto;padding:14px 22px;background:radial-gradient(ellipse at 50% 72%,#095184 0%,#073b68 47%,#042b50 85%,#032442 100%)}
+body.is-home #top{background:linear-gradient(90deg,#053a63,#03416e,#043052);border-bottom:1px solid #22658b}
+body.is-home #bottom{background:#062b4b;border-top:1px solid #20577c;color:#b9d5ec}
+body.is-home .headline,body.is-home .subhead{display:none}
+.classic-home{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px}
+.classic-main{width:100%;max-width:1160px;display:flex;align-items:flex-start;justify-content:center;gap:38px;padding:4px 0 0}
+.classic-categories{width:340px;flex-shrink:0;padding:13px 17px 14px;border-radius:14px;background:linear-gradient(#486c8c,#28597f);border:2px solid #4d779a;box-shadow:inset 0 2px 0 rgba(255,255,255,.2),0 15px 35px rgba(0,10,30,.22)}
+.classic-category-head{text-align:center;color:#e3f1ff;font-weight:bold;font-size:14px;margin:0 0 8px;letter-spacing:2px}
+.classic-category{display:block;width:100%;font-size:17px;color:#fff;text-align:left;background:linear-gradient(#356f9e,#155083);border:1px solid #426d94;border-radius:5px;padding:9px 14px;margin:5px 0;box-shadow:inset 0 1px 1px rgba(255,255,255,.17)}
+.classic-category:hover,.classic-category:focus,.classic-category.is-selected{background:linear-gradient(#fbffff,#dceaf2);color:#102d44;border-color:#effaff;outline:none;box-shadow:0 1px 6px rgba(0,15,50,.25)}
+.classic-right{min-width:240px;width:255px;margin-top:45px;background:rgba(0,27,58,.6);border:1px solid rgba(100,174,211,.13);border-radius:11px;padding:23px 17px;color:#bad6e9;font-size:15px;text-align:left}
+.classic-right strong{color:#fff;font-size:20px;display:block;margin-bottom:12px}
+.classic-right p{margin:6px 0;line-height:1.6}
+.classic-right .right-seal{color:#88ddeb;font-size:31px;margin:0 0 16px;letter-spacing:2px}
+.classic-carousel{display:flex;justify-content:center;align-items:center;gap:14px;width:100%;max-width:1330px}
+.classic-arrow{background:none;border:0;color:#b2d1e6;text-shadow:0 3px 6px #033350;font-size:76px;font-weight:bold;line-height:1;padding:0 7px}
+.classic-arrow:focus,.classic-arrow:hover{color:#fff;outline:2px solid #ddf7ff;border-radius:8px}
+.classic-tile{display:block;flex:1;min-width:0;max-width:385px;height:188px;border-radius:9px;border:3px solid rgba(99,149,189,.4);padding:0;position:relative;overflow:hidden;background:linear-gradient(120deg,#0f4571,#1c6d9b 48%,#082e55);color:#fff;box-shadow:0 12px 22px rgba(0,21,55,.28);cursor:pointer}
+.classic-tile:focus,.classic-tile:hover,.classic-tile.is-selected{border:3px solid #deefff;outline:3px solid rgba(255,255,255,.55);outline-offset:2px}
+.classic-tile .art{display:flex;align-items:center;justify-content:center;height:100%;position:relative;overflow:hidden}
+.classic-tile .art svg{width:43%;height:73%;filter:drop-shadow(8px 8px 8px rgba(0,12,40,.4));position:relative;z-index:1}
+.classic-tile .art:before{content:"";position:absolute;top:-65px;left:-45px;width:90%;height:220%;transform:rotate(23deg);background:linear-gradient(120deg,transparent,rgba(255,255,255,.06),transparent)}
+.classic-tile .art.movies{background:linear-gradient(140deg,#ff924a,#9e1837 68%,#4a1742)}
+.classic-tile .art.live{background:linear-gradient(135deg,#aa7656,#f1d2a6 55%,#0d2c42)}
+.classic-tile .art.library{background:linear-gradient(140deg,#244c70,#b6c7cc 55%,#172f4f)}
+.classic-tile .art.tamil{background:linear-gradient(140deg,#2e5778,#236c86,#07344f)}
+.classic-tile .art.sports{background:linear-gradient(140deg,#073a4b,#1a9a9b,#11425e)}
+.classic-tile .art.news{background:linear-gradient(140deg,#245374,#2368a5,#122b50)}
+.classic-tile .art.music{background:linear-gradient(140deg,#704469,#b35d7c,#343968)}
+.classic-tile .art.kids{background:linear-gradient(140deg,#447790,#75b7b1,#3e5380)}
+.classic-tile-name{font-size:19px;margin:8px 0 0;text-shadow:0 2px 3px #043050;text-align:center;white-space:nowrap;letter-spacing:.5px}
+.classic-card-box{flex:1;min-width:0;max-width:385px}
+.classic-caption{color:#c4e0ef;font-size:12px;text-align:center;line-height:1.7;margin:24px 0 5px}
+.classic-bottom-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.classic-bottom-actions button{border:1px solid #6ba7c8;background:linear-gradient(#166b99,#0a4b78);padding:9px 16px;border-radius:5px;color:#fff;font-size:13px}
+.classic-bottom-actions button:focus,.classic-bottom-actions button:hover{outline:2px solid #fff;background:#18789f}
+.classic-tile.home-focus .art{background:#173b65}
+@media(max-width:940px){.classic-right{display:none}.classic-main{gap:0}.classic-categories{width:min(400px,70vw)}.classic-tile{height:140px}.classic-tile-name{font-size:15px}.classic-arrow{font-size:40px}}
+@media(max-width:530px){body.is-home #main{padding:12px 8px}.classic-categories{width:min(330px,90vw)}.classic-main{padding-top:0}.classic-tile{height:103px}.classic-carousel{gap:4px}.classic-tile .art svg{width:56%}.classic-tile-name{font-size:10px}.classic-arrow{font-size:28px;padding:2px}.classic-caption{font-size:10px}.classic-home{gap:7px}.classic-category{font-size:13px;padding:8px 11px}.classic-right{display:none}}
+
 </style>
 </head>
 <body>
@@ -118,20 +161,78 @@ function button(label,hint,action,icon){
 }
 function clock(){var d=new Date();elem('clock').innerHTML=d.toDateString().toUpperCase()+' &nbsp; '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
 function setNav(n){var els=document.getElementsByClassName('menu'),i;for(i=0;i<els.length;i++)els[i].className='menu'+(els[i].id==='nav-'+n?' active':'');}
+
+var homeCarouselPage=0;
+var homeCards=[
+ {title:'MEDIA BROWSER',hint:'Your favorites',action:'favorites',kind:'library',symbol:'library'},
+ {title:'TV',hint:'Live television',action:'tv',kind:'live',symbol:'tv'},
+ {title:'VIDEO CLUB',hint:'Live movie channels',action:'movies',kind:'movies',symbol:'movies'},
+ {title:'TAMIL TV',hint:'Tamil channels',action:'tamil',kind:'tamil',symbol:'tv'},
+ {title:'SPORTS',hint:'Live sporting channels',action:'sports',kind:'sports',symbol:'sports'},
+ {title:'NEWS',hint:'News channels',action:'news',kind:'news',symbol:'tv'},
+ {title:'MUSIC',hint:'Music TV',action:'music',kind:'music',symbol:'music'},
+ {title:'KIDS',hint:'Family channels',action:'kids',kind:'kids',symbol:'tv'}
+];
+function classicIcon(symbol){
+ if(symbol==='tv')return '<svg viewBox="0 0 140 120" aria-hidden="true"><rect x="9" y="16" width="122" height="82" rx="9" fill="#243f4b" stroke="#f2ede3" stroke-width="6"/><rect x="18" y="25" width="104" height="64" fill="#27657e"/><path d="M25 36L73 28L50 82L18 82Z" fill="#64aabd"/><path d="M63 95h14v14H63ZM41 109h58" stroke="#e8e0d6" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="112" cy="87" r="2" fill="#c7e7db"/></svg>';
+ if(symbol==='movies')return '<svg viewBox="0 0 140 120" aria-hidden="true"><circle cx="70" cy="58" r="47" fill="#f7c485" stroke="#fff0c8" stroke-width="6"/><circle cx="70" cy="58" r="12" fill="#8b3e4a"/><circle cx="70" cy="26" r="11" fill="#8b3e4a"/><circle cx="70" cy="90" r="11" fill="#8b3e4a"/><circle cx="38" cy="58" r="11" fill="#8b3e4a"/><circle cx="102" cy="58" r="11" fill="#8b3e4a"/><path d="M95 86l38 26H93Z" fill="#f2dab4"/></svg>';
+ if(symbol==='sports')return '<svg viewBox="0 0 140 120" aria-hidden="true"><circle cx="70" cy="60" r="49" fill="#ddebea" stroke="#c1f4e7" stroke-width="5"/><path d="M51 49l19-17 23 15-7 28H56Z" fill="#164e63"/><path d="M36 28l22 20M104 31L91 47M27 77l29-4M113 76l-27-1M57 111l1-35M89 107l-3-32" stroke="#164e63" stroke-width="7" fill="none"/></svg>';
+ if(symbol==='music')return '<svg viewBox="0 0 140 120" aria-hidden="true"><path d="M63 15v75l49-15V10Z" fill="#c8eff3" stroke="#fff" stroke-width="5"/><ellipse cx="45" cy="92" rx="22" ry="13" fill="#e8ffff"/><ellipse cx="94" cy="78" rx="22" ry="13" fill="#e8ffff"/></svg>';
+ return '<svg viewBox="0 0 140 120" aria-hidden="true"><rect x="17" y="13" width="106" height="94" rx="10" fill="#cfdee7"/><rect x="26" y="24" width="88" height="72" rx="5" fill="#244e69"/><path d="M40 40h62M40 58h62M40 76h62" stroke="#a8cad9" stroke-width="6"/></svg>';
+}
+function homeCardHTML(c){
+ return '<div class="classic-card-box"><button class="classic-tile" onclick="go(\''+c.action+'\')" title="'+escapeHTML(c.hint)+'"><span class="art '+c.kind+'">'+classicIcon(c.symbol)+'</span></button><p class="classic-tile-name">'+escapeHTML(c.title)+'</p></div>';
+}
+function changeHomeCarousel(shift){
+ homeCarouselPage=(homeCarouselPage+shift+3)%3;
+ renderHomeCarousel();
+}
+window.changeHomeCarousel=changeHomeCarousel;
+function renderHomeCarousel(){
+ var box=elem('classic-carousel-cards');
+ if(!box)return;
+ var start=homeCarouselPage*3,html='';
+ for(var i=0;i<3;i++){
+  var card=homeCards[(start+i)%homeCards.length];
+  html+=homeCardHTML(card);
+ }
+ box.innerHTML=html;
+}
+function classicGroupButton(title,action,selected){
+ return '<button class="classic-category'+(selected?' is-selected':'')+'" onclick="go(\''+action+'\')">'+escapeHTML(title)+'</button>';
+}
+
 function home(){
- title('Welcome to Santhos IPTV','Live television and movie channels. Powered by the SNWD company.');
- var body=button('LIVE TV','Browse channels','tv','▣')+
- button('TAMIL TV','Tamil entertainment & news','tamil','அ')+
- button('MOVIE CHANNELS','Live cinema television','movies','▶')+
- button('SPORTS','Live sports channels','sports','◉')+
- button('NEWS','Worldwide news','news','⌁')+
- button('MUSIC','Hits and music stations','music','♫')+
- button('KIDS','Family television','kids','✳')+
- button('FAVORITES','Your saved channels','favorites','♡')+
- button('RECENTLY WATCHED','Continue watching channels','recent','◷')+
- button('SEARCH','Find a channel','search','⌕');
- elem('cards').innerHTML=body;
- message(channels.length?channels.length+' channels indexed · actual playback depends on channel and TV codec':'Connecting to public TV channels…');
+ document.body.className='is-home';
+ title('Santhos IPTV','Powered by SNWD');
+ var h='<div class="classic-home">'+
+ '<div class="classic-main">'+
+ '<div class="classic-categories"><div class="classic-category-head">⌃ &nbsp; CHANNEL CATEGORIES &nbsp; ⌃</div>'+
+ classicGroupButton('ALL CHANNELS','tv',true)+
+ classicGroupButton('TAMIL TV','tamil',false)+
+ classicGroupButton('ENTERTAINMENT','group:6',false)+
+ classicGroupButton('SPORTS','sports',false)+
+ classicGroupButton('MOVIES','movies',false)+
+ classicGroupButton('NEWS','news',false)+
+ classicGroupButton('MUSIC','music',false)+
+ classicGroupButton('KIDS & FAMILY','kids',false)+
+ '</div>'+
+ '<aside class="classic-right"><div class="right-seal">SNWD</div><strong>SANTHOS IPTV</strong><p>YOUR WORLD, ON SCREEN.</p><p>Live TV · Tamil · Cinema</p><p>Channel availability varies by location and TV.</p></aside>'+
+ '</div>'+
+ '<div class="classic-carousel">'+
+ '<button class="classic-arrow" onclick="changeHomeCarousel(-1)" aria-label="Previous home tiles">❮</button>'+
+ '<div id="classic-carousel-cards" style="flex:1;display:flex;gap:15px;justify-content:center;min-width:0"></div>'+
+ '<button class="classic-arrow" onclick="changeHomeCarousel(1)" aria-label="Next home tiles">❯</button></div>'+
+ '<div class="classic-bottom-actions">'+
+ '<button onclick="go(\'tv\')">▶ WATCH TV</button>'+
+ '<button onclick="go(\'favorites\')">♡ FAVORITES</button>'+
+ '<button onclick="go(\'settings\')">⚙ SETTINGS</button></div>'+
+ '<p class="classic-caption">'+(channels.length?channels.length+' streams indexed · ':'')+
+ 'Use LEFT / RIGHT / OK on your remote to select a section. Movie channels are not an on-demand film library.</p>'+
+ '</div>';
+ elem('cards').innerHTML=h;
+ renderHomeCarousel();
+ message('Santhos IPTV');
  resetFocus();
 }
 function tileAction(el){go(el.getAttribute('data-action'));}
@@ -260,6 +361,7 @@ function emptyPage(name,desc){
  title(name,desc);elem('cards').innerHTML='<div class="empty">'+escapeHTML(desc)+'</div>';resetFocus();
 }
 function go(next){
+ if(next!=='home')document.body.className='';
  if(next.indexOf('group:')===0){lastCategory=nav;nav=next;showMode='normal';setNav(lastCategory);loadGroup(next.slice(6));return;}
  nav=next;setNav(next);showMode='normal';
  if(next==='favorites'||next==='recent'){loadSavedChannels(next);return;}
