@@ -27,6 +27,8 @@ jobs:
           python-version: '3.12'
       - name: Check generator syntax
         run: python -m py_compile tools/build.py
+      - name: Validate category sorting and playlist format
+        run: python -m unittest discover -s tests -v
       - name: Fetch and generate playlists
         run: python tools/build.py
       - name: Publish refreshed playlists
