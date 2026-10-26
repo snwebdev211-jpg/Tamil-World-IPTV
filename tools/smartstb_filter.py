@@ -40,7 +40,7 @@ def is_hls_url(c):
 def manifest_looks_compatible(text):
     if not text.lstrip('\ufeff \t\r\n').startswith('#EXTM3U'):
         return False
-    if not re.search(r'#EXT-X-(STREAM-INF|TARGETDURATION|MEDIA-SEQUENCE|VERSION|PLAYLIST-TYPE)', text):
+    if not re.search(r'#EXT-X-(STREAM-INF|TARGETDURATION)', text):
         return False
     codecs = re.findall(r'CODECS="([^"]+)"', text, re.I)
     if codecs:
