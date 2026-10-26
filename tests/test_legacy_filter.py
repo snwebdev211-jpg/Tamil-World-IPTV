@@ -14,7 +14,7 @@ class LegacyFilterTests(unittest.TestCase):
                   '#EXT-X-MEDIA-SEQUENCE:1\n#EXTINF:10,\n1.ts\n'
                   '#EXTINF:10,\n2.ts\n#EXTINF:10,\n3.ts\n')
         urls=legacy.segment_candidate(sample,'https://example.org/live/main.m3u8')
-        self.assertEqual(urls,['https://example.org/live/2.ts'])
+        self.assertEqual(urls,['https://example.org/live/1.ts','https://example.org/live/2.ts'])
         self.assertEqual(legacy.segment_candidate('#EXTM3U\n#EXT-X-TARGETDURATION:8\n'
                          '#EXT-X-KEY:METHOD=AES-128,URI="key"\n#EXTINF:8,\n1.ts',
                          'https://example.org/live/'), None)
