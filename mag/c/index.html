@@ -52,6 +52,7 @@ button{font-family:Arial,Helvetica,sans-serif;cursor:pointer}
 #pageControls button{background:#116488;border:1px solid #4bb6cd;color:#fff;padding:10px 16px;margin-right:7px;font-size:15px}
 @media(max-width:900px){#sidebar{width:165px}#main{left:165px;padding:20px}.menu{font-size:15px;padding:11px 8px}.tile{width:calc(50% - 10px);margin-right:5px;height:145px}.tile .icon{font-size:36px;padding:12px}.row{font-size:14px}}
 @media(max-width:600px){#top{padding:8px 13px}#brand{font-size:20px;margin-left:74px}#byline{margin-left:74px;letter-spacing:1px}#logo{width:60px;height:51px}#clock{display:none}#sidebar{width:110px;padding:10px 3px}#main{left:110px;padding:10px}#main .headline{font-size:19px}.menu{font-size:12px;padding:9px 4px}#status{font-size:11px}.tile{height:112px;width:calc(50% - 8px)}.tile .icon{font-size:23px}.tile .name{font-size:11px;padding:4px 5px}.tile .hint{font-size:9px;padding:0 5px}.row{font-size:12px;padding:5px}.row img{width:42px;height:28px}.subhead{font-size:11px}}
+.channel-line{display:flex;align-items:stretch;max-width:920px;gap:6px;margin-bottom:6px}.channel-line .row{flex:1;margin-bottom:0}.star{min-width:52px;border:1px solid #3c96a8;color:#aff0e4;background:#0e526e;font-size:27px;border-radius:4px}.star:hover,.star:focus{outline:2px solid #a3eee1;background:#166d87}
 </style>
 </head>
 <body>
@@ -59,7 +60,7 @@ button{font-family:Arial,Helvetica,sans-serif;cursor:pointer}
 <div id="top">
 <img id="logo" src="/c/snwd-logo.jpg" alt="SNWD company logo" onerror="this.onerror=null;this.src='/c/snwd-logo.svg';">
 <div id="brand">SANTHOS <b>IPTV</b></div>
-<div id="byline">POWERED BY SNWD</div>
+<div id="byline">POWERED BY SNWD · THE SANTHOS EXPERIENCE</div>
 <div id="clock"></div>
 </div>
 <div id="layout">
@@ -72,6 +73,8 @@ button{font-family:Arial,Helvetica,sans-serif;cursor:pointer}
 <button id="nav-news" class="menu" onclick="go('news')">⌁ &nbsp; News</button>
 <button id="nav-music" class="menu" onclick="go('music')">♫ &nbsp; Music</button>
 <button id="nav-kids" class="menu" onclick="go('kids')">✳ &nbsp; Kids</button>
+<button id="nav-favorites" class="menu" onclick="go('favorites')">♡ &nbsp; Favorites</button>
+<button id="nav-recent" class="menu" onclick="go('recent')">◷ &nbsp; Recently Watched</button>
 <button id="nav-search" class="menu" onclick="go('search')">⌕ &nbsp; Search</button>
 <button id="nav-guide" class="menu" onclick="go('guide')">▤ &nbsp; TV Guide</button>
 <button id="nav-settings" class="menu" onclick="go('settings')">⚙ &nbsp; Settings</button></div>
@@ -90,6 +93,11 @@ button{font-family:Arial,Helvetica,sans-serif;cursor:pointer}
 'use strict';
 var BASE='/stalker_portal/server/load.php?JsHttpRequest=1-xml&';
 var nav='home',genre='*',channels=[],groups=[],page=1,playing=null,video=document.getElementById('video'),selected=0;
+var lastCategory='tv',favoriteIds=[],recentIds=[],lastChannelFocus=null,showMode='normal';
+function readStore(k){try{var v=JSON.parse(window.localStorage.getItem(k)||'[]');return Object.prototype.toString.call(v)==='[object Array]'?v:[];}catch(e){return [];}}
+function persist(){try{window.localStorage.setItem('snwd_santhos_favorites',JSON.stringify(favoriteIds));window.localStorage.setItem('snwd_santhos_recent',JSON.stringify(recentIds));}catch(e){}}
+favoriteIds=readStore('snwd_santhos_favorites');
+recentIds=readStore('snwd_santhos_recent');
 var focusables=[], searchTerm='';
 function elem(s){return document.getElementById(s);}
 function txt(x){return String(x===undefined||x===null?'':x);}
@@ -119,6 +127,8 @@ function home(){
  button('NEWS','Worldwide news','news','⌁')+
  button('MUSIC','Hits and music stations','music','♫')+
  button('KIDS','Family television','kids','✳')+
+ button('FAVORITES','Your saved channels','favorites','♡')+
+ button('RECENTLY WATCHED','Continue watching channels','recent','◷')+
  button('SEARCH','Find a channel','search','⌕');
  elem('cards').innerHTML=body;
  message(channels.length?channels.length+' channels indexed · actual playback depends on channel and TV codec':'Connecting to public TV channels…');
@@ -147,11 +157,12 @@ function categoryScreen(target){
  resetFocus();
 }
 function renderRows(items,total,current){
- var h='<button id="goBack" onclick="goBack()">← Back to categories</button>',i,c;
+ var h='<button id="goBack" onclick="goBack()">← Back to categories</button>',i,c,marked;
  if(!items.length){elem('cards').innerHTML=h+'<div class="empty">No matching channels found. This may also indicate a temporary upstream outage.</div>';resetFocus();return;}
  for(i=0;i<items.length;i++){
    c=items[i];var number=escapeHTML(c.number),name=escapeHTML(c.name);
-   h+='<button class="row" data-channel="'+escapeHTML(c.id)+'" onclick="chooseChannel(this)" type="button">'+(c.logo?'<img src="'+escapeHTML(c.logo)+'" alt="" onerror="this.style.display=\'none\'">':'')+number+'. '+name+'<small>LIVE &nbsp;·&nbsp; Select to try playback</small></button>';
+   marked=favoriteIds.indexOf(String(c.id))!==-1;
+   h+='<div class="channel-line"><button class="row" data-channel="'+escapeHTML(c.id)+'" onclick="chooseChannel(this)" type="button">'+(c.logo?'<img src="'+escapeHTML(c.logo)+'" alt="" onerror="this.style.display=\'none\'">':'')+number+'. '+name+'<small>LIVE &nbsp;·&nbsp; Select to try playback</small></button><button class="star" onclick="toggleFavorite(\''+escapeHTML(c.id)+'\')" title="'+(marked?'Remove favorite':'Save favorite')+'">'+(marked?'♥':'♡')+'</button></div>';
  }
  elem('cards').innerHTML=h;
  var controls='';
@@ -163,18 +174,40 @@ function renderRows(items,total,current){
  resetFocus();
 }
 function loadGroup(id){
- genre=id||'*';page=1;loadPage();
+ genre=id||'*';page=1;searchTerm='';loadPage();
 }
 function loadPage(){
+ showMode='normal';
  title('Live Channels','Select a channel to play. Use Previous / Next to browse.');
  message('Loading channel list…');
- req('itv','get_ordered_list',{genre:genre,p:page},function(err,response){
+ req('itv','get_ordered_list',{genre:genre,p:page,search:searchTerm},function(err,response){
   if(err){message(err);return;}
   var items=response.data||[];
   renderRows(items,Number(response.total_items)||0,page);
  });
 }
-function chooseChannel(el){play(el.getAttribute('data-channel'));}
+function chooseChannel(el){lastChannelFocus=el;play(el.getAttribute('data-channel'));}
+function toggleFavorite(id){
+ id=String(id);var i=favoriteIds.indexOf(id);
+ if(i>=0)favoriteIds.splice(i,1);else favoriteIds.unshift(id);
+ persist();
+ if(showMode==='favorites'||showMode==='recent')loadSavedChannels(showMode);else loadPage();
+}
+window.toggleFavorite=toggleFavorite;
+function loadSavedChannels(mode){
+ showMode=mode;lastCategory=mode;
+ title(mode==='favorites'?'Your Favorites':'Recently Watched',mode==='favorites'?'Saved on this TV or browser':'Your recently opened channels');
+ message('Loading your saved channels…');
+ req('itv','get_all_channels',{},function(err,response){
+  if(err){message(err);return;}
+  var all=response.data||response||[],ids=mode==='favorites'?favoriteIds:recentIds;
+  var selected=[],j,i;
+  for(j=0;j<ids.length;j++)for(i=0;i<all.length;i++)if(String(all[i].id)===String(ids[j])){selected.push(all[i]);break;}
+  renderRows(selected,selected.length,1);
+  message(selected.length+' saved channel'+(selected.length===1?'':'s')+' on this device');
+ });
+}
+
 window.chooseChannel=chooseChannel;
 function videoMessage(text,show){
  elem('message').innerHTML=escapeHTML(text);
@@ -186,6 +219,9 @@ function play(id){
   if(err||!r||!r.url){message('This stream is not available: '+(err||'Unknown channel'));return;}
   var source=r.url;
   playing=id;
+  id=String(id);
+  recentIds=[id].concat(recentIds.filter(function(x){return String(x)!==id;})).slice(0,40);
+  persist();
   elem('videoPanel').style.display='block';
   elem('playerTitle').innerHTML='SANTHOS IPTV · CHANNEL '+escapeHTML(id);
   videoMessage('Connecting to broadcast…',false);
@@ -210,7 +246,7 @@ function play(id){
   }catch(e){videoMessage('This device cannot play this stream.',true);}
  });
 }
-function closeVideo(){try{if(window.stb && typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}video.pause();video.removeAttribute('src');video.load();video.style.display='block';elem('videoPanel').style.display='none';elem('message').style.display='none';}
+function closeVideo(){try{if(window.stb && typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}video.pause();video.removeAttribute('src');video.load();video.style.display='block';elem('videoPanel').style.display='none';elem('message').style.display='none';if(lastChannelFocus&&lastChannelFocus.focus)lastChannelFocus.focus();}
 window.closeVideo=closeVideo;
 function retryStream(){if(playing)play(playing);} window.retryStream=retryStream;
 function switchStream(n){
@@ -224,8 +260,9 @@ function emptyPage(name,desc){
  title(name,desc);elem('cards').innerHTML='<div class="empty">'+escapeHTML(desc)+'</div>';resetFocus();
 }
 function go(next){
- nav=next;setNav(next);
- if(next.indexOf('group:')===0){loadGroup(next.slice(6));return;}
+ if(next.indexOf('group:')===0){lastCategory=nav;nav=next;showMode='normal';setNav(lastCategory);loadGroup(next.slice(6));return;}
+ nav=next;setNav(next);showMode='normal';
+ if(next==='favorites'||next==='recent'){loadSavedChannels(next);return;}
  if(next==='home')return home();
  if(next==='guide')return emptyPage('TV Guide','EPG schedules have not been supplied by the broadcasters. Live channel browsing is available under TV.');
  if(next==='settings'){
@@ -240,21 +277,18 @@ function go(next){
  categoryScreen(next);
 }
 window.go=go;
-function searchNow(){var f=elem('filter');if(!f)return;searchTerm=f.value.toLowerCase();genre='*';page=1;
- title('Search results','Results matching '+searchTerm);
- req('itv','get_ordered_list',{genre:'*',search:searchTerm,p:page},function(err,r){if(err){message(err);return;}renderRows(r.data||[],Number(r.total_items)||0,1);});
-}
+function searchNow(){var f=elem('filter');if(!f)return;searchTerm=f.value.toLowerCase().slice(0,80);genre='*';page=1;nav='search';loadPage();}
 window.searchNow=searchNow;
-function goBack(){if(elem('videoPanel').style.display==='block'){closeVideo();return;}if(nav.indexOf('group:')===0){go('tv');return;}go('home');}
+function goBack(){if(elem('videoPanel').style.display==='block'){closeVideo();return;}if(nav.indexOf('group:')===0){go(lastCategory);return;}go('home');}
 window.goBack=goBack;
 function changePage(n){page=Math.max(1,page+n);loadPage();}
 window.changePage=changePage;
 function resetFocus(){selected=0;setTimeout(function(){var targets=elem('main').getElementsByTagName('button');if(targets.length)targets[0].focus();},70);}
 function allFocus(){
- var list=document.getElementsByTagName('button'),out=[],i,b,rect;
+ var list=document.getElementsByTagName('button'),out=[],i,b,rect,isPlaying=elem('videoPanel').style.display==='block';
  for(i=0;i<list.length;i++){
   b=list[i];rect=b.getBoundingClientRect();
-  if(rect.width&&rect.height&&!(elem('videoPanel').style.display==='block' && b.id.indexOf('nav-')===0))out.push(b);
+  if(rect.width&&rect.height&&(!isPlaying||elem('videoPanel').contains(b)))out.push(b);
  }
  return out;
 }
