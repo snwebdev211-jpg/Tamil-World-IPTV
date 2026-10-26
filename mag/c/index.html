@@ -337,25 +337,88 @@ function home(){
 }
 function tileAction(el){go(el.getAttribute('data-action'));}
 window.tileAction=tileAction;
-function categoryScreen(target){
- title(target==='tamil'?'Tamil TV':target==='movies'?'Movie Channels':target==='sports'?'Sports':target==='news'?'News':target==='music'?'Music':target==='kids'?'Kids TV':'Live Television','Select a category. Then choose a channel and press OK.');
- var filtered=[],i,c,group;
+var magTarget='tv',magGroupIndex=0,magRowIndex=0,magPane=0,magPages=1,magFilteredGroups=[],magPageItems=[];
+function matchingGroups(target){
+ var out=[],i,c,t;
  for(i=0;i<groups.length;i++){
-  c=groups[i];
-  if(target==='tamil' && c.alias.indexOf('Tamil |')!==0)continue;
-  if(target==='movies' && c.title.toLowerCase().indexOf('movie')<0)continue;
-  if(target==='sports' && c.title.toLowerCase().indexOf('sport')<0)continue;
-  if(target==='news' && c.title.toLowerCase().indexOf('news')<0)continue;
-  if(target==='music' && c.title.toLowerCase().indexOf('music')<0)continue;
-  if(target==='kids' && c.title.toLowerCase().indexOf('kids')<0 && c.title.toLowerCase().indexOf('family')<0)continue;
-  if(c.id!=='*')filtered.push(c);
+  c=groups[i];if(c.id==='*')continue;t=(c.title||'').toLowerCase();
+  if(target==='tamil'&&(c.alias||'').indexOf('Tamil |')!==0)continue;
+  if(target==='entertainment'&&t.indexOf('entertain')<0)continue;
+  if(target==='culture'&&t.indexOf('culture')<0)continue;
+  if(target==='movies'&&t.indexOf('movie')<0)continue;
+  if(target==='sports'&&t.indexOf('sport')<0)continue;
+  if(target==='news'&&t.indexOf('news')<0&&t.indexOf('information')<0)continue;
+  if(target==='music'&&t.indexOf('music')<0)continue;
+  if(target==='kids'&&t.indexOf('kids')<0&&t.indexOf('family')<0)continue;
+  out.push(c);
  }
- var h='',count=0;
- if(target==='tv')h+=button('ALL CHANNELS',channels.length+' public feeds','group:*','▣');
- for(i=0;i<filtered.length;i++){group=filtered[i];count=group.number||0;h+=button(group.title,count+' channels','group:'+group.id,target==='tamil'?'அ':'▣');}
- elem('cards').innerHTML=h||'<div class="empty">No categories available for this section.</div>';
- message('Use the arrows and OK / Enter to select a category.');
- resetFocus();
+ return out;
+}
+function categoryScreen(target){
+ magTarget=target;magFilteredGroups=[{id:'*',title:'ALL CHANNELS'}].concat(matchingGroups(target));
+ magGroupIndex=0;magRowIndex=0;magPane=0;page=1;genre='*';searchTerm='';
+ drawMagBrowser();loadMagChannels();
+}
+function drawMagBrowser(){
+ title('TV','SELECT A CATEGORY AND CHANNEL');
+ elem('cards').innerHTML='<div class="mag-browser"><div class="mag-groups" id="magGroups"></div><div class="mag-list" id="magList"></div></div>';
+ renderMagGroups();renderMagEntries();
+}
+function renderMagGroups(){
+ var e=elem('magGroups');if(!e)return;
+ var start=Math.max(0,magGroupIndex-3);if(start>magFilteredGroups.length-7)start=Math.max(0,magFilteredGroups.length-7);
+ var h='',i,g;
+ for(i=start;i<Math.min(start+7,magFilteredGroups.length);i++){
+  g=magFilteredGroups[i];
+  h+='<button class="mag-group'+(magPane===0&&magGroupIndex===i?' mag-selected':'')+'" onclick="chooseMagGroup('+i+')" data-group="'+escapeHTML(g.id)+'">'+escapeHTML(g.title)+'</button>';
+ }
+ e.innerHTML=h||'<div class="empty">No channel categories.</div>';
+}
+function renderMagEntries(){
+ var e=elem('magList');if(!e)return;
+ var h='',i,ch,start=Math.max(0,magRowIndex-3);
+ if(start>magPageItems.length-7)start=Math.max(0,magPageItems.length-7);
+ if(!magPageItems.length)h='<div class="empty">No channels found in this category.</div>';
+ for(i=start;i<Math.min(start+7,magPageItems.length);i++){
+  ch=magPageItems[i];
+  h+='<button class="mag-entry row'+(magPane===1&&magRowIndex===i?' mag-selected':'')+'" data-channel="'+escapeHTML(ch.id)+'" onclick="chooseMagChannel('+i+')">'+escapeHTML(ch.number+'. '+ch.name)+'</button>';
+ }
+ e.innerHTML=h;
+}
+function chooseMagGroup(i){
+ if(i<0||i>=magFilteredGroups.length)return;
+ magGroupIndex=i;magRowIndex=0;magPane=0;page=1;
+ genre=magFilteredGroups[i].id;
+ renderMagGroups();loadMagChannels();
+}
+window.chooseMagGroup=chooseMagGroup;
+function chooseMagChannel(i){
+ if(!magPageItems[i])return;
+ magRowIndex=i;magPane=1;renderMagEntries();
+ lastChannelFocus=null;play(magPageItems[i].id);
+}
+window.chooseMagChannel=chooseMagChannel;
+function loadMagChannels(){
+ var epoch=++contentEpoch;
+ message('Loading channels…');
+ req('itv','get_ordered_list',{genre:genre,p:page,search:searchTerm},function(err,response){
+  if(epoch!==contentEpoch)return;
+  if(err||!response||response.error){magPageItems=[];message(err||(response&&response.error)||'Cannot load channels');renderMagEntries();return;}
+  magPageItems=response.data||[];magPages=Math.max(1,Math.ceil((Number(response.total_items)||0)/50));
+  magRowIndex=0;renderMagEntries();message((Number(response.total_items)||0)+' channels · page '+page+'/'+magPages+' · LEFT/RIGHT: category/channel');
+ });
+}
+function navigateMag(dir){
+ if(dir===37)magPane=0;
+ else if(dir===39)magPane=1;
+ else if(dir===38){
+  if(magPane===0)magGroupIndex=(magGroupIndex-1+magFilteredGroups.length)%magFilteredGroups.length;
+  else magRowIndex=Math.max(0,magRowIndex-1);
+ }else if(dir===40){
+  if(magPane===0)magGroupIndex=(magGroupIndex+1)%magFilteredGroups.length;
+  else magRowIndex=Math.min(Math.max(magPageItems.length-1,0),magRowIndex+1);
+ }
+ renderMagGroups();renderMagEntries();
 }
 function renderRows(items,total,current){
  var h='<button id="goBack" onclick="goBack()">← Back to categories</button>',i,c,marked;
