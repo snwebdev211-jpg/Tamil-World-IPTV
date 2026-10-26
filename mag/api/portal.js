@@ -85,7 +85,11 @@ function cookieMac(req,params){
   const cookies={};
   for(const piece of String(req.headers.cookie||'').split(';')){
     const i=piece.indexOf('=');
-    if(i>0)cookies[piece.slice(0,i).trim()]=decodeURIComponent(piece.slice(i+1).trim());
+    if(i>0){
+      const name=piece.slice(0,i).trim(),raw=piece.slice(i+1).trim();
+      // Malformed cookies must not take down the whole portal for an old TV.
+      try{cookies[name]=decodeURIComponent(raw);}catch(_){cookies[name]=raw;}
+    }
   }
   const raw=String(params.mac||cookies.mac||req.headers['x-device-mac']||'00:1A:79:00:00:01');
   return /^([0-9A-F]{2}:){5}[0-9A-F]{2}$/i.test(raw)?raw.toUpperCase():'00:1A:79:00:00:01';
@@ -170,8 +174,11 @@ module.exports=async function handler(req,res) {
     }
     const cat=await catalogue(), channels=cat.channels;
     if(action==='get_categories'||action==='get_genres'){
-      return output(res,[{id:'*',title:'All',alias:'all'},
-        ...CATS.map(([id,title,group])=>({id,title,alias:group,number:channels.filter(c=>c.genre_id===id).length}))]);
+      const counts=new Map();
+      for(const channel of channels)counts.set(channel.genre_id,(counts.get(channel.genre_id)||0)+1);
+      return output(res,[{id:'*',title:'All',alias:'all',number:channels.length},
+        ...CATS.filter(([id])=>(counts.get(id)||0)>0)
+          .map(([id,title,group])=>({id,title,alias:group,number:counts.get(id)||0}))]);
     }
     if(action==='get_all_channels')return output(res,{data:channels.map(mappedChannel),total_items:channels.length,max_page_items:channels.length,cur_page:1});
     if(action==='get_ordered_list') {
@@ -188,7 +195,14 @@ module.exports=async function handler(req,res) {
       const byCmd=cmd.match(/^ffmpeg\s+(https?:\/\/\S+)$/i);
       const found=channels.find(c=>c.id===id || (byCmd && c.url===byCmd[1]));
       if(!found)return output(res,{cmd:'',url:'',error:'Unknown stream id'});
-      return output(res,{cmd:'ffmpeg '+found.url,url:found.url,load:1,streamer_id:0});
+      // Alternatives are always from the published public catalogue; never
+      // resolve arbitrary user-supplied addresses or private-network targets.
+      const group=found.group.toLowerCase(),title=found.name.toLowerCase();
+      const alternatives=channels.filter(c=>c.id!==found.id &&
+        c.name.toLowerCase()===title && c.group.toLowerCase()===group)
+        .slice(0,4).map(c=>c.url);
+      return output(res,{cmd:'ffmpeg '+found.url,url:found.url,
+        alternatives,load:1,streamer_id:0});
     }
     if(action==='get_short_epg'||action==='get_epg_info')return output(res,[]);
     if(action==='get_last_id')return output(res,{id:'0'});
