@@ -272,80 +272,68 @@ function button(label,hint,action,icon){
 function clock(){var d=new Date();elem('clock').innerHTML=d.toDateString().toUpperCase()+' &nbsp; '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
 function setNav(n){var els=document.getElementsByClassName('menu'),i;for(i=0;i<els.length;i++)els[i].className='menu'+(els[i].id==='nav-'+n?' active':'');}
 
-var homeCarouselPage=0;
+var homeCarouselPage=1,homeCatIndex=2;
 var homeCards=[
- {title:'MEDIA BROWSER',hint:'Your favorites',action:'favorites',kind:'library',symbol:'library'},
- {title:'TV',hint:'Live television',action:'tv',kind:'live',symbol:'tv'},
- {title:'VIDEO CLUB',hint:'Live movie channels',action:'movies',kind:'movies',symbol:'movies'},
- {title:'TAMIL TV',hint:'Tamil channels',action:'tamil',kind:'tamil',symbol:'tv'},
- {title:'SPORTS',hint:'Live sporting channels',action:'sports',kind:'sports',symbol:'sports'},
- {title:'NEWS',hint:'News channels',action:'news',kind:'news',symbol:'tv'},
- {title:'MUSIC',hint:'Music TV',action:'music',kind:'music',symbol:'music'},
- {title:'KIDS',hint:'Family channels',action:'kids',kind:'kids',symbol:'tv'}
+ {title:'MEDIA BROWSER',hint:'Network media sources',action:'mediabrowser',photo:'/c/mag-media.jpg'},
+ {title:'TV',hint:'Television channels',action:'tv',photo:'/c/mag-tv.jpg'},
+ {title:'VIDEOCLUB',hint:'On-demand catalogue',action:'videoclub',photo:'/c/mag-videoclub.jpg'}
 ];
-function classicIcon(symbol){
- if(symbol==='tv')return '<svg viewBox="0 0 140 120" aria-hidden="true"><rect x="9" y="16" width="122" height="82" rx="9" fill="#243f4b" stroke="#f2ede3" stroke-width="6"/><rect x="18" y="25" width="104" height="64" fill="#27657e"/><path d="M25 36L73 28L50 82L18 82Z" fill="#64aabd"/><path d="M63 95h14v14H63ZM41 109h58" stroke="#e8e0d6" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="112" cy="87" r="2" fill="#c7e7db"/></svg>';
- if(symbol==='movies')return '<svg viewBox="0 0 140 120" aria-hidden="true"><circle cx="70" cy="58" r="47" fill="#f7c485" stroke="#fff0c8" stroke-width="6"/><circle cx="70" cy="58" r="12" fill="#8b3e4a"/><circle cx="70" cy="26" r="11" fill="#8b3e4a"/><circle cx="70" cy="90" r="11" fill="#8b3e4a"/><circle cx="38" cy="58" r="11" fill="#8b3e4a"/><circle cx="102" cy="58" r="11" fill="#8b3e4a"/><path d="M95 86l38 26H93Z" fill="#f2dab4"/></svg>';
- if(symbol==='sports')return '<svg viewBox="0 0 140 120" aria-hidden="true"><circle cx="70" cy="60" r="49" fill="#ddebea" stroke="#c1f4e7" stroke-width="5"/><path d="M51 49l19-17 23 15-7 28H56Z" fill="#164e63"/><path d="M36 28l22 20M104 31L91 47M27 77l29-4M113 76l-27-1M57 111l1-35M89 107l-3-32" stroke="#164e63" stroke-width="7" fill="none"/></svg>';
- if(symbol==='music')return '<svg viewBox="0 0 140 120" aria-hidden="true"><path d="M63 15v75l49-15V10Z" fill="#c8eff3" stroke="#fff" stroke-width="5"/><ellipse cx="45" cy="92" rx="22" ry="13" fill="#e8ffff"/><ellipse cx="94" cy="78" rx="22" ry="13" fill="#e8ffff"/></svg>';
- return '<svg viewBox="0 0 140 120" aria-hidden="true"><rect x="17" y="13" width="106" height="94" rx="10" fill="#cfdee7"/><rect x="26" y="24" width="88" height="72" rx="5" fill="#244e69"/><path d="M40 40h62M40 58h62M40 76h62" stroke="#a8cad9" stroke-width="6"/></svg>';
+var homeChoices=[
+ {title:'CULTURE',action:'culture'},
+ {title:'TAMIL TV',action:'tamil'},
+ {title:'ALL',action:'tv'},
+ {title:'INFORMATION',action:'news'},
+ {title:'ENTERTAINMENT',action:'entertainment'},
+ {title:"CHILDREN'S",action:'kids'}
+];
+function classicGroupButton(i){
+ var c=homeChoices[i];
+ return '<button class="classic-category'+(homeCatIndex===i?' is-selected':'')+'" style="top:'+(10.2+i*14.05)+'%" data-cat="'+i+'" onclick="selectHomeCat('+i+',true)">'+escapeHTML(c.title)+'</button>';
 }
-function homeCardHTML(c){
- return '<div class="classic-card-box"><button class="classic-tile" onclick="go(\''+c.action+'\')" title="'+escapeHTML(c.hint)+'"><span class="art '+c.kind+'">'+classicIcon(c.symbol)+'</span></button><p class="classic-tile-name">'+escapeHTML(c.title)+'</p></div>';
+function selectHomeCat(i,open){
+ homeCatIndex=i;renderHomeCategories();
+ if(open)go(homeChoices[i].action);
 }
-function changeHomeCarousel(shift){
- homeCarouselPage=(homeCarouselPage+shift+Math.ceil(homeCards.length/3))%Math.ceil(homeCards.length/3);
- renderHomeCarousel();
+window.selectHomeCat=selectHomeCat;
+function renderHomeCategories(){
+ var box=elem('magCategories');
+ if(!box)return;
+ var h='<div class="classic-category-head">UP</div>';
+ for(var i=0;i<homeChoices.length;i++)h+=classicGroupButton(i);
+ box.innerHTML=h;
 }
+function homeCardHTML(c,i){
+ var classes=['mag-left','mag-center','mag-right'];
+ return '<div class="classic-card-box '+classes[i]+(homeCarouselPage===i?' mag-active':'')+'"><button class="classic-tile" data-module="'+i+'" onclick="selectHomeModule('+i+',true)" title="'+escapeHTML(c.hint)+'"><img src="'+c.photo+'" alt="'+escapeHTML(c.title)+'"></button><div class="classic-tile-name">'+escapeHTML(c.title)+'</div></div>';
+}
+function selectHomeModule(i,open){
+ homeCarouselPage=(i+3)%3;renderHomeCarousel();
+ if(open)go(homeCards[homeCarouselPage].action);
+}
+window.selectHomeModule=selectHomeModule;
+function changeHomeCarousel(shift){selectHomeModule(homeCarouselPage+shift,false);}
 window.changeHomeCarousel=changeHomeCarousel;
 function renderHomeCarousel(){
  var box=elem('classic-carousel-cards');
  if(!box)return;
- var start=homeCarouselPage*3,html='';
- for(var i=0;i<3;i++){
-  var card=homeCards[(start+i)%homeCards.length];
-  html+=homeCardHTML(card);
- }
+ var html='';
+ for(var i=0;i<3;i++)html+=homeCardHTML(homeCards[i],i);
  box.innerHTML=html;
 }
-function classicGroupButton(title,action,selected){
- return '<button class="classic-category'+(selected?' is-selected':'')+'" onclick="go(\''+action+'\')">'+escapeHTML(title)+'</button>';
-}
-
 function home(){
  document.body.className='is-home';
- homeCarouselPage=0;
  title('Santhos IPTV','Powered by SNWD');
- var h='<div class="classic-home">'+
- '<div class="classic-main">'+
- '<div class="classic-categories"><div class="classic-category-head">⌃ &nbsp; CHANNEL CATEGORIES &nbsp; ⌃</div>'+
- classicGroupButton('ALL CHANNELS','tv',true)+
- classicGroupButton('TAMIL TV','tamil',false)+
- classicGroupButton('ENTERTAINMENT','group:6',false)+
- classicGroupButton('SPORTS','sports',false)+
- classicGroupButton('MOVIES','movies',false)+
- classicGroupButton('NEWS','news',false)+
- classicGroupButton('MUSIC','music',false)+
- classicGroupButton('KIDS & FAMILY','kids',false)+
- '</div>'+
- '<aside class="classic-right"><div class="right-seal">SNWD</div><strong>SANTHOS IPTV</strong><p>YOUR WORLD, ON SCREEN.</p><p>Live TV · Tamil · Cinema</p><p>Channel availability varies by location and TV.</p></aside>'+
- '</div>'+
- '<div class="classic-carousel">'+
- '<button class="classic-arrow" onclick="changeHomeCarousel(-1)" aria-label="Previous home tiles">❮</button>'+
- '<div id="classic-carousel-cards"></div>'+
- '<button class="classic-arrow" onclick="changeHomeCarousel(1)" aria-label="Next home tiles">❯</button></div>'+
- '<div class="classic-bottom-actions">'+
- '<button onclick="go(\'tv\')">▶ WATCH TV</button>'+
- '<button onclick="go(\'favorites\')">♡ FAVORITES</button>'+
- '<button onclick="go(\'settings\')">⚙ SETTINGS</button>'+
- '<button onclick="retryPortal()">↻ RECONNECT</button></div>'+
- '<p class="classic-caption">'+(channels.length?channels.length+' streams indexed · ':'')+
- 'Use LEFT / RIGHT / OK on your remote to select a section. Movie channels are not an on-demand film library.</p>'+
+ elem('cards').innerHTML=
+ '<div class="classic-home">'+
+  '<div class="classic-main"><div id="magCategories" class="classic-categories"></div>'+
+  '<div class="classic-right"><div class="right-seal">SNWD</div><strong>SANTHOS IPTV</strong>'+
+  '<p>YOUR WORLD ON SCREEN</p><p id="mag-info">Connecting to your channel directory…</p></div></div>'+
+  '<div class="classic-carousel"><div id="classic-carousel-cards"></div></div>'+
  '</div>';
- elem('cards').innerHTML=h;
+ renderHomeCategories();
  renderHomeCarousel();
- message('Santhos IPTV');
- resetFocus();
+ var info=elem('mag-info');
+ if(info&&groups.length)info.innerHTML='TV CHANNELS<br>'+channels.length+' streams in the directory';
 }
 function tileAction(el){go(el.getAttribute('data-action'));}
 window.tileAction=tileAction;
