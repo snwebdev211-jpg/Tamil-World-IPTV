@@ -52,3 +52,30 @@ jobs:
           assert len(x['js']['token']) >= 32
           print('PASS: live MAG portal handshake')
           PY
+      - name: Validate live MAG portal pages, categories and play resolution
+        run: |
+          python - <<'PY'
+          import urllib.request,urllib.parse,json
+          host='https://santhos-iptv.vercel.app'
+          def get(path):
+              with urllib.request.urlopen(host+path, timeout=20) as r:
+                  assert r.status==200,(path,r.status)
+                  return r.read()
+          page=get('/stalker_portal/c/index.html').decode('utf-8')
+          assert 'SANTHOS IPTV' in page or 'SANTHOS <b>IPTV' in page
+          assert 'nav-movies' in page and 'nav-tamil' in page
+          logo=get('/c/snwd-logo.svg').decode('utf-8')
+          assert logo.startswith('<svg')
+          url='/stalker_portal/server/load.php?type=itv&action=get_genres'
+          genres=json.loads(get(url))['js']
+          assert any(x['title']=='Tamil Movies' for x in genres)
+          lst=json.loads(get('/stalker_portal/server/load.php?type=itv&action=get_ordered_list&genre=1&p=1'))['js']
+          assert isinstance(lst['data'],list)
+          assert lst['total_items']>=0
+          all_channels=json.loads(get('/portal.php?type=itv&action=get_ordered_list&genre=%2A&p=1'))['js']
+          assert len(all_channels['data'])>0
+          chid=all_channels['data'][0]['id']
+          link=json.loads(get('/portal.php?type=itv&action=create_link&ch_id='+urllib.parse.quote(str(chid))))['js']
+          assert link['url'].startswith(('https://','http://'))
+          print('PASS: live portal page, SNWD logo, categories, paging, live source resolver')
+          PY
