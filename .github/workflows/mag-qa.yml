@@ -64,8 +64,10 @@ jobs:
           page=get('/stalker_portal/c/index.html').decode('utf-8')
           assert 'SANTHOS IPTV' in page or 'SANTHOS <b>IPTV' in page
           assert 'nav-movies' in page and 'nav-tamil' in page
-          logo=get('/c/snwd-logo.svg').decode('utf-8')
-          assert logo.startswith('<svg')
+          logo=get('/c/snwd-logo.jpg')
+          assert logo.startswith(bytes([255,216,255]))
+          svg=get('/c/snwd-logo.svg').decode('utf-8')
+          assert svg.startswith('<svg')
           url='/stalker_portal/server/load.php?type=itv&action=get_genres'
           genres=json.loads(get(url))['js']
           assert any(x['title']=='Tamil Movies' for x in genres)
