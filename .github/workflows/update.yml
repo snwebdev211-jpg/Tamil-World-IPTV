@@ -33,6 +33,11 @@ jobs:
         run: python tools/build.py
       - name: Check stream compatibility for older Smart-STB players
         run: python tools/smartstb_filter.py
+      - name: Prepare browser-hosted playlist copies
+        run: |
+          mkdir -p web/playlists
+          cp playlists/all.m3u web/playlists/all.m3u
+          cp playlists/all-sources.m3u web/playlists/all-sources.m3u
       - name: Publish refreshed playlists
         run: |
           set -euo pipefail
@@ -43,12 +48,16 @@ jobs:
           # the manually-maintained diagnostic samples on rebase/retry.
           mkdir -p /tmp/tamil-world-iptv-playlists
           rsync -a --exclude='diagnostic.m3u' playlists/ /tmp/tamil-world-iptv-playlists/
+          mkdir -p /tmp/tamil-world-iptv-web-playlists
+          rsync -a web/playlists/ /tmp/tamil-world-iptv-web-playlists/
 
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
             rsync -a --exclude='diagnostic.m3u' /tmp/tamil-world-iptv-playlists/ playlists/
-            git add playlists/
+            mkdir -p web/playlists
+            rsync -a /tmp/tamil-world-iptv-web-playlists/ web/playlists/
+            git add playlists/ web/playlists/
             if git diff --cached --quiet; then
               echo "No playlist changes"
               exit 0
