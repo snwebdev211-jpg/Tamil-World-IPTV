@@ -87,6 +87,14 @@ test('classic Santhos MAG UI navigates all key screens, bookmarks and player',as
     assert.equal(d.querySelectorAll('.row[data-channel]').length,1);
     w.go('home');
     assert.match(d.querySelector('#main').textContent,/FAVORITES/);
+    w.go('settings');
+    assert.match(d.querySelector('#main').textContent,/SNWD DIAGNOSTICS/);
+    assert.ok(d.querySelector('#main button[onclick="testPlayback()"]'),'TV test video button is reachable by remote');
+    w.testPlayback();
+    assert.equal(d.querySelector('#videoPanel').style.display,'block','Diagnostic video player opens');
+    assert.match(d.querySelector('#playerTitle').textContent,/HLS DIAGNOSTIC/);
+    w.closeVideo();
+    assert.equal(d.querySelector('#videoPanel').style.display,'none','Diagnostic video can be closed');
     assert.equal(errors.length,0,'No browser script errors: '+errors.join(' | '));
   } finally {dom.window.close();}
 });
