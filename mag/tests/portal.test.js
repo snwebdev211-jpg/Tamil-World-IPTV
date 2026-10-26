@@ -10,6 +10,12 @@ const SAMPLE=[
 'https://media.example.org/sports.m3u8',
 '#EXTINF:-1 tvg-id="m1" group-title="Tamil | Movies",Tamil Cinema',
 'https://media.example.org/movies.m3u8',
+'#EXTINF:-1 tvg-id="k1" group-title="Tamil | Kids",Tamil Cartoon',
+'https://media.example.org/kids.m3u8',
+'#EXTINF:-1 tvg-id="f1" group-title="Family",Family Channel',
+'https://media.example.org/family.m3u8',
+'#EXTINF:-1 tvg-id="b1" group-title="Business",Business Channel',
+'https://media.example.org/business.m3u8',
 ...Array.from({length:16},(_,i)=>'#EXTINF:-1 group-title="News",News '+i+'\nhttps://media.example.org/n'+i+'.m3u8')
 ].join('\n');
 
@@ -36,6 +42,9 @@ test('categories preserve Tamil movie distinction',async()=>{
   const r=await query('itv','get_genres');
   assert.ok(r.body.some(x=>x.title==='Tamil Movies'));
   assert.ok(r.body.some(x=>x.title==='Sports'));
+  assert.ok(r.body.some(x=>x.title==='Tamil Kids'&&x.number===1));
+  assert.ok(r.body.some(x=>x.title==='Family'&&x.number===1));
+  assert.ok(r.body.some(x=>x.title==='Business'&&x.number===1));
 });
 test('channel paging and categories are correct',async()=>{
   const r=await query('itv','get_ordered_list','&genre=1&p=1');
@@ -43,8 +52,13 @@ test('channel paging and categories are correct',async()=>{
   assert.equal(r.body.data[0].name,'Tamil Family HD');
   assert.equal(r.body.data[0].tv_genre_id,'1');
   const all=await query('itv','get_ordered_list','&genre=%2A&p=1');
-  assert.equal(all.body.total_items,19);
+  assert.equal(all.body.total_items,22);
   assert.equal(all.body.max_page_items,50);
+  const kids=await query('itv','get_ordered_list','&genre=17&p=1');
+  assert.equal(kids.body.total_items,1);
+  assert.equal(kids.body.data[0].name,'Tamil Cartoon');
+  const family=await query('itv','get_ordered_list','&genre=26&p=1');
+  assert.equal(family.body.data[0].name,'Family Channel');
 });
 test('resolve known source and reject arbitrary injected host',async()=>{
   const index=await query('itv','get_all_channels');
@@ -68,7 +82,7 @@ test('EPG graceful empty and unknown actions graceful',async()=>{
 test('channel ids are stable positive numbers, not position numbers',async()=>{
   const r=await query('itv','get_all_channels');
   const entries=r.body.data;
-  assert.equal(entries.length,19);
+  assert.equal(entries.length,22);
   assert.ok(entries.every(c=>/^\d+$/.test(c.id)&&Number(c.id)>0&&Number(c.id)<2147483648));
   assert.equal(new Set(entries.map(c=>c.id)).size,entries.length);
   assert.ok(entries.some(c=>c.id!==c.number),'Stable IDs are not index numbers');
