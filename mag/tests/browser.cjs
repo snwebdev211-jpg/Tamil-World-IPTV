@@ -71,6 +71,9 @@ async function main(){
   await page.locator('.mag-browser').waitFor({state:'visible'});
   assert.ok(await page.locator('.mag-groups').isVisible(),'MAG category pane visible');
   assert.ok(await page.locator('.mag-list').isVisible(),'MAG channels pane visible');
+  const panes=await page.evaluate(()=>{const l=document.querySelector('.mag-groups').getBoundingClientRect(),r=document.querySelector('.mag-list').getBoundingClientRect();return {left:{x:l.x,w:l.width},right:{x:r.x,w:r.width}};});
+  assert.ok(panes.right.x>panes.left.x+panes.left.w,'TV categories are in a separate LEFT pane, channels in RIGHT pane');
+  await page.screenshot({path:path.join('mag/browser-shots','mag-two-pane-tv.png'),fullPage:true});
   await sendOrsay(page,5); // RIGHT
   assert.equal(await page.locator('.mag-entry.mag-selected').count(),1,'Orsay RIGHT selects channel pane');
   await sendOrsay(page,29443); // OK
