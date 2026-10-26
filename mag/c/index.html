@@ -203,6 +203,7 @@ body:not(.is-home) #cards{height:78%;overflow:hidden}
 body.is-home .menu,body:not(.is-home) .menu{display:none!important}
 @media(max-width:920px){.classic-category{font-size:22px!important}.classic-right p{font-size:15px}.classic-tile-name{font-size:24px!important}}
 
+.classic-reconnect{display:block;width:100%;margin-top:14px;border:1px solid #8aaec4;background:#164d79;color:#fff;font:16px Arial;padding:10px}
 </style>
 </head>
 <body>
@@ -334,6 +335,7 @@ function home(){
  renderHomeCarousel();
  var info=elem('mag-info');
  if(info&&groups.length)info.innerHTML='TV CHANNELS<br>'+channels.length+' streams in the directory';
+ if(info&&connectionError)info.innerHTML=escapeHTML(connectionError)+'<button class="classic-reconnect" onclick="retryPortal()">RECONNECT</button>';
 }
 function tileAction(el){go(el.getAttribute('data-action'));}
 window.tileAction=tileAction;
@@ -715,13 +717,13 @@ function connectPortal(){
   if(error||!token||!token.token){
    connecting=false;
    connectionError='Unable to reach portal server. Check your internet connection and retry.';
-   go('home');message(connectionError);return;
+   if(nav==='home')home();return;
   }
   req('itv','get_genres',{},function(err,foundGroups){
    if(err||!foundGroups||!foundGroups.length){
     connecting=false;
     connectionError='Channel categories unavailable. Press RETRY CONNECTION.';
-    if(nav==='home')message(connectionError);return;
+    if(nav==='home')home();return;
    }
    groups=foundGroups;
    req('itv','get_ordered_list',{genre:'*',p:1},function(lastError,data){
@@ -732,7 +734,7 @@ function connectPortal(){
      channels.length=Number(data.total_items)||0;
      connectionError='';
     }
-    if(nav==='home'){home();if(connectionError)message(connectionError);}
+    if(nav==='home')home();
    });
   });
  });
