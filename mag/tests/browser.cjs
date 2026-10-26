@@ -72,8 +72,33 @@ async function main(){
     const focused=await page.evaluate(()=>document.activeElement?.outerHTML||'');
     assert.ok(focused.includes('classic-category')||focused.includes('classic-tile'),
       'Remote arrow moves focus between TV controls');
+    // Simulate the actual legacy Samsung Orsay (UN65H6203) remote codes.
+    // This confirms our handler accepts them; Smart-STB forwarding still
+    // needs verification on the physical TV.
+    await page.locator('#nav-home').click();
+    await page.locator('.classic-category').first().focus();
+    await page.evaluate(()=>{
+      const e=new Event('keydown',{bubbles:true,cancelable:true});
+      Object.defineProperty(e,'keyCode',{value:29461});
+      document.activeElement.dispatchEvent(e); // Orsay DOWN
+    });
+    assert.ok((await page.evaluate(()=>document.activeElement.textContent)).includes('TAMIL TV'),
+      'Orsay DOWN (29461) advances from ALL CHANNELS to TAMIL TV');
+    await page.evaluate(()=>{
+      const e=new Event('keydown',{bubbles:true,cancelable:true});
+      Object.defineProperty(e,'keyCode',{value:29443});
+      document.activeElement.dispatchEvent(e); // Orsay OK
+    });
+    await page.locator('.tile').filter({hasText:'Tamil Entertainment'}).waitFor();
+    await page.evaluate(()=>{
+      const e=new Event('keydown',{bubbles:true,cancelable:true});
+      Object.defineProperty(e,'keyCode',{value:88});
+      document.body.dispatchEvent(e); // Orsay RETURN
+    });
+    await page.locator('.classic-home').waitFor();
+    assert.ok(await page.locator('.classic-home').isVisible(),'Orsay Return (88) restores Home');
     assert.equal(errors.length,0,'No client JS errors: '+errors.join('; '));
-    console.log('PASS: 1280x720 MAG classic Home, TV navigation, Tamil category, Favorites, Search, Back-to-Home, TV remote arrows, and browser screenshots.');
+    console.log('PASS: 1280x720 MAG classic Home, TV navigation, Tamil category, Favorites, Search, Back-to-Home, TV remote arrows, Orsay DOWN/OK/RETURN, and browser screenshots.');
   }finally{await browser.close();}
 }
 main().catch(e=>{console.error(e);process.exit(1);});
