@@ -138,6 +138,7 @@ var BASE='/stalker_portal/server/load.php?JsHttpRequest=1-xml&';
 var nav='home',genre='*',channels=[],groups=[],page=1,playing=null,video=document.getElementById('video'),selected=0;
 var lastCategory='tv',favoriteIds=[],recentIds=[],lastChannelFocus=null,showMode='normal';
 var currentStreams=[],currentStreamIndex=0;
+var isTestVideo=false;
 function readStore(k){try{var v=JSON.parse(window.localStorage.getItem(k)||'[]');return Object.prototype.toString.call(v)==='[object Array]'?v:[];}catch(e){return [];}}
 function persist(){try{window.localStorage.setItem('snwd_santhos_favorites',JSON.stringify(favoriteIds));window.localStorage.setItem('snwd_santhos_recent',JSON.stringify(recentIds));}catch(e){}}
 favoriteIds=readStore('snwd_santhos_favorites');
@@ -330,7 +331,7 @@ function playUrl(source,label,isDiagnostic){
    try {
     if(typeof window.stb.Stop==='function')window.stb.Stop();
     if(typeof window.stb.SetVideoControlState==='function')window.stb.SetVideoControlState(1);
-    window.stb.Play(source);
+    window.stb.Play('ffmpeg '+source);
     video.style.display='none';
     videoMessage('Playback sent to MAG native player. If screen is black, this does not confirm video works.',false);
     return;
@@ -348,6 +349,13 @@ function playUrl(source,label,isDiagnostic){
   },16000);
  }catch(e){videoMessage('This device could not start playback.',true);}
 }
+function testPlayback(){
+ playing=null;
+ currentStreams=[];
+ currentStreamIndex=0;
+ playUrl('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8','HLS DIAGNOSTIC · TEST VIDEO',true);
+}
+window.testPlayback=testPlayback;
 function startSelectedStream(){
  var source=currentStreams[currentStreamIndex];
  if(!source){videoMessage('No source is available for this channel.',true);return;}
@@ -357,7 +365,7 @@ function startSelectedStream(){
    try {
     if(typeof window.stb.Stop==='function')window.stb.Stop();
     if(typeof window.stb.SetVideoControlState==='function')window.stb.SetVideoControlState(1);
-    window.stb.Play(source);
+    window.stb.Play('ffmpeg '+source);
     video.style.display='none';
     elem('playerStatus').innerHTML='Native MAG player · Source '+(currentStreamIndex+1)+' of '+currentStreams.length;
     return;
@@ -389,7 +397,7 @@ function closeVideo(){
  try{if(window.stb&&typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}
  video.pause();video.removeAttribute('src');video.load();video.style.display='block';
  elem('videoPanel').style.display='none';elem('message').style.display='none';
- currentStreams=[];currentStreamIndex=0;
+ currentStreams=[];currentStreamIndex=0;isTestVideo=false;
  if(lastChannelFocus&&lastChannelFocus.focus)lastChannelFocus.focus();
 }
 window.closeVideo=closeVideo;
