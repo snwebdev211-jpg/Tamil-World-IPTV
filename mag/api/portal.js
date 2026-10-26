@@ -30,7 +30,7 @@ const MAX_CHANNELS = 3000;
 function clean(text){return String(text||'').replace(/[\u0000-\u001f]/g,'').slice(0,300);}
 function parseM3U(text){
   if (!/^#EXTM3U/.test(text.replace(/^\uFEFF/,''))) throw Error('Invalid upstream M3U');
-  const entries = [], seen = new Set();
+  const entries = [], seen = new Set(), usedIds = new Set();
   let meta = null;
   for (const line0 of text.split(/\r?\n/)) {
     const line=line0.trim();
@@ -45,7 +45,14 @@ function parseM3U(text){
     const group=clean(a['group-title']||'Other');
     if(!title||seen.has(title+'|'+line))continue;
     seen.add(title+'|'+line);
-    const c={ id:String(entries.length+1), name:title, number:String(entries.length+1),
+    // Stable 31-bit channel IDs mean channel URLs can move in the playlist
+    // without pointing existing favorites or playback actions to a new station.
+    const fingerprint=String(a['tvg-id']||title).toLowerCase()+'|'+line;
+    let numeric=crypto.createHash('sha256').update(fingerprint).digest().readUInt32BE(0)&0x7fffffff;
+    if(!numeric)numeric=1;
+    while(usedIds.has(numeric)){numeric=(numeric%0x7fffffff)+1;}
+    usedIds.add(numeric);
+    const c={ id:String(numeric), name:title, number:String(entries.length+1),
       logo:a['tvg-logo']||'', tvg_id:a['tvg-id']||'', group, url:line };
     c.genre_id=(CATS.find(x=>x[2].toLowerCase()===group.toLowerCase())||CATS[15])[0];
     entries.push(c);
