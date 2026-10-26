@@ -145,6 +145,64 @@ body.is-home #bottom{height:27px;background:#002d4e;border:0;font-size:10px;padd
 .classic-bottom-actions,.classic-caption{display:none}
 @media(max-height:800px){.classic-categories{padding-top:27px;padding-bottom:23px}.classic-category{height:29px;margin:2px 0;padding:4px 10px;font-size:14px}.classic-category-head{height:25px}.classic-category-head:after,.classic-categories:after{font-size:19px}.classic-carousel{top:64%}.classic-tile-name{font-size:16px}}
 @media(max-width:700px){.classic-categories{left:26%;width:48%}.classic-carousel{left:1%;width:98%}.classic-tile-name{font-size:12px}.classic-arrow{font-size:30px}}
+
+/* MAG screenshot-specific television shell: no icons, grid, webpage sidebars or scrolling. */
+html,body,#outer{overflow:hidden!important;background:#00365b!important}
+#outer{background:radial-gradient(ellipse at 50% 57%,#07547f 0%,#003963 63%,#002c50 100%)!important}
+body.is-home #top{position:absolute!important;top:0;left:0;right:0;height:85px!important;background:transparent!important;border:0!important;z-index:5;padding:12px 21px;pointer-events:none}
+body.is-home #logo{width:53px;height:43px;border:0;background:#fff;padding:2px;float:left;border-radius:2px}
+body.is-home #brand{font-size:20px;letter-spacing:.4px;margin-left:65px;padding-top:3px}
+body.is-home #byline{margin-left:65px;font-size:9px;letter-spacing:.7px}
+body.is-home #clock{top:41px!important;right:0!important;font-size:22px!important;font-weight:bold!important;color:#eff4f8!important;background:#042b4b!important;border:1px solid #235777!important;border-right:0!important;height:48px;padding:10px 38px!important;width:48%;text-align:left;white-space:nowrap}
+body.is-home #main{position:absolute;top:0!important;left:0!important;right:0!important;bottom:0!important;background:transparent!important;padding:0!important;overflow:hidden!important}
+body.is-home #cards{position:absolute;top:0;left:0;width:100%;height:100%;display:block}
+body.is-home #status,body.is-home .headline,body.is-home .subhead,body.is-home #pageControls{display:none!important}
+body.is-home #sidebar{display:none!important}
+body.is-home #bottom{background:transparent!important;height:30px!important;border:0!important;opacity:.6;text-align:left}
+.classic-home{position:absolute!important;top:0;left:0;width:100%;height:100%;min-height:0!important;display:block!important;text-align:left!important;overflow:hidden!important}
+.classic-main{position:absolute!important;top:12.5%!important;left:0!important;width:100%!important;height:45.5%!important;display:block!important}
+.classic-categories{position:absolute!important;top:0!important;left:34.7%!important;width:30.5%!important;height:100%!important;display:block!important;margin:0!important;padding:0!important;border:0!important;border-radius:13px!important;background:#406a8b!important;box-shadow:inset 0 1px 2px rgba(255,255,255,.22)!important;text-align:left!important;max-width:none!important}
+.classic-category-head{position:absolute!important;top:0;left:0;width:100%;height:10%;font-size:0!important;margin:0!important}
+.classic-category-head:after{content:"▲";position:absolute;top:0;left:46%;font-size:29px;color:#eef2f5}
+.classic-categories:after{content:"▼";position:absolute;bottom:0;left:46%;font-size:27px;color:#eef2f5}
+.classic-category{position:absolute!important;left:3.8%!important;width:92.4%!important;height:13%!important;display:block!important;margin:0!important;padding:5px 14px!important;border:1px solid #365c87!important;border-radius:4px!important;line-height:1.1!important;font-size:25px!important;color:#ecf1f8!important;background:#1e5082!important;background:linear-gradient(#4275ac,#123c6b)!important;box-shadow:inset 0 1px 2px #658cb7!important;outline:0!important;text-align:left!important;text-shadow:0 1px 1px #243952}
+.classic-category.is-selected,.classic-category:focus{background:#e4e7ed!important;background:linear-gradient(#fff,#d6d9df)!important;color:#172f4c!important;border-color:#d9e2e9!important;text-shadow:none!important}
+.classic-right{position:absolute!important;display:block!important;left:71.6%!important;top:14%!important;width:22.7%!important;height:84%!important;margin:0!important;padding:25px 19px!important;background:rgba(0,22,43,.7)!important;border:0!important;border-radius:7px!important;text-align:left;color:#cfdfef}
+.classic-right .right-seal{font-size:29px!important;color:#b6d6e9!important;letter-spacing:3px!important}
+.classic-right strong{color:white;font-size:20px}
+.classic-right p{font-size:18px;line-height:1.55}
+.classic-carousel{position:absolute!important;top:60.2%!important;left:0!important;width:100%!important;height:32%!important;margin:0!important;display:block!important;white-space:normal!important;text-align:center!important}
+#classic-carousel-cards{display:block!important;position:absolute;top:0;left:0;width:100%!important;height:100%;white-space:normal!important}
+.classic-card-box{position:absolute!important;top:18px!important;display:block!important;width:28.1%!important;height:95%!important;margin:0!important;padding:0!important;max-width:none!important;border-radius:12px!important;color:#e1e9f4}
+.classic-card-box.mag-left{left:5.6%!important}
+.classic-card-box.mag-center{left:35.9%!important}
+.classic-card-box.mag-right{left:66.4%!important}
+.classic-card-box.mag-active{top:0!important;height:100%!important;background:#3b6787!important;box-shadow:0 0 0 17px #3b6787!important}
+.classic-tile{height:79%!important;width:100%!important;display:block!important;border:0!important;border-radius:5px!important;background:#164267!important;box-shadow:none!important;outline:none!important;padding:0!important;margin:0!important;overflow:hidden}
+.classic-tile img{width:100%;height:100%;display:block;border:0;object-fit:fill}
+.classic-tile:focus,.classic-tile:hover,.classic-tile.is-selected{outline:none!important;border:0!important;box-shadow:none!important}
+.classic-tile-name{font-family:"Arial Narrow",Arial,sans-serif;font-size:30px!important;font-weight:normal!important;letter-spacing:-1px!important;line-height:1.15!important;margin:8px 0 0!important;color:#e1e8f0;text-align:center;text-shadow:0 2px 2px #002641;white-space:nowrap}
+.classic-card-box.mag-active .classic-tile-name{color:white}
+.classic-arrow,.classic-bottom-actions,.classic-caption{display:none!important}
+body:not(.is-home) #sidebar{display:none!important}
+body:not(.is-home) #top{height:68px;background:#043052;border-bottom:1px solid #326b94}
+body:not(.is-home) #main{left:0!important;top:68px!important;bottom:38px!important;overflow:hidden!important;padding:22px 38px!important;background:linear-gradient(#074a70,#002d50)!important}
+body:not(.is-home) #bottom{background:#032840}
+body:not(.is-home) .headline{font-size:32px!important;margin:0 0 8px}
+body:not(.is-home) .subhead{display:none}
+body:not(.is-home) #cards{height:78%;overflow:hidden}
+.mag-browser{width:100%;height:100%;position:relative}
+.mag-groups{position:absolute;left:0;top:0;width:29%;height:100%;overflow:hidden;background:rgba(4,32,58,.5);padding:9px;border:1px solid #497496}
+.mag-list{position:absolute;left:30.5%;top:0;width:69%;height:100%;overflow:hidden;background:rgba(4,26,49,.45);padding:9px;border:1px solid #497496}
+.mag-group,.mag-entry{display:block;width:100%;height:11.3%;min-height:30px;margin-bottom:1%;border:1px solid #4e739c;background:#174b78;background:linear-gradient(#316598,#133b6e);color:#eaf0f6;font-size:19px;padding:8px 13px;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;border-radius:3px}
+.mag-group.mag-selected,.mag-entry.mag-selected,.mag-group:focus,.mag-entry:focus{background:#e4e8ed;background:linear-gradient(#fff,#d0d7e0);color:#1b334d;outline:0;border-color:white}
+.mag-entry small{float:right;color:inherit;font-size:12px}
+#pageControls{font-size:14px;color:#b3d4e7;margin:3px 0}
+#status{font-size:13px;color:#b3d4e7}
+#goBack{display:none}
+body.is-home .menu,body:not(.is-home) .menu{display:none!important}
+@media(max-width:920px){.classic-category{font-size:22px!important}.classic-right p{font-size:15px}.classic-tile-name{font-size:24px!important}}
+
 </style>
 </head>
 <body>
