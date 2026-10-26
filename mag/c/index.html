@@ -600,6 +600,24 @@ function go(next){
  if(next.indexOf('group:')===0){lastCategory=nav;nav=next;showMode='normal';setNav(lastCategory);loadGroup(next.slice(6));return;}
  nav=next;setNav(next);showMode='normal';
  if(next==='favorites'||next==='recent'){loadSavedChannels(next);return;}
+ if(next==='mediabrowser'){
+  title('MEDIA BROWSER','NETWORK SOURCES');
+  elem('cards').innerHTML='<div class="empty"><b>NETWORK MEDIA</b><p>Open a supported HTTP(S) video or audio stream. USB and local file browsing need native Smart-STB device access, which a web portal cannot provide.</p><input id="mediaUrl" type="text" placeholder="https://example.com/video.mp4" style="width:75%;height:42px;font-size:20px"><button class="row" onclick="playMediaURL()">PLAY NETWORK MEDIA</button></div>';
+  resetFocus();return;
+ }
+ if(next==='videoclub'){
+  title('VIDEOCLUB','ON-DEMAND FILMS');
+  elem('cards').innerHTML='<div class="empty" id="vodContent">Checking on-demand catalogue…</div>';
+  req('vod','get_ordered_list',{p:1},function(err,data){
+    if(nav!=='videoclub')return;var v=elem('vodContent');if(!v)return;
+    if(err||!data||!data.data||!data.data.length){
+      v.innerHTML='No on-demand titles are configured. Video Club is separate from live movie channels.';return;
+    }
+    var h='',i;
+    for(i=0;i<data.data.length;i++)h+='<div>'+escapeHTML(data.data[i].name||data.data[i].title||'On-demand title')+'</div>';
+    v.innerHTML=h;
+  });return;
+ }
  if(next==='home')return home();
  if(next==='guide')return emptyPage('TV Guide','EPG schedules have not been supplied by the broadcasters. Live channel browsing is available under TV.');
  if(next==='settings'){
@@ -614,6 +632,7 @@ function go(next){
  categoryScreen(next);
 }
 window.go=go;
+function playMediaURL(){var e=elem('mediaUrl');if(!e)return;var u=e.value||'';if(!/^https?:\/\/[^ ]+$/i.test(u)){message('Enter a valid HTTP or HTTPS media URL');return;}playing=null;playUrl(u,'MEDIA BROWSER',false);}window.playMediaURL=playMediaURL;
 function searchNow(){var f=elem('filter');if(!f)return;searchTerm=f.value.toLowerCase().slice(0,80);genre='*';page=1;nav='search';loadPage();}
 window.searchNow=searchNow;
 function goBack(){if(elem('videoPanel').style.display==='block'){closeVideo();return;}if(nav.indexOf('group:')===0){go(lastCategory);return;}go('home');}
@@ -702,7 +721,7 @@ function connectPortal(){
    if(err||!foundGroups||!foundGroups.length){
     connecting=false;
     connectionError='Channel categories unavailable. Press RETRY CONNECTION.';
-    go('home');message(connectionError);return;
+    if(nav==='home')message(connectionError);return;
    }
    groups=foundGroups;
    req('itv','get_ordered_list',{genre:'*',p:1},function(lastError,data){
@@ -713,8 +732,7 @@ function connectPortal(){
      channels.length=Number(data.total_items)||0;
      connectionError='';
     }
-    go('home');
-    if(connectionError)message(connectionError);
+    if(nav==='home'){home();if(connectionError)message(connectionError);}
    });
   });
  });
