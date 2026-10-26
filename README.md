@@ -1,17 +1,36 @@
 # Tamil World IPTV 📺
 
-A free, open-source **M3U playlist directory** with worldwide live TV, Tamil channels at the top, and dedicated Tamil movie-channel playlists. Bring your own IPTV player.
+A free, open-source **M3U playlist directory** with worldwide live TV, Tamil channels at the top, **Sports / Entertainment / Movies / News / Music / Kids** groups, and separate genre links. Bring your own IPTV player.
 
-## Copy a playlist into your IPTV app
+## Copy one link into your IPTV app
 
-- **All TV (Tamil first):** https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/all.m3u
-- **Tamil TV:** https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/tamil.m3u
-- **Tamil movie channels:** https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/tamil-movies.m3u
-- **Worldwide movie channels:** https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/movies.m3u
-- **Authorized Tamil on-demand movies (if any):** https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/tamil-movies-on-demand.m3u
-- **Generation statistics:** https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/status.json
+The **first link contains all channels**, arranged in `group-title` sections such as `Tamil | Entertainment`, `Tamil | Movies`, `Sports`, `Movies`, and `News`. Many IPTV apps show those sections in a **Groups / Categories** sidebar. If your app ignores `group-title`, it may still show one numbered list: no remote M3U file can modify your player’s Home button or force it to create tabs. In that case, choose one of these smaller genre lists as a separate playlist inside your app.
 
-Generated playlists appear after the first successful GitHub Actions workflow run. Open **Actions → Update IPTV playlists → Run workflow** if you need to build them manually.
+- **Everything (Tamil first; all categories)**: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/all.m3u`
+- Tamil TV (all Tamil categories): `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/tamil.m3u`
+- Tamil entertainment (includes indexed Sun TV HD): `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/tamil-entertainment.m3u`
+- Tamil movie TV channels: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/tamil-movies.m3u`
+- Tamil news: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/tamil-news.m3u`
+- Tamil music: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/tamil-music.m3u`
+- Worldwide sports: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/sports.m3u`
+- Worldwide entertainment: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/entertainment.m3u`
+- Worldwide movies: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/movies.m3u`
+- Worldwide news: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/news.m3u`
+- Worldwide music: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/music.m3u`
+- Worldwide kids: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/kids.m3u`
+- Worldwide documentaries: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/documentary.m3u`
+- Worldwide series: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/series.m3u`
+- Worldwide comedy: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/comedy.m3u`
+- Religious: `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/religious.m3u`
+- Authorized on-demand Tamil films (empty unless supplied): `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/tamil-movies-on-demand.m3u`
+
+**If you're stuck in the numbered channel list:** back out to the IPTV app's playlist/library screen; open **Live TV → Groups/Categories** (wording differs by app), or add `tamil.m3u` / `movies.m3u` as a separate playlist. If there is no groups option, tell us the player app's exact name for app-specific steps. Remove and re-add the playlist or use **Refresh/Update playlist** to load the new groups.
+
+**Sun TV HD:** the public IPTV-org index now includes a `SunTV.in@HD` entry, which the generator places under `Tamil | Entertainment`. This is **not a verified guarantee of playback, availability in your region, or redistribution rights**. KTV, Sun Music, Sun News, Adithya TV and Chutti TV are not guaranteed by this playlist. The official service for Sun Network live channels and Tamil films is [Sun NXT](https://www.sunnxt.com/).
+
+**Streaming vs movie library:** `Tamil | Movies` groups movie **TV channels**; the optional Tamil on-demand playlist only lists direct, public video streams for films authorized for public distribution. It is initially empty.
+
+The generator builds every playlist twice a day and on source changes. Open **Actions → Update IPTV playlists → Run workflow** for a manual update. See [generated channel counts](playlists/status.json).
 
 ## What this project does
 
