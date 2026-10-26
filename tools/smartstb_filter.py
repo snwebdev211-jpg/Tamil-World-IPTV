@@ -15,7 +15,10 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-from build import ROOT, parse, key, playlist, safe
+try:
+    from tools.build import ROOT, parse, key, playlist, safe
+except ModuleNotFoundError:
+    from build import ROOT, parse, key, playlist, safe
 
 PLAYLIST_DIR = ROOT / 'playlists'
 MAX_CHECKS = int(os.getenv('MAX_STREAM_CHECKS', '2500'))
