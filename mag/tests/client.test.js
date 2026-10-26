@@ -62,6 +62,7 @@ test('Santhos screenshot-based MAG Home, TV and Orsay remote navigation',async()
   assert.ok(d.querySelector('img[src="/c/mag-tv.jpg"]'),'Uses original MAG photographic tile, not an SVG drawing');
   orsay(w,29461);
   assert.equal(d.querySelector('.classic-category.is-selected').textContent,'INFORMATION','Orsay DOWN moves selector highlight');
+  orsay(w,29460); // Move back to ALL before opening the complete TV directory
   orsay(w,29443);
   assert.ok(d.querySelector('#magGroups'),'Orsay OK opens TV category/channel UI');
   assert.ok(d.querySelector('#magList'),'Separate channel pane exists');
