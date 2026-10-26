@@ -47,7 +47,10 @@ test('channel paging and categories are correct',async()=>{
   assert.equal(all.body.max_page_items,50);
 });
 test('resolve known source and reject arbitrary injected host',async()=>{
-  const good=await query('itv','create_link','&ch_id=1');
+  const index=await query('itv','get_all_channels');
+  const tamil=index.body.data.find(c=>c.name==='Tamil Family HD');
+  assert.match(tamil.id,/^[0-9]+$/);
+  const good=await query('itv','create_link','&ch_id='+tamil.id);
   assert.equal(good.body.url,'https://media.example.org/tamil.m3u8');
   const blocked=await query('itv','create_link','&cmd='+encodeURIComponent('ffmpeg http://127.0.0.1/private')+'&ch_id=100');
   assert.equal(blocked.body.url,'');
@@ -60,4 +63,13 @@ test('vod intentionally empty without authorized movies',async()=>{
 test('EPG graceful empty and unknown actions graceful',async()=>{
   const epg=await query('itv','get_short_epg');
   assert.deepEqual(epg.body,[]);
+});
+
+test('channel ids are stable positive numbers, not position numbers',async()=>{
+  const r=await query('itv','get_all_channels');
+  const entries=r.body.data;
+  assert.equal(entries.length,19);
+  assert.ok(entries.every(c=>/^\\d+$/.test(c.id)&&Number(c.id)>0&&Number(c.id)<2147483648));
+  assert.equal(new Set(entries.map(c=>c.id)).size,entries.length);
+  assert.ok(entries.some(c=>c.id!==c.number),'Stable IDs are not index numbers');
 });
