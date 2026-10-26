@@ -1,0 +1,54 @@
+name: MAG Portal QA
+on:
+  push:
+    paths:
+      - 'mag/**'
+      - '.github/workflows/mag-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Backend syntax and tests
+        run: |
+          node --check mag/api/portal.js
+          node --test mag/tests/portal.test.js
+      - name: Check classic MAG menu and rewrite map
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,xml.etree.ElementTree as ET,re
+          root=Path('mag')
+          page=(root/'c/index.html').read_text()
+          conf=json.loads((root/'vercel.json').read_text())
+          ET.parse(root/'c/snwd-logo.svg')
+          assert 'SNWD' in page and 'santhos' in page.lower()
+          for key in ('home','tv','tamil','movies','sports','news','music','kids','search','guide','settings'):
+              assert 'nav-'+key in page,key
+          srcs=[r['source'] for r in conf['rewrites']]
+          for path in ('/stalker_portal/server/load.php','/portal.php','/c/','/stalker_portal/c/index.html'):
+              assert path in srcs,path
+          assert 'videoPanel' in page
+          print('PASS: 11 MAG navigation sections, vector logo, player and rewrites')
+          PY
+      - name: Validate deployed server handshake (nonblocking diagnostic)
+        run: |
+          curl -fLsS --max-time 15 \
+            'https://santhos-iptv.vercel.app/stalker_portal/server/load.php?type=stb&action=handshake' \
+            -o /tmp/handshake.json
+          python - <<'PY'
+          import json
+          x=json.load(open('/tmp/handshake.json'))
+          assert isinstance(x.get('js',{}).get('token'),str)
+          assert len(x['js']['token']) >= 32
+          print('PASS: live MAG portal handshake')
+          PY
