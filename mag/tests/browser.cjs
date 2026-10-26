@@ -67,6 +67,7 @@ async function main(){
   await page.screenshot({path:path.join('mag/browser-shots','mag-reference-home.png'),fullPage:true});
   await sendOrsay(page,29461); // DOWN
   assert.equal(await page.locator('.classic-category.is-selected').textContent(),'INFORMATION','Orsay DOWN moves selected row');
+  await sendOrsay(page,29460); // UP returns to ALL for mock catalogue
   await sendOrsay(page,29443); // OK
   await page.locator('.mag-browser').waitFor({state:'visible'});
   assert.ok(await page.locator('.mag-groups').isVisible(),'MAG category pane visible');
