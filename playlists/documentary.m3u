@@ -35,6 +35,8 @@ https://xykt-fix.github.io/Y77.m3u8
 https://amg00405-rakutentv-cgtndocumentary-rakuten-0ql8j.amagi.tv/master.m3u8
 #EXTINF:-1 tvg-id="CityEdenKinoDok.ru@HD" tvg-logo="https://i.imgur.com/itRbMX3.png" group-title="Documentary",City Eden KinoDok [Not 24/7]
 https://cityeden.catcast.tv/content/38354/index.m3u8
+#EXTINF:-1 tvg-id="ClickTVChile.cl@SD" tvg-logo="https://i.imgur.com/H0XNbMS.png" group-title="Documentary",ClickTV Chile (720p)
+https://v2.tustreaming.cl/clicktv/playlist.m3u8
 #EXTINF:-1 tvg-id="CNAOriginals.sg@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/CNA_new_logo.svg/500px-CNA_new_logo.svg.png" group-title="Documentary",CNA Originals (1080p)
 https://amg01082-cna-amg01082c1-rlaxx-us-11304.playouts.now.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="CosmosTV.py@SD" tvg-logo="https://i.imgur.com/dAMyExY.jpg" group-title="Documentary",Cosmos TV (720p)
@@ -123,8 +125,6 @@ https://amg01821-lovetvchannels-lovetheplanetuksamsung-samsunguk-apopw.amagi.tv/
 https://d3j95sejv6mybj.cloudfront.net/Lucky_Dog.m3u8
 #EXTINF:-1 tvg-id="MagellanTVNow.us@SD" tvg-logo="https://i.imgur.com/gEraSp5.png" group-title="Documentary",MagellanTV Now (1080p)
 https://amg00376-magellan-amg00376c5-samsung-au-1708.playouts.now.amagi.tv/playlist/amg00376-magellantv-magellantvnowww-samsungau/playlist.m3u8
-#EXTINF:-1 tvg-id="MRTVFarmer.mm@SD" tvg-logo="https://i.imgur.com/f4PWvrW.jpg" group-title="Documentary",MRTV Farmer
-https://mrtvott.com/cache/MRTV-FARMER/master.m3u8
 #EXTINF:-1 tvg-id="N24Doku.de@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/N24Doku.svg/960px-N24Doku.svg.png" group-title="Documentary",N24 Doku
 https://jmp2.uk/plu-60080e8a4bf36000076a81b1.m3u8
 #EXTINF:-1 tvg-id="NatureTime.ca@SD" tvg-logo="https://i.imgur.com/72JmyjM.png" group-title="Documentary",NatureTime (1080p)

@@ -16,6 +16,8 @@ https://segment.yuppcdn.net/240122/news7/playlist.m3u8
 https://cdn.pishow.tv/ott/live/1279/master.m3u8
 #EXTINF:-1 tvg-id="NewsTamil24x7.in@SD" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_NEWS_TAMIL_24X7/images/LOGO_HD/image.png" group-title="Tamil | News",News Tamil 24x7 (576p)
 https://cdn.pishow.tv/ott/live/1433/master.m3u8
+#EXTINF:-1 tvg-id="News18TamilNadu.in@SD" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_NEWS18_TAMIL_NADU/images/LOGO_HD/image.png" group-title="Tamil | News",News18 Tamil Nadu (1080p)
+https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
 #EXTINF:-1 tvg-id="PolimerNews.in@SD" tvg-logo="https://dtil.tmsimg.com/assets/s143664_ld_h9_aa.png?lock=720x540" group-title="Tamil | News",Polimer News (576p)
 https://segment.yuppcdn.net/110322/polimernews/playlist.m3u8
 #EXTINF:-1 tvg-id="PuthiyaThalaimurai.in@SD" tvg-logo="https://dtil.tmsimg.com/assets/s143692_ld_h15_aa.png?lock=720x540" group-title="Tamil | News",Puthiya Thalaimurai (576p)
@@ -235,8 +237,6 @@ https://account19.livebox.co.in/Anandabarta2hls/live.m3u8
 https://hplayer1.juyun.tv/camera/154379194.m3u8
 #EXTINF:-1 tvg-id="AntikInfoTV.sk@HD" tvg-logo="https://i.imgur.com/Q0qL60o.png" group-title="News",Antik Info TV (1080p)
 https://dash4.antik.sk/live/test_infokanal_tizen/playlist.m3u8
-#EXTINF:-1 tvg-id="AratuOn.br@SD" tvg-logo="https://i.imgur.com/Ht4jCab.png" group-title="News",Aratu On
-https://cdn.live.br1.jmvstream.com/w/LVW-9359/LVW9359_XSyReL0QVf/playlist.m3u8
 #EXTINF:-1 tvg-id="ArgusNews.in@SD" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_ARGUS/images/LOGO_HD/image.png" group-title="News",Argus News (576p)
 https://mumt05.tangotv.in/87NeALx2ARGUSNEWS/index.m3u8
 #EXTINF:-1 tvg-id="ArirangUN.kr@SD" tvg-logo="https://i.imgur.com/Jdy3WNm.png" group-title="News",Arirang UN (1080p)
