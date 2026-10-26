@@ -357,8 +357,9 @@ function matchingGroups(target){
  return out;
 }
 function categoryScreen(target){
- magTarget=target;magFilteredGroups=[{id:'*',title:'ALL CHANNELS'}].concat(matchingGroups(target));
- magGroupIndex=0;magRowIndex=0;magPane=0;page=1;genre='*';searchTerm='';
+ magTarget=target;magFilteredGroups=matchingGroups(target);
+ if(target==='tv')magFilteredGroups.unshift({id:'*',title:'ALL CHANNELS'});
+ magGroupIndex=0;magRowIndex=0;magPane=0;page=1;genre=magFilteredGroups.length?magFilteredGroups[0].id:'__none__';searchTerm='';
  drawMagBrowser();loadMagChannels();
 }
 function drawMagBrowser(){
@@ -411,6 +412,7 @@ function loadMagChannels(){
  });
 }
 function navigateMag(dir){
+ if(!magFilteredGroups.length)return;
  if(dir===37)magPane=0;
  else if(dir===39)magPane=1;
  else if(dir===38){
