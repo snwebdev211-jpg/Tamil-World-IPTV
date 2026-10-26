@@ -138,7 +138,7 @@ var BASE='/stalker_portal/server/load.php?JsHttpRequest=1-xml&';
 var nav='home',genre='*',channels=[],groups=[],page=1,playing=null,video=document.getElementById('video'),selected=0;
 var lastCategory='tv',favoriteIds=[],recentIds=[],lastChannelFocus=null,showMode='normal';
 var currentStreams=[],currentStreamIndex=0;
-var isTestVideo=false;
+var contentEpoch=0;
 function readStore(k){try{var v=JSON.parse(window.localStorage.getItem(k)||'[]');return Object.prototype.toString.call(v)==='[object Array]'?v:[];}catch(e){return [];}}
 function persist(){try{window.localStorage.setItem('snwd_santhos_favorites',JSON.stringify(favoriteIds));window.localStorage.setItem('snwd_santhos_recent',JSON.stringify(recentIds));}catch(e){}}
 favoriteIds=readStore('snwd_santhos_favorites');
@@ -281,10 +281,12 @@ function loadGroup(id){
  genre=id||'*';page=1;searchTerm='';loadPage();
 }
 function loadPage(){
+ var epoch=++contentEpoch;
  showMode='normal';
  title('Live Channels','Select a channel to play. Use Previous / Next to browse.');
  message('Loading channel list…');
  req('itv','get_ordered_list',{genre:genre,p:page,search:searchTerm},function(err,response){
+  if(epoch!==contentEpoch)return;
   if(err){message(err);return;}
   var items=response.data||[];
   renderRows(items,Number(response.total_items)||0,page);
@@ -299,10 +301,12 @@ function toggleFavorite(id){
 }
 window.toggleFavorite=toggleFavorite;
 function loadSavedChannels(mode){
+ var epoch=++contentEpoch;
  showMode=mode;lastCategory=mode;
  title(mode==='favorites'?'Your Favorites':'Recently Watched',mode==='favorites'?'Saved on this TV or browser':'Your recently opened channels');
  message('Loading your saved channels…');
  req('itv','get_all_channels',{},function(err,response){
+  if(epoch!==contentEpoch)return;
   if(err){message(err);return;}
   var all=response.data||response||[],ids=mode==='favorites'?favoriteIds:recentIds;
   var selected=[],j,i;
@@ -431,6 +435,7 @@ function emptyPage(name,desc){
  title(name,desc);elem('cards').innerHTML='<div class="empty">'+escapeHTML(desc)+'</div>';resetFocus();
 }
 function go(next){
+ ++contentEpoch; // Ignore stale responses from a screen we've left.
  if(next!=='home')document.body.className='';
  if(next.indexOf('group:')===0){lastCategory=nav;nav=next;showMode='normal';setNav(lastCategory);loadGroup(next.slice(6));return;}
  nav=next;setNav(next);showMode='normal';
