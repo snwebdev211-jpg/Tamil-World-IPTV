@@ -349,13 +349,6 @@ function playUrl(source,label,isDiagnostic){
   },16000);
  }catch(e){videoMessage('This device could not start playback.',true);}
 }
-function testPlayback(){
- playing=null;
- currentStreams=[];
- currentStreamIndex=0;
- playUrl('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8','HLS DIAGNOSTIC · TEST VIDEO',true);
-}
-window.testPlayback=testPlayback;
 function startSelectedStream(){
  isTestVideo=false;
  if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
