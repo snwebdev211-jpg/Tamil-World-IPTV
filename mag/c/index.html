@@ -518,8 +518,7 @@ function handleRemote(ev){
  if(win){win.focus();if(win.scrollIntoView)win.scrollIntoView(false);}
  return false;
 }
-document.onkeydown=handleRemote;
-document.addEventListener('keydown',function(ev){if(ev.__snwdHandled)return;ev.__snwdHandled=true;handleRemote(ev);},true);
+document.addEventListener('keydown',handleRemote,true);
 
 video.onerror=function(){
  if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
