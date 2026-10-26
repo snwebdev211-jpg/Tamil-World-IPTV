@@ -1,9 +1,28 @@
 {
-  "updated_utc": "2026-10-26T00:56:43.954157+00:00",
+  "updated_utc": "2026-10-26T01:06:55.125684+00:00",
   "total": 11236,
   "tamil": 148,
-  "movie_channels": 763,
+  "movie_channels": 713,
   "tamil_movie_channels": 8,
   "authorized_tamil_on_demand_films": 0,
+  "categories": {
+    "all.m3u": 11236,
+    "tamil.m3u": 148,
+    "movies.m3u": 713,
+    "tamil-movies.m3u": 8,
+    "tamil-movies-on-demand.m3u": 0,
+    "sports.m3u": 434,
+    "entertainment.m3u": 978,
+    "news.m3u": 1156,
+    "music.m3u": 744,
+    "kids.m3u": 510,
+    "documentary.m3u": 252,
+    "religious.m3u": 767,
+    "series.m3u": 382,
+    "comedy.m3u": 154,
+    "tamil-entertainment.m3u": 26,
+    "tamil-news.m3u": 18,
+    "tamil-music.m3u": 12
+  },
   "source": "iptv-org public directory; custom channels require authorization"
 }
