@@ -530,6 +530,14 @@ function activateFocused(){
 function handleRemote(ev){
  ev=ev||window.event;
  var k=ev.keyCode||ev.which,t=ev.target||ev.srcElement;
+ /* Samsung Orsay (2012-2014) uses legacy TVKeyValue codes, not DOM arrow codes.
+    Smart-STB may forward these when its embedded portal receives remote events. */
+ if(k===29460)k=38;       /* KEY_UP */
+ else if(k===29461)k=40;  /* KEY_DOWN */
+ else if(k===4)k=37;      /* KEY_LEFT */
+ else if(k===5)k=39;      /* KEY_RIGHT */
+ else if(k===29443)k=13;  /* KEY_ENTER */
+ else if(k===88)k=461;   /* KEY_RETURN */
  var isInput=t&&t.tagName==='INPUT';
  if(isInput&&k!==27&&k!==461&&k!==10009&&k!==8&&k!==13)return true;
  if(k===8||k===27||k===461||k===10009){if(ev.preventDefault)ev.preventDefault();ev.returnValue=false;goBack();return false;}
