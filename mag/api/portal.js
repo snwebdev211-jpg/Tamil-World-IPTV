@@ -22,6 +22,22 @@ const CATS = [
   ['14','Religious','Religious'],
   ['15','Comedy','Comedy'],
   ['16','Other','Other'],
+  // Keep existing IDs stable; additional public M3U groups must not
+  // silently fall into Other or disappear from Tamil TV browsing.
+  ['17','Tamil Kids','Tamil | Kids'],
+  ['18','Tamil Comedy','Tamil | Comedy'],
+  ['19','Tamil Religious','Tamil | Religious'],
+  ['20','Tamil Culture','Tamil | Culture'],
+  ['21','Tamil Travel','Tamil | Travel'],
+  ['22','Tamil General','Tamil | General'],
+  ['23','Tamil Other','Tamil | Other'],
+  ['24','Business','Business'],
+  ['25','Culture','Culture'],
+  ['26','Family','Family'],
+  ['27','General','General'],
+  ['28','Travel','Travel'],
+  ['29','Education','Education'],
+  ['30','Lifestyle','Lifestyle'],
 ];
 let cached = {expires:0, channels:[], updated:null, error:null};
 let pending = null;
