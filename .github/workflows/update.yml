@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'tools/**'
+      - 'tests/**'
       - 'custom/**'
       - '.github/workflows/update.yml'
   schedule:
