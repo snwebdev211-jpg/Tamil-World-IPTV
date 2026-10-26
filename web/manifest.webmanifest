@@ -1,0 +1,18 @@
+{
+  "name": "Santhos IPTV by SNWD",
+  "short_name": "Santhos IPTV",
+  "description": "Tamil-first live TV and channel guide",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#081721",
+  "theme_color": "#081721",
+  "icons": [
+    {
+      "src": "./assets/snwd-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
