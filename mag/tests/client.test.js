@@ -98,3 +98,26 @@ test('classic Santhos MAG UI navigates all key screens, bookmarks and player',as
     assert.equal(errors.length,0,'No browser script errors: '+errors.join(' | '));
   } finally {dom.window.close();}
 });
+
+test('MAG portal recovers gracefully from startup network failure',async()=>{
+  const dom=new JSDOM(html,{url:'https://santhos-iptv.vercel.app/stalker_portal/c/index.html',
+    runScripts:'dangerously',pretendToBeVisual:true,beforeParse:w=>{
+      w.HTMLMediaElement.prototype.pause=()=>{};
+      w.HTMLMediaElement.prototype.load=()=>{};
+      w.XMLHttpRequest=class {
+        open(){this.status=0;}
+        send(){this.readyState=4;if(this.onreadystatechange)this.onreadystatechange();}
+      };
+    }});
+  try {
+    await pause(100);
+    const w=dom.window,d=w.document;
+    assert.ok(d.querySelector('.classic-home'),'Home screen still displays on startup API failure');
+    assert.match(d.querySelector('#status').textContent,/Unable to reach portal server/);
+    assert.ok(d.querySelector('[onclick="retryPortal()"]'),'Retry button is visible');
+    mockWindow(w);
+    w.retryPortal();
+    await pause(30);
+    assert.match(d.querySelector('#main').textContent,/3 streams indexed/,'Retry restores channel list');
+  }finally {dom.window.close();}
+});
