@@ -87,6 +87,21 @@ def safe(url):
         return False
 
 
+def split_extinf(meta):
+    """Split at the channel-name comma, not commas inside quoted attributes.
+
+    Some public entries contain http-user-agent="Mozilla/5.0 (KHTML, like Gecko)".
+    Splitting on the first raw comma corrupts the UA, category and channel name.
+    """
+    quoted = False
+    for i, char in enumerate(meta):
+        if char == '"':
+            quoted = not quoted
+        elif char == ',' and not quoted:
+            return meta[:i], ',', meta[i + 1:]
+    return meta, '', ''
+
+
 def parse(data):
     if not data.lstrip().startswith('#EXTM3U'):
         raise ValueError('Invalid upstream playlist')
@@ -100,7 +115,7 @@ def parse(data):
         elif meta and line and not line.startswith('#'):
             if safe(line):
                 attrs = dict(ATTR.findall(meta))
-                title = meta.split(',', 1)[-1].strip()
+                title = split_extinf(meta)[2].strip()
                 entries.append({'meta': meta, 'url': line, 'opts': opts,
                                 'id': attrs.get('tvg-id', ''), 'title': title,
                                 'group': attrs.get('group-title', '')})
@@ -134,7 +149,7 @@ def is_movie(c):
 
 def put_category(c, category):
     ext = re.sub(r'\s+group-title="[^"]*"', '', c['meta'])
-    prefix, delim, suffix = ext.partition(',')
+    prefix, delim, suffix = split_extinf(ext)
     return prefix + ' group-title="' + category + '"' + delim + suffix
 
 
