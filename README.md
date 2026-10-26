@@ -2,18 +2,24 @@
 
 A free, open-source **M3U playlist directory** with worldwide live TV, Tamil channels at the top, **Sports / Entertainment / Movies / News / Music / Kids** groups, and separate genre links. Bring your own IPTV player.
 
-## Smart-STB (older Samsung TVs)
+## IMPORTANT: For Smart-STB on older Samsung TVs
 
-**Current problem:** Classic Smart-STB reads an M3U URL as a *flat playlist*. The remote M3U file cannot replace Smart-STB's Home screen or create a Video Club / VOD tab. A Stalker-compatible **portal service** is required for those portal features; GitHub Raw is a file host, not a Stalker portal. Smart-STB+ improves M3U categorization but isn't available on older Samsung TV models such as the UN65H6203AF.
+The original Santhos IPTV link is `https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/all.m3u`.
 
-**Keep using the original M3U URL**:
-`https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/all.m3u`
+**Current builds are MPEG-TS media-segment checked (best effort)**. This verifies the video transport stream, rather than just a reachable M3U playlist. It still cannot certify every channel on old hardware or in every country.
 
-We now build a **stream-checked TV list** for that same URL: the workflow takes public TV channel indexes, prioritizes Tamil and category groups, probes up to 2,500 HLS manifests, and only publishes the ones with reachable HLS manifests that do not explicitly advertise incompatible HEVC-only playback. All other public source listings are preserved at `playlists/all-sources.m3u` (large, **not tested**). We do **not** guarantee streams play in Canada or on any particular Samsung model, because a reachable manifest does not guarantee that its media segments or codec work on that device. For those with stronger IPTV players, category-specific playlists are also generated from the filtered list.
+**Full setup, genre links, and black-screen troubleshooting:** [SMART-STB-SETUP.md](SMART-STB-SETUP.md).
 
-For a simple playback diagnostic, add `playlists/diagnostic.m3u` as a temporary playlist. It contains two publicly available HLS video test clips (not TV channels). If neither sample plays, channel selection alone will not fix Smart-STB playback on your TV. If the clips play but TV stations fail, suspect geo restrictions, source blocking, or broken streams.
+For 2014 Samsung Smart-STB, an M3U file cannot create a Video Club or Movies app tab. When supported, enable the app's **Multiportal** mode and set the genre-specific M3U URLs as separate portal slots. Those are live channel lists, not a Stalker portal.
 
-**Reload the playlist:** fully exit and relaunch Smart-STB or re-select the Portal after GitHub Actions completes; the app may cache an older playlist. When Smart-STB is at the `Loading Portal` screen, press **OK** and then **System Settings → Portals** to change playlists. See the [Smart-STB official instructions](https://www.smart-stb.net/ssps-kb/how-to-add-or-change-a-portal-or-m3u-playlist/). Don't reset or clear user data just to refresh a playlist.
+### Playlist families
+
+- `all.m3u`: original link — small legacy compatibility list with TS segment probing
+- `legacy-tamil.m3u`, `legacy-sports.m3u`, `legacy-movies.m3u`, `legacy-news.m3u`: TV-oriented separate categories
+- `manifest-checked.m3u`: wider list that only passed HLS manifest check
+- `all-sources.m3u`: **unverified** upstream directory
+- `diagnostic.m3u`: public test videos to distinguish channel failures from decoder failures
+- `status.json`: real counts and testing notes
 
 ## Available M3U links
 
