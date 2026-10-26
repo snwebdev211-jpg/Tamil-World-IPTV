@@ -1,0 +1,6 @@
+#EXTM3U
+# Tamil full movies may be added here only with permission and a direct public video URL.
+# A link to a subscription streaming webpage is NOT a playable M3U film.
+# Example format (illustrative URL; do not use as a real stream):
+# #EXTINF:-1 group-title="Tamil Movies - On Demand",My authorized Tamil film
+# https://media.example.org/my-authorized-film.mp4
