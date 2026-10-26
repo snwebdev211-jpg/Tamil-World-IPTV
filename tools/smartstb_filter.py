@@ -150,6 +150,8 @@ def main():
     status['reachable_hls_manifests'] = len(compatible)
     status['total'] = len(compatible)
     status['tamil'] = len([c for c in compatible if c['group'].startswith('Tamil |')])
+    status['movie_channels'] = counts.get('movies.m3u', 0)
+    status['tamil_movie_channels'] = counts.get('tamil-movies.m3u', 0)
     status['categories'] = {'all.m3u': len(compatible), 'smart-stb.m3u': len(compatible),
                             'all-sources.m3u': len(entries), **counts,
                             'tamil-movies-on-demand.m3u': status.get('authorized_tamil_on_demand_films', 0)}
