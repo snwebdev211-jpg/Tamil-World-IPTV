@@ -4,7 +4,21 @@
 
 **One public M3U IPTV link, hosted directly on GitHub. No website, Vercel deployment, paid subscription, or login required to read the playlist.**
 
-## 📺 Main IPTV playlist (paste into your IPTV player)
+## 📺 MAG / Stalker Portal — classic TV Home and Video Club
+
+**Use this URL inside Smart-STB's Portal settings** (not its M3U playlist field):
+
+```text
+https://santhos-iptv.vercel.app/stalker_portal/c/index.html
+```
+
+The portal UI uses a classic blue MAG TV layout with the user-supplied SNWD company logo, a central **TV / VIDEO CLUB / MEDIA BROWSER** home row, Tamil and global channel categories, remote-key navigation, search, local favorites and history. It is hosted using Vercel solely to answer the MAG/Stalker portal requests and deliver the interactive TV portal; it is **not a separate Netflix-style product homepage**.
+
+The backend is a **partial independent Stalker-compatible implementation**, not a certified Infomir/Ministra portal. The GitHub workflow tests the backend/API, menu behavior and deployed link; a real Smart-STB device test remains necessary. Some proprietary client firmware may reject an independent portal. Video Club currently offers live movie **channels** only; full on-demand film collections and program guide schedules have not been added because no authorized VOD/EPG source was supplied.
+
+Use the exact `/stalker_portal/c/index.html` URL, not the base domain, to avoid redirects that some older Smart-STB devices do not support. See the [official Smart-STB portal guidance](https://www.smart-stb.net/ssps-kb/black-screen-after-loading-portal-on-some-portals/).
+
+## 🎬 Original M3U playlist — for apps that accept M3U URL
 
 ```text
 https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/all.m3u
@@ -12,7 +26,7 @@ https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlist
 
 This **remains the original link**. It contains the smaller legacy-TV-focused list, with Tamil entries first, then other channels, grouped by M3U `group-title` metadata. GitHub Actions refreshes the directory automatically.
 
-**IMPORTANT:** This is an **M3U playlist**, not a MAG/Stalker portal. Compatible IPTV players load the channel list; some show the categories in a sidebar, while older Smart-STB can remain stuck at `PLAYLIST / ALL / BY NUMBER`. **No GitHub M3U file can replace an IPTV app's Home, TV, or Video Club menu.** A real MAG/Stalker portal requires a separately running backend and cannot be hosted solely by GitHub Raw or GitHub Pages. Do not paste this link into an app's **Stalker Portal** field; select **M3U URL / Playlist URL** instead.
+**IMPORTANT:** The GitHub Raw link is an **M3U playlist**, not the MAG/Stalker portal URL. Compatible IPTV players load the channel list; some show the categories in a sidebar, while older Smart-STB can remain stuck at `PLAYLIST / ALL / BY NUMBER`. **No GitHub M3U file can replace an IPTV app's Home, TV, or Video Club menu.** Our experimental MAG-compatible portal uses a separately running backend on Vercel and cannot be hosted solely by GitHub Raw or GitHub Pages. Do not paste this link into an app's **Stalker Portal** field; select **M3U URL / Playlist URL** instead.
 
 ## Choose a smaller IPTV list when an older app has no category menu
 
@@ -47,6 +61,6 @@ The Movies category contains **live television stations showing films**, not ful
 - Add only explicitly authorized streams in [custom/authorized.m3u](custom/authorized.m3u). Remove bad feeds in [custom/exclude.txt](custom/exclude.txt).
 - Public source catalogue: [IPTV-org](https://github.com/iptv-org/iptv). This project indexes third-party links; it does not host or transmit the broadcasters' media.
 
-**Old experiments:** `web/` and `mag/` contain earlier experimental interface/backend work. **Neither is required for this GitHub-only M3U playlist**, and the experimental MAG backend cannot be served by GitHub itself. This project’s supported distribution method is the M3U URLs above.
+**Project structure:** `mag/` is the deployed custom MAG/Stalker-style TV portal and API; `playlists/` contains M3U links for other IPTV players; `tools/` runs playlist validation and updates; `web/` is an older prototype not needed to use the MAG portal.
 
 MIT-licensed generator code. SNWD name/logo are the property of their owner.
