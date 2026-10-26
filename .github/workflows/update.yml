@@ -35,10 +35,29 @@ jobs:
         run: python tools/smartstb_filter.py
       - name: Publish refreshed playlists
         run: |
+          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add playlists/
-          if ! git diff --cached --quiet; then
+
+          # Save generated playlists outside the checkout. Never overwrite
+          # the manually-maintained diagnostic samples on rebase/retry.
+          mkdir -p /tmp/tamil-world-iptv-playlists
+          rsync -a --exclude='diagnostic.m3u' playlists/ /tmp/tamil-world-iptv-playlists/
+
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            rsync -a --exclude='diagnostic.m3u' /tmp/tamil-world-iptv-playlists/ playlists/
+            git add playlists/
+            if git diff --cached --quiet; then
+              echo "No playlist changes"
+              exit 0
+            fi
             git commit -m 'chore: update public IPTV playlists'
-            git push
-          fi
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Remote branch moved; retrying on top of latest main..."
+          done
+          echo "Could not publish playlist updates after 3 attempts" >&2
+          exit 1
