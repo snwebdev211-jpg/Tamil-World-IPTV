@@ -357,6 +357,8 @@ function testPlayback(){
 }
 window.testPlayback=testPlayback;
 function startSelectedStream(){
+ isTestVideo=false;
+ if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
  var source=currentStreams[currentStreamIndex];
  if(!source){videoMessage('No source is available for this channel.',true);return;}
  videoMessage('Connecting to source '+(currentStreamIndex+1)+' of '+currentStreams.length+'…',false);
@@ -367,7 +369,7 @@ function startSelectedStream(){
     if(typeof window.stb.SetVideoControlState==='function')window.stb.SetVideoControlState(1);
     window.stb.Play('ffmpeg '+source);
     video.style.display='none';
-    elem('playerStatus').innerHTML='Native MAG player · Source '+(currentStreamIndex+1)+' of '+currentStreams.length;
+    elem('playerStatus').innerHTML='Sent to MAG player · Source '+(currentStreamIndex+1)+' of '+currentStreams.length+' (video not yet verified)';
     return;
    }catch(nativeError){video.style.display='block';}
   }
@@ -377,6 +379,15 @@ function startSelectedStream(){
   if(promise&&promise['catch'])promise['catch'](function(){
    videoMessage('Playback blocked or unsupported. Press Retry to try another source.',true);
   });
+  playbackTimer=setTimeout(function(){
+    if(elem('videoPanel').style.display!=='block'||video.readyState>=2)return;
+    if(currentStreamIndex+1<currentStreams.length){
+      currentStreamIndex++;
+      startSelectedStream();
+    }else{
+      videoMessage('No playable video received. Try a different channel or check your TV decoder.',true);
+    }
+  },16000);
  }catch(e){videoMessage('This device cannot play the selected stream.',true);}
 }
 function play(id){
@@ -393,7 +404,13 @@ function play(id){
   startSelectedStream();
  });
 }
+function testPlayback(){
+ playing=null;currentStreams=[];currentStreamIndex=0;
+ playUrl('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8','HLS DIAGNOSTIC · TEST VIDEO',true);
+}
+window.testPlayback=testPlayback;
 function closeVideo(){
+ if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
  try{if(window.stb&&typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}
  video.pause();video.removeAttribute('src');video.load();video.style.display='block';
  elem('videoPanel').style.display='none';elem('message').style.display='none';
@@ -402,6 +419,7 @@ function closeVideo(){
 }
 window.closeVideo=closeVideo;
 function retryStream(){
+ if(isTestVideo){testPlayback();return;}
  if(!playing)return;
  if(currentStreams.length>1){
   currentStreamIndex=(currentStreamIndex+1)%currentStreams.length;
@@ -471,7 +489,8 @@ document.onkeydown=function(ev){
  if(win)win.focus();return false;
 };
 video.onerror=function(){
- if(currentStreamIndex+1<currentStreams.length){
+ if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
+ if(!isTestVideo&&currentStreamIndex+1<currentStreams.length){
   currentStreamIndex++;
   startSelectedStream();
  } else {
