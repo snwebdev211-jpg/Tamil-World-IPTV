@@ -104,3 +104,41 @@ test('MAG Home stays interactive and shows reconnect action when server fails',a
   assert.match(d.querySelector('#mag-info').textContent,/3 streams/,'Retry updates directory status');
  }finally{dom.window.close();}
 });
+
+test('HLS in an MSE-capable browser uses a media engine rather than assigning a raw m3u8 to video.src',async()=>{
+ let engine=null;
+ const dom=new JSDOM(html,{url:'https://santhos-iptv.vercel.app/stalker_portal/c/index.html',runScripts:'dangerously',pretendToBeVisual:true,beforeParse:w=>{
+  mockWindow(w);w.MediaSource=function(){};
+  function Hls(){
+   engine=this;this.handlers={};
+   this.on=(name,callback)=>{this.handlers[name]=callback;};
+   this.attachMedia=media=>{this.media=media;this.handlers['attached']();};
+   this.loadSource=url=>{this.loaded=url;};
+   this.destroy=()=>{this.destroyed=true;};
+  }
+  Hls.Events={MEDIA_ATTACHED:'attached',MANIFEST_PARSED:'parsed',ERROR:'error'};
+  Hls.isSupported=()=>true;w.Hls=Hls;
+ }});
+ try{
+  const w=dom.window,d=w.document;await pause(30);
+  w.go('tv');w.chooseMagChannel(0);
+  assert.ok(engine,'HLS engine is created');
+  assert.equal(engine.loaded,'https://media.example.org/tamil.m3u8');
+  assert.equal(engine.media,d.getElementById('video'));
+  assert.equal(d.getElementById('video').getAttribute('src'),null,'Raw HLS URL was not assigned to the video tag');
+  assert.equal(d.getElementById('videoPanel').style.display,'block');
+ }finally{dom.window.close();}
+});
+test('a rejected HTML video play reports a genuine playback error rather than a fake success',async()=>{
+ const dom=new JSDOM(html,{url:'https://santhos-iptv.vercel.app/stalker_portal/c/index.html',runScripts:'dangerously',pretendToBeVisual:true,beforeParse:w=>{
+  mockWindow(w);w.HTMLMediaElement.prototype.play=()=>Promise.reject(new Error('cannot decode'));
+ }});
+ try{
+  const w=dom.window,d=w.document;await pause(30);
+  w.go('tv');w.chooseMagChannel(0);
+  await pause(30);
+  assert.equal(d.getElementById('message').style.display,'block');
+  assert.match(d.getElementById('message').textContent,/rejected this stream/i);
+  assert.doesNotMatch(d.getElementById('playerStatus').textContent,/Live video playing/);
+ }finally{dom.window.close();}
+});

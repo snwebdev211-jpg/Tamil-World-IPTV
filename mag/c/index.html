@@ -481,75 +481,123 @@ function loadSavedChannels(mode){
 }
 
 window.chooseChannel=chooseChannel;
-var playbackTimer=null, isTestVideo=false;
+var playbackTimer=null, isTestVideo=false, hlsPlayer=null, playEpoch=0;
+var hlsLoading=false,hlsWaiters=[];
 function videoMessage(text,show){
  elem('message').innerHTML=escapeHTML(text);
  elem('message').style.display=show?'block':'none';
  elem('playerStatus').innerHTML=escapeHTML(text);
+}
+function clearPlayerTimer(){
+ if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
+}
+function resetBrowserPlayer(){
+ if(hlsPlayer){try{hlsPlayer.destroy();}catch(_){ }hlsPlayer=null;}
+ try{video.pause();video.removeAttribute('src');video.load();}catch(_){}
+ video.style.display='block';
+}
+function nextOnFailure(epoch,reason){
+ if(epoch!==playEpoch||elem('videoPanel').style.display!=='block')return;
+ clearPlayerTimer();
+ if(!isTestVideo&&currentStreamIndex+1<currentStreams.length){
+  currentStreamIndex++;startSelectedStream();return;
+ }
+ videoMessage(reason||'This stream cannot play on this device. The source, codec or network may be incompatible.',true);
+}
+function ensureHls(done){
+ if(window.Hls){done(!!(window.Hls.isSupported&&window.Hls.isSupported()));return;}
+ hlsWaiters.push(done);
+ if(hlsLoading)return;
+ hlsLoading=true;
+ var finished=false;
+ function complete(ok){
+  if(finished)return;finished=true;hlsLoading=false;
+  var pending=hlsWaiters.slice(0);hlsWaiters=[];
+  for(var i=0;i<pending.length;i++)pending[i](ok);
+ }
+ var script=document.createElement('script');
+ script.src='https://cdn.jsdelivr.net/npm/hls.js@1.6.13/dist/hls.min.js';
+ script.async=true;
+ script.onload=function(){complete(!!(window.Hls&&window.Hls.isSupported&&window.Hls.isSupported()));};
+ script.onerror=function(){complete(false);};
+ (document.head||document.body).appendChild(script);
+ setTimeout(function(){complete(!!(window.Hls&&window.Hls.isSupported&&window.Hls.isSupported()));},7000);
+}
+function startWebStream(source,epoch){
+ video.style.display='block';
+ resetBrowserPlayer();
+ clearPlayerTimer();
+ playbackTimer=setTimeout(function(){
+  if(epoch!==playEpoch||elem('videoPanel').style.display!=='block')return;
+  if(video.readyState<2)nextOnFailure(epoch,'No video received. The stream may be offline, blocked in your region or unsupported by this TV.');
+ },18000);
+ function directPlay(){
+  if(epoch!==playEpoch)return;
+  video.src=source;
+  video.load();
+  try{
+   var p=video.play();
+   if(p&&typeof p['catch']==='function')p['catch'](function(){
+    nextOnFailure(epoch,'The player rejected this stream. Check supported HLS/MP4 formats or try another channel.');
+   });
+  }catch(_){nextOnFailure(epoch,'The TV player could not open this stream.');}
+ }
+ var hls=/\.m3u8(?:[?#]|$)/i.test(source),nativeHls=false;
+ try{nativeHls=!!(video.canPlayType&&video.canPlayType('application/vnd.apple.mpegurl'));}catch(_){}
+ // Native HLS comes first on Samsung/MAG. Hls.js is only for MSE-capable
+ // browsers that lack it; an old Orsay TV without MSE still gets a direct try.
+ if(!hls||nativeHls||!window.MediaSource){directPlay();return;}
+ ensureHls(function(supported){
+  if(epoch!==playEpoch)return;
+  if(!supported){directPlay();return;}
+  try{
+   hlsPlayer=new window.Hls({enableWorker:false,lowLatencyMode:false});
+   hlsPlayer.on(window.Hls.Events.MEDIA_ATTACHED,function(){
+    if(epoch===playEpoch)hlsPlayer.loadSource(source);
+   });
+   hlsPlayer.on(window.Hls.Events.MANIFEST_PARSED,function(){
+    if(epoch!==playEpoch)return;
+    var p=video.play();
+    if(p&&typeof p['catch']==='function')p['catch'](function(){
+     nextOnFailure(epoch,'The browser blocked HLS playback.');
+    });
+   });
+   hlsPlayer.on(window.Hls.Events.ERROR,function(_event,data){
+    if(data&&data.fatal)nextOnFailure(epoch,'HLS playback failed (manifest, network or decoder error).');
+   });
+   hlsPlayer.attachMedia(video);
+  }catch(_){nextOnFailure(epoch,'This browser cannot initialize its HLS decoder.');}
+ });
+}
+function playNative(source){
+ if(!(window.stb&&typeof window.stb.Play==='function'))return false;
+ try{
+  if(typeof window.stb.Stop==='function')window.stb.Stop();
+  if(typeof window.stb.SetVideoControlState==='function')window.stb.SetVideoControlState(1);
+  // MAG 250/254 recognizes the ffmpeg solution for HLS.
+  if(window.stb.Play('ffmpeg '+source)===false)throw Error('Native player refused source');
+  video.style.display='none';
+  videoMessage('Stream sent to MAG player. Video/audio playback must still be confirmed on the TV.',false);
+  return true;
+ }catch(_){video.style.display='block';return false;}
 }
 function playUrl(source,label,isDiagnostic){
  isTestVideo=!!isDiagnostic;
  elem('videoPanel').style.display='block';
  elem('playerTitle').innerHTML=escapeHTML(label);
  videoMessage('Connecting to video…',false);
- if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
- try {
-  // On supported MAG clients, the native player may be required for HLS.
-  if(window.stb && typeof window.stb.Play==='function'){
-   try {
-    if(typeof window.stb.Stop==='function')window.stb.Stop();
-    if(typeof window.stb.SetVideoControlState==='function')window.stb.SetVideoControlState(1);
-    window.stb.Play('ffmpeg '+source);
-    video.style.display='none';
-    videoMessage('Playback sent to MAG native player. If screen is black, this does not confirm video works.',false);
-    return;
-   }catch(nativeError){video.style.display='block';}
-  }
-  video.style.display='block';
-  video.pause();video.src=source;video.load();
-  var promise=video.play();
-  if(promise&&typeof promise['catch']==='function')promise['catch'](function(){
-   videoMessage('Could not start in the built-in player. Try a different channel or player.',true);
-  });
-  playbackTimer=setTimeout(function(){
-   if(elem('videoPanel').style.display==='block' && video.readyState<2)
-    videoMessage('No playable video received. The stream may be unavailable, geo-blocked or incompatible with this TV.',true);
-  },16000);
- }catch(e){videoMessage('This device could not start playback.',true);}
+ playEpoch++;
+ clearPlayerTimer();resetBrowserPlayer();
+ if(!playNative(source))startWebStream(source,playEpoch);
 }
 function startSelectedStream(){
  isTestVideo=false;
- if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
- var source=currentStreams[currentStreamIndex];
- if(!source){videoMessage('No source is available for this channel.',true);return;}
+ playEpoch++;
+ clearPlayerTimer();resetBrowserPlayer();
+ var source=currentStreams[currentStreamIndex],epoch=playEpoch;
+ if(!source){videoMessage('No stream URL was supplied for this channel.',true);return;}
  videoMessage('Connecting to source '+(currentStreamIndex+1)+' of '+currentStreams.length+'…',false);
- try {
-  if(window.stb&&typeof window.stb.Play==='function'){
-   try {
-    if(typeof window.stb.Stop==='function')window.stb.Stop();
-    if(typeof window.stb.SetVideoControlState==='function')window.stb.SetVideoControlState(1);
-    window.stb.Play('ffmpeg '+source);
-    video.style.display='none';
-    elem('playerStatus').innerHTML='Sent to MAG player · Source '+(currentStreamIndex+1)+' of '+currentStreams.length+' (video not yet verified)';
-    return;
-   }catch(nativeError){video.style.display='block';}
-  }
-  video.style.display='block';
-  video.pause();video.src=source;video.load();
-  var promise=video.play();
-  if(promise&&promise['catch'])promise['catch'](function(){
-   videoMessage('Playback blocked or unsupported. Press Retry to try another source.',true);
-  });
-  playbackTimer=setTimeout(function(){
-    if(elem('videoPanel').style.display!=='block'||video.readyState>=2)return;
-    if(currentStreamIndex+1<currentStreams.length){
-      currentStreamIndex++;
-      startSelectedStream();
-    }else{
-      videoMessage('No playable video received. Try a different channel or check your TV decoder.',true);
-    }
-  },16000);
- }catch(e){videoMessage('This device cannot play the selected stream.',true);}
+ if(!playNative(source))startWebStream(source,epoch);
 }
 function play(id){
  req('itv','create_link',{ch_id:id},function(err,r){
@@ -570,10 +618,15 @@ function testPlayback(){
  playUrl('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8','HLS DIAGNOSTIC · TEST VIDEO',true);
 }
 window.testPlayback=testPlayback;
+function testMP4Playback(){
+ playing=null;currentStreams=[];currentStreamIndex=0;
+ playUrl('https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4','MP4 DIAGNOSTIC · TEST VIDEO',true);
+}
+window.testMP4Playback=testMP4Playback;
 function closeVideo(){
- if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
+ ++playEpoch;clearPlayerTimer();
  try{if(window.stb&&typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}
- video.pause();video.removeAttribute('src');video.load();video.style.display='block';
+ resetBrowserPlayer();
  elem('videoPanel').style.display='none';elem('message').style.display='none';
  currentStreams=[];currentStreamIndex=0;isTestVideo=false;
  if(lastChannelFocus&&lastChannelFocus.focus)lastChannelFocus.focus();
@@ -626,7 +679,7 @@ function go(next){
  if(next==='guide')return emptyPage('TV Guide','EPG schedules have not been supplied by the broadcasters. Live channel browsing is available under TV.');
  if(next==='settings'){
   title('Santhos IPTV · Settings','Powered by SNWD');
-  elem('cards').innerHTML='<div class="empty"><b>SANTHOS IPTV · SNWD DIAGNOSTICS</b><p>Test your TV decoder separately from live channels using the sample video below. If that fails too, old TV codec support, TLS/HTTPS or network settings may be responsible.</p><button class="row" onclick="testPlayback()">▶ PLAY SAMPLE HLS VIDEO (NOT A TV CHANNEL)</button><button class="row" onclick="retryPortal()">↻ RECONNECT MAG PORTAL</button><p>If the sample works but live TV does not, broadcaster links or regional restrictions are more likely.</p><p>Original playlist remains on GitHub. Back = previous screen. OK = select. Full on-demand movies and EPG are not yet populated.</p></div>';
+  elem('cards').innerHTML='<div class="empty"><b>SANTHOS IPTV · SNWD DIAGNOSTICS</b><p>Test your TV decoder separately from live channels using the sample video below. If that fails too, old TV codec support, TLS/HTTPS or network settings may be responsible.</p><button class="row" onclick="testMP4Playback()">▶ TEST MP4 VIDEO (CHECK BASIC TV DECODING)</button><button class="row" onclick="testPlayback()">▶ TEST HLS VIDEO (CHECK LIVE-STREAM FORMAT)</button><button class="row" onclick="retryPortal()">↻ RECONNECT MAG PORTAL</button><p>If the sample works but live TV does not, broadcaster links or regional restrictions are more likely.</p><p>Original playlist remains on GitHub. Back = previous screen. OK = select. Full on-demand movies and EPG are not yet populated.</p></div>';
   resetFocus();return;
  }
  if(next==='search'){
@@ -699,13 +752,7 @@ if(document.addEventListener)document.addEventListener('keydown',handleRemote,tr
 window.onkeydown=handleRemote;
 
 video.onerror=function(){
- if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
- if(!isTestVideo&&currentStreamIndex+1<currentStreams.length){
-  currentStreamIndex++;
-  startSelectedStream();
- } else {
-  videoMessage('No working source on this device. This may be a codec, location, or broadcaster restriction. Choose another channel.',true);
- }
+ nextOnFailure(playEpoch,'No playable video from this URL. The stream may be blocked, offline or incompatible with this Samsung TV.');
 };
 video.onplaying=function(){if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}videoMessage(isTestVideo?'Diagnostic video playing':'Live video playing',false);};
 clock();setInterval(clock,60000);

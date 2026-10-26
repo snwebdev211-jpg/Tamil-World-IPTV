@@ -35,3 +35,9 @@ The SNWD logo is the user's brand image. All other code MIT licensed.
 ### Install on original Smart-STB
 
 Use the exact URL above in a portal slot under **System Settings → Portals**. Avoid entering the raw M3U link as a Stalker portal. If your old Smart-STB does not load the portal, test the URL on a phone/browser, then the app's embedded demo portal to isolate app/network/codec restrictions. See [official Smart-STB compatibility instructions](https://www.smart-stb.net/ssps-kb/how-to-make-your-portal-comatible-with-smart-stb-app/). The first diagnostic channel playback test must happen on the actual device.
+
+## Live playback troubleshooting (October 26, 2026)
+
+The TV directory returning channels does not prove the videos play. The custom portal now prefers native MAG HLS when a `stb.Play` API exists; ordinary browsers that have MediaSource but no native HLS use a lazily loaded, pinned hls.js library. Browsers without either decoder make a best-effort native video attempt and report a timeout or decoder error. Alternative URLs are retried on fatal media errors and rejected play promises. This cannot add codecs to an old Samsung Orsay/Smart-STB implementation or repair dead, geo-restricted, referer-protected or unauthorized upstream broadcasts.
+
+In the Settings screen, **MP4 TEST** checks basic browser video playback and **HLS TEST** checks the live-stream format separately. If MP4 works but HLS does not, likely HLS/codec or cross-origin/TLS compatibility; if both work but channels fail, investigate broadcaster sources and regional access. GitHub Actions use simulated player behavior; real Samsung decoding remains unverified. No channel stream is proxied or transcoded by Vercel.
