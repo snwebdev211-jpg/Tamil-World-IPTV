@@ -24,8 +24,18 @@ jobs:
           node --test mag/tests/portal.test.js
       - name: Simulate classic MAG TV menus, Favorites, search and video navigation
         run: |
-          npm install --no-save --no-package-lock jsdom@25.0.1
+          npm install --no-save --no-package-lock jsdom@25.0.1 acorn@8.15.0
           node --test mag/tests/client.test.js
+      - name: Legacy Smart-TV browser syntax check
+        run: |
+          node - <<'JS'
+          const fs=require('fs'),acorn=require('acorn');
+          const html=fs.readFileSync('mag/c/index.html','utf8');
+          const js=html.match(/<script>([\s\S]*?)<\/script>/);
+          if(!js)throw Error('Missing classic portal script');
+          acorn.parse(js[1],{ecmaVersion:5});
+          console.log('PASS: MAG portal inline JavaScript parses as ECMAScript 5');
+          JS
       - name: Check classic MAG menu and rewrite map
         run: |
           python - <<'PY'
