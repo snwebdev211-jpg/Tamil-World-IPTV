@@ -44,6 +44,16 @@ let pending = null;
 const TTL = 10*60*1000;
 const MAX_CHANNELS = 3000;
 function clean(text){return String(text||'').replace(/[\u0000-\u001f]/g,'').slice(0,300);}
+function extinfTitle(meta){
+  // Channel-name separator is the first comma outside quoted M3U attributes.
+  // User-agent values such as "(KHTML, like Gecko)" contain embedded commas.
+  let quoted=false;
+  for(let i=0;i<meta.length;i++){
+    if(meta[i]==='"')quoted=!quoted;
+    else if(meta[i]===','&&!quoted)return meta.slice(i+1);
+  }
+  return '';
+}
 function parseM3U(text){
   if (!/^#EXTM3U/.test(text.replace(/^\uFEFF/,''))) throw Error('Invalid upstream M3U');
   const entries = [], seen = new Set(), usedIds = new Set();
@@ -57,7 +67,7 @@ function parseM3U(text){
     if(!['http:','https:'].includes(u.protocol)||u.username||u.password)continue;
     const a={};
     for(const m of old.matchAll(/([\w-]+)="([^"]*)"/g))a[m[1]]=m[2];
-    const title=clean(old.slice(old.indexOf(',')+1)).replace(/\s*\(\d{3,4}p\)\s*$/,'');
+    const title=clean(extinfTitle(old)).replace(/\s*\(\d{3,4}p\)\s*$/,'');
     const group=clean(a['group-title']||'Other');
     if(!title||seen.has(title+'|'+line))continue;
     seen.add(title+'|'+line);
