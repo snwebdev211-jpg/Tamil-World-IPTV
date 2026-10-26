@@ -34,7 +34,8 @@ function mockWindow(w){
         if(p.get('search'))items=items.filter(x=>x.name.toLowerCase().includes(p.get('search').toLowerCase()));
         data={data:items,total_items:items.length,cur_page:1,max_page_items:50};
       }
-      if(action==='create_link')data={url:list.find(x=>x.id===p.get('ch_id'))?.url||''};
+      if(action==='create_link')data={url:list.find(x=>x.id===p.get('ch_id'))?.url||'',
+        alternatives:p.get('ch_id')==='1'?['https://media.example.org/tamil-backup.m3u8']:[]};
       this.responseText=JSON.stringify({js:data||[]});
       this.readyState=4;if(this.onreadystatechange)this.onreadystatechange();
     }
@@ -73,6 +74,9 @@ test('classic Santhos MAG UI navigates all key screens, bookmarks and player',as
     d.querySelector('.row[data-channel="1"]').click();
     await pause(5);
     assert.equal(d.querySelector('#videoPanel').style.display,'block');
+    assert.match(d.querySelector('#video').src,/\/tamil\.m3u8/,'Primary video source is selected');
+    w.retryStream();
+    assert.match(d.querySelector('#video').src,/tamil-backup\.m3u8/,'Retry switches to second public feed');
     w.closeVideo();
     w.go('recent');
     assert.match(d.querySelector('#main').textContent,/Tamil News One/);
