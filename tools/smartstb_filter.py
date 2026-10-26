@@ -136,7 +136,7 @@ def main():
     counts = {}
     for path in sorted(PLAYLIST_DIR.glob('*.m3u')):
         if path.name in ('all.m3u', 'all-sources.m3u', 'smart-stb.m3u',
-                         'tamil-movies-on-demand.m3u'):
+                         'tamil-movies-on-demand.m3u', 'diagnostic.m3u'):
             continue
         subset = [c for c in parse(path.read_text(encoding='utf-8')) if key(c) in good]
         local_groups = {key(c): c['group'] for c in subset}
