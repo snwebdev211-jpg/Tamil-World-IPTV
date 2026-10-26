@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - 'mag/**'
+      - 'playlists/all.m3u'
+      - 'playlists/status.json'
       - '.github/workflows/mag-qa.yml'
   workflow_dispatch:
 
@@ -90,8 +92,31 @@ jobs:
           assert lst['total_items']>=0
           all_channels=json.loads(get('/portal.php?type=itv&action=get_ordered_list&genre=%2A&p=1'))['js']
           assert len(all_channels['data'])>0
+          assert all_channels['max_page_items']==50
+          if all_channels['total_items']>50:
+              second=json.loads(get('/portal.php?type=itv&action=get_ordered_list&genre=%2A&p=2'))['js']
+              assert second['cur_page']==2
+              assert second['data']
+              assert not {c['id'] for c in second['data']}.intersection(c['id'] for c in all_channels['data'])
           chid=all_channels['data'][0]['id']
           link=json.loads(get('/portal.php?type=itv&action=create_link&ch_id='+urllib.parse.quote(str(chid))))['js']
           assert link['url'].startswith(('https://','http://'))
           print('PASS: live portal page, SNWD logo, categories, paging, live source resolver')
+          PY
+      - name: Check public HLS sample manifest for Samsung playback diagnostics
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import urllib.request
+          page=Path('mag/c/index.html').read_text()
+          sample='https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'
+          assert sample in page,'MAG settings no longer point to the documented sample'
+          assert sample in Path('playlists/diagnostic.m3u').read_text()
+          req=urllib.request.Request(sample,headers={'User-Agent':'Santhos-IPTV-Diagnostic/1.0'})
+          with urllib.request.urlopen(req,timeout=15) as resp:
+              body=resp.read(65536).decode('utf-8','replace')
+              assert resp.status==200
+              assert body.lstrip().startswith('#EXTM3U'), 'Test video did not return an HLS playlist'
+          print('PASS: HLS sample manifest reachable from GitHub runner; Samsung decoder playback NOT tested')
           PY
