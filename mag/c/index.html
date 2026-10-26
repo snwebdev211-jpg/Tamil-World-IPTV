@@ -96,6 +96,23 @@ body.is-home .headline,body.is-home .subhead{display:none}
 @media(max-width:940px){.classic-right{display:none}.classic-main{gap:0}.classic-categories{width:min(400px,70vw)}.classic-tile{height:140px}.classic-tile-name{font-size:15px}.classic-arrow{font-size:40px}}
 @media(max-width:530px){body.is-home #main{padding:12px 8px}.classic-categories{width:min(330px,90vw)}.classic-main{padding-top:0}.classic-tile{height:103px}.classic-carousel{gap:4px}.classic-tile .art svg{width:56%}.classic-tile-name{font-size:10px}.classic-arrow{font-size:28px;padding:2px}.classic-caption{font-size:10px}.classic-home{gap:7px}.classic-category{font-size:13px;padding:8px 11px}.classic-right{display:none}}
 
+/* Samsung 2014 Smart-STB compatibility: avoid flex-only home layout and viewport clipping. */
+body.is-home #main{overflow-y:auto;overflow-x:hidden}
+.classic-home{display:block;min-height:0;text-align:center}
+.classic-main{display:block;text-align:center;padding:0}
+.classic-categories{display:inline-block;vertical-align:top;text-align:left;width:340px;max-width:90%;float:none}
+.classic-right{display:inline-block;vertical-align:top;text-align:left;margin:30px 0 0 25px}
+.classic-carousel{display:block;clear:both;margin:12px auto 0;text-align:center;white-space:nowrap}
+.classic-arrow{display:inline-block;vertical-align:middle;font-size:36px}
+#classic-carousel-cards{display:inline-block!important;width:84%;vertical-align:middle;white-space:nowrap}
+.classic-card-box{display:inline-block;vertical-align:top;width:31%;margin:0 1%;max-width:310px;white-space:normal}
+.classic-tile{display:block;width:100%;height:120px}
+.classic-tile .art{display:block;height:100%;text-align:center}
+.classic-tile .art svg{width:95px;height:105px}
+.classic-bottom-actions{display:block;margin:12px auto}
+.classic-bottom-actions button{display:inline-block;margin:4px}
+.classic-caption{margin:9px auto}
+@media(max-height:800px){.classic-category{padding:5px 12px;margin:3px 0;font-size:15px}.classic-categories{padding:7px 12px}.classic-tile{height:92px}.classic-tile .art svg{height:85px}.classic-home{gap:0}.classic-right{display:none}}
 </style>
 </head>
 <body>
@@ -186,7 +203,7 @@ function homeCardHTML(c){
  return '<div class="classic-card-box"><button class="classic-tile" onclick="go(\''+c.action+'\')" title="'+escapeHTML(c.hint)+'"><span class="art '+c.kind+'">'+classicIcon(c.symbol)+'</span></button><p class="classic-tile-name">'+escapeHTML(c.title)+'</p></div>';
 }
 function changeHomeCarousel(shift){
- homeCarouselPage=(homeCarouselPage+shift+3)%3;
+ homeCarouselPage=(homeCarouselPage+shift+Math.ceil(homeCards.length/3))%Math.ceil(homeCards.length/3);
  renderHomeCarousel();
 }
 window.changeHomeCarousel=changeHomeCarousel;
@@ -223,7 +240,7 @@ function home(){
  '</div>'+
  '<div class="classic-carousel">'+
  '<button class="classic-arrow" onclick="changeHomeCarousel(-1)" aria-label="Previous home tiles">❮</button>'+
- '<div id="classic-carousel-cards" style="flex:1;display:flex;gap:15px;justify-content:center;min-width:0"></div>'+
+ '<div id="classic-carousel-cards"></div>'+
  '<button class="classic-arrow" onclick="changeHomeCarousel(1)" aria-label="Next home tiles">❯</button></div>'+
  '<div class="classic-bottom-actions">'+
  '<button onclick="go(\'tv\')">▶ WATCH TV</button>'+
@@ -460,7 +477,7 @@ function goBack(){if(elem('videoPanel').style.display==='block'){closeVideo();re
 window.goBack=goBack;
 function changePage(n){page=Math.max(1,page+n);loadPage();}
 window.changePage=changePage;
-function resetFocus(){selected=0;setTimeout(function(){var targets=elem('main').getElementsByTagName('button');if(targets.length)targets[0].focus();},70);}
+function resetFocus(){selected=0;setTimeout(function(){var targets=elem('main').getElementsByTagName('button');if(targets.length){targets[0].focus();if(targets[0].scrollIntoView)targets[0].scrollIntoView(false);}},70);}
 function allFocus(){
  var list=document.getElementsByTagName('button'),out=[],i,b,rect,isPlaying=elem('videoPanel').style.display==='block';
  for(i=0;i<list.length;i++){
@@ -469,23 +486,41 @@ function allFocus(){
  }
  return out;
 }
-document.onkeydown=function(ev){
- ev=ev||window.event;var k=ev.keyCode||ev.which,t=ev.target||ev.srcElement;
- if(t&&t.tagName==='INPUT'&&k!==27&&k!==13)return;
- if(k===8||k===27||k===461||k===10009){if(ev.preventDefault)ev.preventDefault();goBack();return false;}
- if(k===13){if(t&&t.click)t.click();return;}
- if(k!==37&&k!==38&&k!==39&&k!==40)return;
+function activateFocused(){
+ var a=document.activeElement;
+ if(!a||a===document.body){var all=allFocus();a=all.length?all[0]:null;}
+ if(a&&typeof a.click==='function'){a.click();return true;}
+ if(a&&document.createEvent){var e=document.createEvent('MouseEvents');e.initEvent('click',true,true);a.dispatchEvent(e);return true;}
+ return false;
+}
+function handleRemote(ev){
+ ev=ev||window.event;
+ var k=ev.keyCode||ev.which,t=ev.target||ev.srcElement;
+ var isInput=t&&t.tagName==='INPUT';
+ if(isInput&&k!==27&&k!==461&&k!==10009&&k!==8&&k!==13)return true;
+ if(k===8||k===27||k===461||k===10009){if(ev.preventDefault)ev.preventDefault();ev.returnValue=false;goBack();return false;}
+ if(k===13||k===29443){if(ev.preventDefault)ev.preventDefault();ev.returnValue=false;if(isInput){searchNow();return false;}activateFocused();return false;}
+ if(k!==37&&k!==38&&k!==39&&k!==40)return true;
  if(ev.preventDefault)ev.preventDefault();
- var all=allFocus(),a=document.activeElement,cur=a.getBoundingClientRect(),cx=cur.left+cur.width/2,cy=cur.top+cur.height/2,i,b,r,dx,dy,primary,secondary,score,best=1e20,win=null;
- for(i=0;i<all.length;i++){b=all[i];if(b===a)continue;
+ ev.returnValue=false;
+ var all=allFocus(),a=document.activeElement,i,b,r,dx,dy,primary,secondary,score,best=1e20,win=null;
+ if(!a||!a.getBoundingClientRect||all.indexOf(a)<0){if(all.length)all[0].focus();return false;}
+ var cur=a.getBoundingClientRect(),cx=cur.left+cur.width/2,cy=cur.top+cur.height/2;
+ for(i=0;i<all.length;i++){
+  b=all[i];if(b===a)continue;
   r=b.getBoundingClientRect();dx=(r.left+r.width/2)-cx;dy=(r.top+r.height/2)-cy;
-  if(k===37&&dx>=-8||k===39&&dx<=8||k===38&&dy>=-8||k===40&&dy<=8)continue;
-  primary=k===37||k===39?Math.abs(dx):Math.abs(dy);
-  secondary=k===37||k===39?Math.abs(dy):Math.abs(dx);
-  score=primary+secondary*3;if(score<best){best=score;win=b;}
+  if((k===37&&dx>=-8)||(k===39&&dx<=8)||(k===38&&dy>=-8)||(k===40&&dy<=8))continue;
+  primary=(k===37||k===39)?Math.abs(dx):Math.abs(dy);
+  secondary=(k===37||k===39)?Math.abs(dy):Math.abs(dx);
+  score=primary+secondary*3;
+  if(score<best){best=score;win=b;}
  }
- if(win)win.focus();return false;
-};
+ if(win){win.focus();if(win.scrollIntoView)win.scrollIntoView(false);}
+ return false;
+}
+document.onkeydown=handleRemote;
+document.addEventListener('keydown',function(ev){if(ev.__snwdHandled)return;ev.__snwdHandled=true;handleRemote(ev);},true);
+
 video.onerror=function(){
  if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
  if(!isTestVideo&&currentStreamIndex+1<currentStreams.length){
