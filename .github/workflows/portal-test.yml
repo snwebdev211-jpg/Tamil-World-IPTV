@@ -3,10 +3,12 @@ on:
   push:
     paths:
       - 'web/**'
+      - 'tests/portal-ui.cjs'
       - '.github/workflows/portal-test.yml'
   pull_request:
     paths:
       - 'web/**'
+      - 'tests/portal-ui.cjs'
       - '.github/workflows/portal-test.yml'
 
 permissions:
@@ -24,6 +26,10 @@ jobs:
         run: |
           node --check web/app.js
           node --check web/sw.js
+      - name: Test full web portal navigation
+        run: |
+          npm install --no-save --no-package-lock jsdom@25.0.1
+          node tests/portal-ui.cjs
       - name: Check site structure and official logo
         run: |
           python - <<'PY'
