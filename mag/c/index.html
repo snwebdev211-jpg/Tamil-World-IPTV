@@ -250,7 +250,7 @@ function categoryScreen(target){
   if(target==='sports' && c.title.toLowerCase().indexOf('sport')<0)continue;
   if(target==='news' && c.title.toLowerCase().indexOf('news')<0)continue;
   if(target==='music' && c.title.toLowerCase().indexOf('music')<0)continue;
-  if(target==='kids' && c.title.toLowerCase().indexOf('kids')<0)continue;
+  if(target==='kids' && c.title.toLowerCase().indexOf('kids')<0 && c.title.toLowerCase().indexOf('family')<0)continue;
   if(c.id!=='*')filtered.push(c);
  }
  var h='',count=0;
