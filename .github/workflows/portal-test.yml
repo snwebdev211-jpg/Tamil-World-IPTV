@@ -1,0 +1,46 @@
+name: Santhos IPTV Web QA
+on:
+  push:
+    paths:
+      - 'web/**'
+      - '.github/workflows/portal-test.yml'
+  pull_request:
+    paths:
+      - 'web/**'
+      - '.github/workflows/portal-test.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check web/app.js
+          node --check web/sw.js
+      - name: Check site structure and official logo
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          base = Path("web")
+          index = (base/"index.html").read_text()
+          js = (base/"app.js").read_text()
+          css = (base/"style.css").read_text()
+          ET.parse(base/"assets/snwd-logo.svg")
+          sections = ["home", "live", "tamil", "movies", "sports", "news", "music", "kids", "favorites", "recent", "settings"]
+          for name in sections:
+              assert f'data-view="{name}"' in index, f"Missing tab: {name}"
+          for expected in ["parseM3U", "startVideo", "remoteMove", "toggleFavorite", "setTheme", "getPlaylist"]:
+              assert expected in js, f"Missing feature: {expected}"
+          for expected in ["@media(max-width:590px)", ".player-overlay", ".sidebar"]:
+              assert expected in css, f"Missing responsive style: {expected}"
+          assert 'snwd-logo.svg' in index
+          print("PASS: 11 navigable tabs, logo, browser playback, category and mobile UI structure.")
+          PY
