@@ -1,0 +1,41 @@
+name: MAG TV Browser QA
+on:
+  push:
+    paths:
+      - 'mag/c/**'
+      - 'mag/tests/browser.cjs'
+      - '.github/workflows/mag-browser-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser test runner
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Start local static MAG portal
+        run: |
+          python -m http.server 8765 --directory mag >/tmp/santhos-mag-http.log 2>&1 &
+          sleep 2
+          curl -f http://127.0.0.1:8765/c/index.html -o /dev/null
+      - name: Test 1280x720 classic-TV layout and remote controls
+        env:
+          MAG_TEST_URL: http://127.0.0.1:8765/c/index.html
+        run: node mag/tests/browser.cjs
+      - name: Attach screenshots for manual visual verification
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: santhos-mag-tv-browser
+          path: mag/browser-shots/
+          if-no-files-found: ignore
