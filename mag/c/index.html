@@ -638,38 +638,42 @@ function activateFocused(){
 }
 function handleRemote(ev){
  ev=ev||window.event;
+ if(ev._magHandled)return false;
  var k=ev.keyCode||ev.which,t=ev.target||ev.srcElement;
- /* Samsung Orsay (2012-2014) uses legacy TVKeyValue codes, not DOM arrow codes.
-    Smart-STB may forward these when its embedded portal receives remote events. */
- if(k===29460)k=38;       /* KEY_UP */
- else if(k===29461)k=40;  /* KEY_DOWN */
- else if(k===4)k=37;      /* KEY_LEFT */
- else if(k===5)k=39;      /* KEY_RIGHT */
- else if(k===29443)k=13;  /* KEY_ENTER */
- else if(k===88)k=461;   /* KEY_RETURN */
+ if(k===29460)k=38;else if(k===29461)k=40;
+ else if(k===4)k=37;else if(k===5)k=39;
+ else if(k===29443)k=13;else if(k===88)k=461;
  var isInput=t&&t.tagName==='INPUT';
- if(isInput&&k!==27&&k!==461&&k!==10009&&k!==8&&k!==13)return true;
- if(k===8||k===27||k===461||k===10009){if(ev.preventDefault)ev.preventDefault();ev.returnValue=false;goBack();return false;}
- if(k===13||k===29443){if(ev.preventDefault)ev.preventDefault();ev.returnValue=false;if(isInput){searchNow();return false;}activateFocused();return false;}
- if(k!==37&&k!==38&&k!==39&&k!==40)return true;
- if(ev.preventDefault)ev.preventDefault();
- ev.returnValue=false;
- var all=allFocus(),a=document.activeElement,i,b,r,dx,dy,primary,secondary,score,best=1e20,win=null;
- if(!a||!a.getBoundingClientRect||all.indexOf(a)<0){if(all.length)all[0].focus();return false;}
- var cur=a.getBoundingClientRect(),cx=cur.left+cur.width/2,cy=cur.top+cur.height/2;
- for(i=0;i<all.length;i++){
-  b=all[i];if(b===a)continue;
-  r=b.getBoundingClientRect();dx=(r.left+r.width/2)-cx;dy=(r.top+r.height/2)-cy;
-  if((k===37&&dx>=-8)||(k===39&&dx<=8)||(k===38&&dy>=-8)||(k===40&&dy<=8))continue;
-  primary=(k===37||k===39)?Math.abs(dx):Math.abs(dy);
-  secondary=(k===37||k===39)?Math.abs(dy):Math.abs(dx);
-  score=primary+secondary*3;
-  if(score<best){best=score;win=b;}
+ if(isInput&&k!==27&&k!==461&&k!==10009&&k!==13&&k!==8)return true;
+ if(k!==37&&k!==38&&k!==39&&k!==40&&k!==13&&k!==8&&k!==27&&k!==461&&k!==10009)return true;
+ try{ev._magHandled=true;}catch(_){}
+ if(ev.preventDefault)ev.preventDefault();ev.returnValue=false;
+ if(k===8||k===27||k===461||k===10009){goBack();return false;}
+ if(elem('videoPanel').style.display==='block'){if(k===13)closeVideo();return false;}
+ if(nav==='home'){
+  if(k===38)selectHomeCat((homeCatIndex+homeChoices.length-1)%homeChoices.length,false);
+  if(k===40)selectHomeCat((homeCatIndex+1)%homeChoices.length,false);
+  if(k===37)changeHomeCarousel(-1);
+  if(k===39)changeHomeCarousel(1);
+  if(k===13)go(homeCarouselPage===1?homeChoices[homeCatIndex].action:homeCards[homeCarouselPage].action);
+  return false;
  }
- if(win){win.focus();}
+ if(nav==='tv'||nav==='tamil'||nav==='entertainment'||nav==='culture'||nav==='movies'||nav==='sports'||nav==='news'||nav==='music'||nav==='kids'){
+  if(k===13){if(magPane===0)chooseMagGroup(magGroupIndex);else chooseMagChannel(magRowIndex);}
+  else if(k===37||k===39||k===38||k===40)navigateMag(k);
+  return false;
+ }
+ if(k===13){if(isInput){if(nav==='search')searchNow();else if(nav==='mediabrowser')playMediaURL();}else activateFocused();return false;}
+ if(k===37||k===38||k===39||k===40){
+  var all=allFocus(),a=document.activeElement,i=all.indexOf(a),shift=(k===37||k===38)?-1:1;
+  if(!all.length)return false;
+  i=(i+shift+all.length)%all.length;all[i].focus();
+  return false;
+ }
  return false;
 }
-document.addEventListener('keydown',handleRemote,true);
+if(document.addEventListener)document.addEventListener('keydown',handleRemote,true);
+window.onkeydown=handleRemote;
 
 video.onerror=function(){
  if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
