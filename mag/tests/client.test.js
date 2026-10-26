@@ -48,7 +48,17 @@ test('classic Santhos MAG UI navigates all key screens, bookmarks and player',as
   const w=dom.window,d=w.document;
   try {
     await pause(130);
-    assert.match(d.querySelector('#main').textContent,/Welcome to Santhos IPTV/);
+    assert.match(d.querySelector('#main').textContent,/SANTHOS IPTV/);
+    assert.ok(d.querySelector('.classic-home'),'Classic MAG home is visible');
+    assert.ok(d.querySelector('.classic-categories'),'TV categories panel is visible');
+    assert.equal(d.querySelectorAll('.classic-card-box').length,3,'Three home carousel tiles');
+    assert.match(d.querySelector('#classic-carousel-cards').textContent,/VIDEO CLUB/);
+    w.changeHomeCarousel(1);
+    assert.match(d.querySelector('#classic-carousel-cards').textContent,/TAMIL TV/);
+    w.changeHomeCarousel(-1);
+    d.querySelector('.classic-tile[title="Live television"]').click();
+    assert.match(d.querySelector('#main').textContent,/Live Television/,'TV tile opens categories');
+    w.go('home');
     assert.match(d.querySelector('#main').textContent,/3 channels indexed/);
     w.go('tamil');
     assert.match(d.querySelector('#main').textContent,/Tamil News/);
