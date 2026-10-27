@@ -566,18 +566,22 @@ function placeVideoInPreview(){
  slot.appendChild(video);video.controls=false;video.autoplay=true;
  video.muted=false;video.style.width='100%';video.style.height='100%';
  var hint=elem('magPreviewPlaceholder');if(hint)hint.style.display='none';
- previewMode=true;return true;
+ previewMode=true;
+ positionNativeVideo(false);
+ return true;
 }
 function goFullScreen(){
  var panel=elem('videoPanel');
  panel.insertBefore(video,elem('playerBottom'));
- video.controls=true;panel.style.display='block';
+ video.controls=true;video.style.height='calc(100% - 112px)';
+ panel.style.display='block';
+ positionNativeVideo(true);
 }
 window.goFullScreen=goFullScreen;
 function stopMagPlayback(){
  if(previewChangeTimer){clearTimeout(previewChangeTimer);previewChangeTimer=null;}
  ++requestedChannelEpoch;++playEpoch;clearPlayerTimer();
- try{if(window.stb&&typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}
+ stopNativePlayer();
  resetBrowserPlayer();
  if(video.parentNode!==elem('videoPanel'))elem('videoPanel').insertBefore(video,elem('playerBottom'));
  elem('videoPanel').style.display='none';
@@ -664,15 +668,43 @@ function startWebStream(source,epoch){
   }catch(_){nextOnFailure(epoch,'This browser cannot initialize its HLS decoder.');}
  });
 }
-function playNative(source){
- if(!(window.stb&&typeof window.stb.Play==='function'))return false;
+function nativePlayer(){
+ if(window.stb&&typeof window.stb.Play==='function')return window.stb;
+ if(window.gSTB&&typeof window.gSTB.Play==='function')return window.gSTB;
+ return null;
+}
+function stopNativePlayer(){
+ var player=nativePlayer();
+ try{if(player&&typeof player.Stop==='function')player.Stop();}catch(_){}
+}
+function positionNativeVideo(full){
+ var engine=window.gSTB&&typeof window.gSTB.SetPIG==='function'?window.gSTB:nativePlayer();
+ if(!engine||typeof engine.SetPIG!=='function')return false;
  try{
-  if(typeof window.stb.Stop==='function')window.stb.Stop();
-  if(typeof window.stb.SetVideoControlState==='function')window.stb.SetVideoControlState(1);
-  // MAG 250/254 recognizes the ffmpeg solution for HLS.
-  if(window.stb.Play('ffmpeg '+source)===false)throw Error('Native player refused source');
+  if(full)engine.SetPIG(1,256,0,0);
+  else{
+   var slot=elem('magPreviewVideo'),r=slot&&slot.getBoundingClientRect();
+   if(!r||!r.width||!r.height)return false;
+   var w=window.innerWidth||1280,h=window.innerHeight||720;
+   var factor=Math.max(1,Math.min(256,Math.floor(Math.min(r.width/w,r.height/h)*256)));
+   engine.SetPIG(0,factor,Math.round(r.left),Math.round(r.top));
+  }
+  return true;
+ }catch(_){return false;}
+}
+function playNative(source){
+ var player=nativePlayer();if(!player)return false;
+ try{
+  stopNativePlayer();
+  if(typeof player.SetVideoControlState==='function')player.SetVideoControlState(1);
+  // Use the native MAG HLS decoder if the client exposes it.
+  if(player.Play('ffmpeg '+source)===false)throw Error('Native player refused source');
+  var docked=previewMode&&elem('videoPanel').style.display!=='block';
+  var positioned=positionNativeVideo(!docked);
   video.style.display='none';
-  videoMessage('Stream sent to MAG player. Video/audio playback must still be confirmed on the TV.',false);
+  videoMessage(docked&&!positioned?
+   'Native TV decoder requested. This client may support full-screen video only; press RED / VIEW.':
+   'Native decoder started. Confirm picture and sound on the physical TV.',false);
   return true;
  }catch(_){video.style.display='block';return false;}
 }
@@ -731,7 +763,7 @@ function closeVideo(){
   placeVideoInPreview();return;
  }
  ++playEpoch;clearPlayerTimer();
- try{if(window.stb&&typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}
+ stopNativePlayer();
  resetBrowserPlayer();
  elem('videoPanel').style.display='none';elem('message').style.display='none';
  currentStreams=[];currentStreamIndex=0;isTestVideo=false;
