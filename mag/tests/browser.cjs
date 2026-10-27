@@ -89,6 +89,11 @@ async function main(){
   await page.locator('#magPreviewVideo #video').waitFor({state:'attached'});
   await sendOrsay(page,88); // RETURN -> Home
   await page.locator('.classic-home').waitFor({state:'visible'});
+  await page.evaluate(()=>go('tamil'));
+  await page.locator('.mag-group[data-group="__tamil__"]').waitFor({state:'visible'});
+  await page.locator('#magList .mag-entry').first().waitFor({state:'visible'});
+  assert.match(await page.locator('#status').innerText(),/Sun TV \/ KTV/);
+  await sendOrsay(page,88);
   await page.locator('.classic-tile[data-module="0"]').click();
   await page.locator('#mediaUrl').waitFor({state:'visible'});
   await sendOrsay(page,88);
