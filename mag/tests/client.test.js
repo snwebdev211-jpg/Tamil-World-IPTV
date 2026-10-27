@@ -155,3 +155,31 @@ test('a rejected HTML video play reports a genuine playback error rather than a 
   assert.doesNotMatch(d.getElementById('playerStatus').textContent,/Live video playing/);
  }finally{dom.window.close();}
 });
+
+
+test('native gSTB decoder path can request live playback and optional picture-in-guide positioning',async()=>{
+ const calls=[];
+ const dom=new JSDOM(html,{url:'https://santhos-iptv.vercel.app/stalker_portal/c/index.html',runScripts:'dangerously',pretendToBeVisual:true,beforeParse:w=>{
+  mockWindow(w);
+  w.gSTB={
+   Stop:()=>calls.push(['stop']),
+   Play:source=>{calls.push(['play',source]);return true;},
+   SetPIG:(...args)=>calls.push(['pig',...args])
+  };
+ }});
+ try{
+  const w=dom.window,d=w.document;await pause(30);
+  w.go('tv');
+  d.getElementById('magPreviewVideo').getBoundingClientRect=()=>({left:630,top:110,width:500,height:260});
+  w.chooseMagChannel(0);
+  assert.ok(calls.some(x=>x[0]==='play'&&x[1]==='ffmpeg https://media.example.org/tamil.m3u8'),
+   'Browser uses supported native MAG player rather than assigning an unsupported URL');
+  assert.ok(calls.some(x=>x[0]==='pig'&&x[1]===0),
+   'Optional native PIG API is given a bounded preview rectangle');
+  w.goFullScreen();
+  assert.ok(calls.some(x=>x[0]==='pig'&&x[1]===1),
+   'Native TV decoder can be returned to fullscreen');
+  w.go('home');
+  assert.ok(calls.some(x=>x[0]==='stop'),'Leaving TV stops native playback');
+ }finally{dom.window.close();}
+});
