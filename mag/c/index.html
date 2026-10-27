@@ -328,7 +328,7 @@ function home(){
  '<div class="classic-home">'+
   '<div class="classic-main"><div id="magCategories" class="classic-categories"></div>'+
   '<div class="classic-right"><div class="right-seal">SNWD</div><strong>SANTHOS IPTV</strong>'+
-  '<p>YOUR WORLD ON SCREEN</p><p id="mag-info">Connecting to your channel directory…</p></div></div>'+
+  '<p>YOUR WORLD ON SCREEN</p><button id="streamTestShortcut" class="classic-reconnect" onclick="go(&quot;settings&quot;)">STREAM TEST / SETTINGS · PRESS 0</button><p id="mag-info">Connecting to your channel directory…</p></div></div>'+
   '<div class="classic-carousel"><div id="classic-carousel-cards"></div></div>'+
  '</div>';
  renderHomeCategories();
@@ -720,6 +720,11 @@ function handleRemote(ev){
  else if(k===4)k=37;else if(k===5)k=39;
  else if(k===29443)k=13;else if(k===88)k=461;
  var isInput=t&&t.tagName==='INPUT';
+ // On MAG Home, numeric 0 or BLUE opens the MP4/HLS stream diagnostics.
+ if(nav==='home'&&(k===48||k===96||k===406||k===66)){
+  if(ev.preventDefault)ev.preventDefault();ev.returnValue=false;
+  go('settings');return false;
+ }
  if(isInput&&k!==27&&k!==461&&k!==10009&&k!==13&&k!==8)return true;
  if(k!==37&&k!==38&&k!==39&&k!==40&&k!==13&&k!==8&&k!==27&&k!==461&&k!==10009)return true;
  try{ev._magHandled=true;}catch(_){}

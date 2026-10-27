@@ -84,6 +84,12 @@ test('Santhos screenshot-based MAG Home, TV and Orsay remote navigation',async()
   d.querySelector('.classic-tile[data-module="2"]').click();
   assert.match(d.querySelector('#vodContent').textContent,/No on-demand titles are configured/,'No fake VOD movies');
   w.go('home');
+  assert.ok(d.querySelector('#streamTestShortcut'),'Visible stream test shortcut');
+  orsay(w,48);
+  assert.match(d.querySelector('#cards').textContent,/TEST MP4 VIDEO.*TEST HLS VIDEO/,
+   '0 key opens both video diagnostics');
+  orsay(w,88);
+  assert.ok(d.querySelector('.classic-home'),'Return goes Home');
   assert.equal(errors.length,0,'No client errors: '+errors.join('; '));
  }finally{dom.window.close();}
 });
