@@ -383,6 +383,7 @@ function categoryScreen(target){
  document.body.className='is-tv';
  magTarget=target;magFilteredGroups=matchingGroups(target);
  if(target==='tv')magFilteredGroups.unshift({id:'*',title:'ALL CHANNELS'});
+ if(target==='tamil')magFilteredGroups.unshift({id:'__tamil__',title:'ALL TAMIL'});
  magGroupIndex=0;magRowIndex=0;magPane=0;page=1;genre=magFilteredGroups.length?magFilteredGroups[0].id:'__none__';searchTerm='';
  drawMagBrowser();loadMagChannels();
 }
@@ -486,7 +487,11 @@ function loadMagChannels(){
   if(epoch!==contentEpoch)return;
   if(err||!response||response.error){magPageItems=[];message(err||(response&&response.error)||'Cannot load channels');renderMagEntries();return;}
   magPageItems=response.data||[];magPages=Math.max(1,Math.ceil((Number(response.total_items)||0)/50));
-  magRowIndex=0;renderMagEntries();selectedChannelInfo();message((Number(response.total_items)||0)+' channels · page '+page+'/'+magPages+' · LEFT/RIGHT: category/channel · OK: preview · RED: view');
+  magRowIndex=0;renderMagEntries();selectedChannelInfo();
+  var count=(Number(response.total_items)||0);
+  message(count+' channels · page '+page+'/'+magPages+
+   (magTarget==='tamil'?' · Sun TV / KTV / Sun Music are not in this public catalogue.':'')+
+   ' · LEFT/RIGHT: category/channel · OK: preview · RED: view');
  });
 }
 function navigateMag(dir){
@@ -675,7 +680,13 @@ function startWebStream(source,epoch){
  clearPlayerTimer();
  playbackTimer=setTimeout(function(){
   if(epoch!==playEpoch||!isVideoVisible())return;
-  if(video.readyState<2)nextOnFailure(epoch,'No video received. The stream may be offline, blocked in your region or unsupported by this TV.');
+  if(video.readyState<2){
+   var nativeHls='',isHls=/\.m3u8(?:[?#]|$)/i.test(source);
+   try{nativeHls=video.canPlayType('application/vnd.apple.mpegurl')||'';}catch(_){}
+   nextOnFailure(epoch,isHls&&!nativePlayer()&&!window.MediaSource&&!nativeHls?
+    'LEGACY TV HLS LIMITATION: This TV does not report a compatible HLS browser decoder. Try the Tamil M3U directly in Smart-STB native playlist mode. Not all source links or codecs will play.':
+    'No video received. The broadcaster stream might be unavailable, blocked in your region, or unsupported by this TV. Try the separate MP4/HLS tests.');
+  }
  },18000);
  function directPlay(){
   if(epoch!==playEpoch)return;
@@ -878,7 +889,7 @@ function go(next){
  if(next==='guide')return emptyPage('TV Guide','EPG schedules have not been supplied by the broadcasters. Live channel browsing is available under TV.');
  if(next==='settings'){
   title('Santhos IPTV · Settings','Powered by SNWD');
-  elem('cards').innerHTML='<div class="empty"><b>SANTHOS IPTV · SNWD DIAGNOSTICS</b><p>Test your TV decoder separately from live channels using the sample video below. If that fails too, old TV codec support, TLS/HTTPS or network settings may be responsible.</p><div id="decoderStatus">Checking decoder capabilities…</div><button class="row" onclick="showDecoderStatus()">CHECK TV PLAYER CAPABILITIES</button><button class="row" onclick="testMP4Playback()">▶ TEST MP4 VIDEO (CHECK BASIC TV DECODING)</button><button class="row" onclick="testPlayback()">▶ TEST HLS VIDEO (CHECK LIVE-STREAM FORMAT)</button><button class="row" onclick="retryPortal()">↻ RECONNECT MAG PORTAL</button><p>If the sample works but live TV does not, broadcaster links or regional restrictions are more likely.</p><p><b>NO SOUND ON SMART-STB?</b> In the Smart-STB app, if available, open Settings → Advanced Settings → Alternative Audio Decoder → Enabled, then reboot the app. This cannot correct an unsupported video codec or dead link.</p><p>Original playlist remains on GitHub. Back = previous screen. OK = select. Full on-demand movies and EPG are not yet populated.</p></div>';
+  elem('cards').innerHTML='<div class="empty"><b>SANTHOS IPTV · SNWD DIAGNOSTICS</b><p>Test your TV decoder separately from live channels using the sample video below. If that fails too, old TV codec support, TLS/HTTPS or network settings may be responsible.</p><div id="decoderStatus">Checking decoder capabilities…</div><button class="row" onclick="showDecoderStatus()">CHECK TV PLAYER CAPABILITIES</button><button class="row" onclick="testMP4Playback()">▶ TEST MP4 VIDEO (CHECK BASIC TV DECODING)</button><button class="row" onclick="testPlayback()">▶ TEST HLS VIDEO (CHECK LIVE-STREAM FORMAT)</button><button class="row" onclick="retryPortal()">↻ RECONNECT MAG PORTAL</button><p>If the sample works but live TV does not, broadcaster links or regional restrictions are more likely.</p><p><b>TEST THE SMART-STB NATIVE M3U PLAYER:</b> Configure a separate Portal slot with <code>https://raw.githubusercontent.com/snwebdev211-jpg/Tamil-World-IPTV/main/playlists/legacy-tamil.m3u</code>. This deliberately uses Smart-STB playlist mode (not the custom MAG Home). It contains 94 segment-checked Tamil entries, NOT 94 confirmed-working channels on this TV. Keep your existing Santhos portal in its original slot.</p><p><b>NO SOUND ON SMART-STB?</b> In the Smart-STB app, if available, open Settings → Advanced Settings → Alternative Audio Decoder → Enabled, then reboot the app. This cannot correct an unsupported video codec or dead link.</p><p>Original playlist remains on GitHub. Back = previous screen. OK = select. Full on-demand movies and EPG are not yet populated.</p></div>';
   showDecoderStatus();resetFocus();return;
  }
  if(next==='search'){
