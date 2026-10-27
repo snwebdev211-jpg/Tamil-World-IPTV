@@ -151,7 +151,7 @@ test('a rejected HTML video play reports a genuine playback error rather than a 
   w.go('tv');w.chooseMagChannel(0);
   await pause(30);
   assert.equal(d.getElementById('message').style.display,'none','Errors stay inside the preview pane');
-  assert.match(d.getElementById('magPreviewStatus').textContent,/rejected this stream/i);
+  assert.match(d.getElementById('magPreviewStatus').textContent,/PLAYBACK REJECTED \(Error\)/i);
   assert.doesNotMatch(d.getElementById('playerStatus').textContent,/Live video playing/);
  }finally{dom.window.close();}
 });
@@ -181,5 +181,43 @@ test('native gSTB decoder path can request live playback and optional picture-in
    'Native TV decoder can be returned to fullscreen');
   w.go('home');
   assert.ok(calls.some(x=>x[0]==='stop'),'Leaving TV stops native playback');
+ }finally{dom.window.close();}
+});
+
+test('a browser autoplay block retries the same stream muted and GREEN can re-enable audio',async()=>{
+ let tries=0;
+ const dom=new JSDOM(html,{url:'https://santhos-iptv.vercel.app/stalker_portal/c/index.html',runScripts:'dangerously',pretendToBeVisual:true,beforeParse:w=>{
+  mockWindow(w);
+  w.HTMLMediaElement.prototype.play=function(){
+   tries++;
+   if(this.muted)return Promise.resolve();
+   return Promise.reject(Object.assign(new Error('user gesture required'),{name:'NotAllowedError'}));
+  };
+ }});
+ try{
+  const w=dom.window,d=dom.window.document;
+  await pause(30);w.go('tv');w.chooseMagChannel(0);await pause(30);
+  const video=d.getElementById('video');
+  assert.equal(tries,2,'First unmuted autoplay is rejected, second is retried muted');
+  assert.equal(video.muted,true,'Muted fallback is explicit and visible');
+  assert.match(d.getElementById('magMuteButton').textContent,/AUDIO OFF/);
+  orsay(w,404);await pause(30);
+  assert.equal(video.muted,false,'Remote GREEN requests audio restoration');
+  assert.ok(tries>=3,'Unmute attempts playback in the remote-key event');
+ }finally{dom.window.close();}
+});
+
+test('unsupported HLS is diagnosed as decoder limitation rather than generic rejection',async()=>{
+ const dom=new JSDOM(html,{url:'https://santhos-iptv.vercel.app/stalker_portal/c/index.html',runScripts:'dangerously',pretendToBeVisual:true,beforeParse:w=>{
+  mockWindow(w);
+  w.HTMLMediaElement.prototype.play=()=>Promise.reject(Object.assign(new Error('video not supported'),{name:'NotSupportedError'}));
+ }});
+ try{
+  const w=dom.window,d=dom.window.document;
+  await pause(30);w.go('tv');w.chooseMagChannel(0);await pause(30);
+  assert.match(d.getElementById('magPreviewStatus').textContent,/UNSUPPORTED HLS/i);
+  w.go('settings');
+  assert.match(d.getElementById('decoderStatus').textContent,/Native MAG player: not exposed/);
+  assert.match(d.getElementById('decoderStatus').textContent,/MSE: not available/);
  }finally{dom.window.close();}
 });
