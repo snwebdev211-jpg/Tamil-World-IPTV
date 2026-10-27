@@ -204,6 +204,29 @@ body.is-home .menu,body:not(.is-home) .menu{display:none!important}
 @media(max-width:920px){.classic-category{font-size:22px!important}.classic-right p{font-size:15px}.classic-tile-name{font-size:24px!important}}
 
 .classic-reconnect{display:block;width:100%;margin-top:14px;border:1px solid #8aaec4;background:#164d79;color:#fff;font:16px Arial;padding:10px}
+
+/* Classic MAG TV: categories, 13-channel directory, live picture and guide. */
+body.is-tv #main{padding:10px 16px!important}
+body.is-tv #cards{height:calc(100% - 67px)}
+body.is-tv .headline{font-size:22px!important;margin-bottom:4px!important}
+body.is-tv #status{margin:0 0 6px;font-size:11px}
+body.is-tv .mag-groups{left:0;width:18%;padding:6px}
+body.is-tv .mag-list{left:18.7%;width:32.3%;padding:6px}
+body.is-tv .mag-entry{height:7%;min-height:27px;margin-bottom:.6%;padding:5px 8px;font-size:14px}
+body.is-tv .mag-group{height:11%;min-height:30px;padding:5px;font-size:14px}
+body.is-tv .mag-entry.mag-selected{background:#ffe16a!important;border-color:#fff096!important;color:#212b3a!important;font-weight:bold}
+.mag-preview{position:absolute;left:51.7%;top:0;width:48.3%;height:100%;border:1px solid #4b7295;background:#05253d;padding:9px;overflow:hidden}
+.mag-preview-screen{height:49%;width:100%;position:relative;background:#000;border:2px solid #427096}
+.mag-preview-screen #video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
+.mag-preview-placeholder{position:absolute;top:42%;left:8px;right:8px;color:#c3d7e6;font-size:17px;text-align:center}
+.mag-preview-title{font-size:18px;color:#fff;margin:8px 0 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mag-preview-status{font-size:12px;min-height:30px;color:#b0ddf1;padding:3px 0}
+.mag-guide-title{font-size:15px;font-weight:bold;color:#fff;border-bottom:1px solid #3c6e92;padding:4px 0}
+.mag-guide-rows{padding:8px 0;color:#dce9f3;font-size:14px;line-height:1.5}
+.mag-guide-rows .live-badge{color:#ffe078;font-weight:bold}
+.mag-preview-actions button{background:#20557d;color:#fff;border:1px solid #9db7ce;padding:6px 8px;margin:2px 4px 3px 0;font-size:13px}
+.mag-preview-actions button:focus,.mag-preview-actions button:hover{border-color:#ffe878;background:#376692}
+@media(max-width:800px){body.is-tv .mag-groups{width:20%}body.is-tv .mag-list{left:20.6%;width:35%}body.is-tv .mag-preview{left:56.2%;width:43.8%}body.is-tv .mag-entry{font-size:12px}.mag-preview-actions button{font-size:11px}.mag-guide-rows{font-size:12px}}
 </style>
 </head>
 <body>
@@ -357,6 +380,7 @@ function matchingGroups(target){
  return out;
 }
 function categoryScreen(target){
+ document.body.className='is-tv';
  magTarget=target;magFilteredGroups=matchingGroups(target);
  if(target==='tv')magFilteredGroups.unshift({id:'*',title:'ALL CHANNELS'});
  magGroupIndex=0;magRowIndex=0;magPane=0;page=1;genre=magFilteredGroups.length?magFilteredGroups[0].id:'__none__';searchTerm='';
@@ -364,7 +388,11 @@ function categoryScreen(target){
 }
 function drawMagBrowser(){
  title('TV','SELECT A CATEGORY AND CHANNEL');
- elem('cards').innerHTML='<div class="mag-browser"><div class="mag-groups" id="magGroups"></div><div class="mag-list" id="magList"></div></div>';
+ elem('cards').innerHTML='<div class="mag-browser"><div class="mag-groups" id="magGroups"></div><div class="mag-list" id="magList"></div>'+
+ '<div class="mag-preview" id="magPreview"><div class="mag-preview-screen" id="magPreviewVideo"><div class="mag-preview-placeholder" id="magPreviewPlaceholder">Select a channel and press OK for live picture and sound.</div></div>'+
+ '<div class="mag-preview-title" id="magPreviewTitle">LIVE TV PREVIEW</div><div class="mag-preview-status" id="magPreviewStatus">No channel playing</div>'+
+ '<div class="mag-guide-title">TV GUIDE · LIVE</div><div class="mag-guide-rows" id="magGuide"><span class="live-badge">LIVE</span> &nbsp; Select a station to see its programme information.<p>Verified programme schedules are not supplied for these public streams.</p></div>'+
+ '<div class="mag-preview-actions"><button onclick="viewSelectedFull()">RED · VIEW</button><button onclick="retryStream()">RETRY</button><button onclick="togglePreviewMute()" id="magMuteButton">AUDIO ON</button><button onclick="magSwitchPage(-1)">◀ PAGE</button><button onclick="magSwitchPage(1)">PAGE ▶</button><button onclick="go(&quot;settings&quot;)">TEST</button></div></div></div>';
  renderMagGroups();renderMagEntries();
 }
 function renderMagGroups(){
@@ -379,10 +407,10 @@ function renderMagGroups(){
 }
 function renderMagEntries(){
  var e=elem('magList');if(!e)return;
- var h='',i,ch,start=Math.max(0,magRowIndex-3);
- if(start>magPageItems.length-7)start=Math.max(0,magPageItems.length-7);
+ var h='',i,ch,start=Math.max(0,magRowIndex-6);
+ if(start>magPageItems.length-13)start=Math.max(0,magPageItems.length-13);
  if(!magPageItems.length)h='<div class="empty">No channels found in this category.</div>';
- for(i=start;i<Math.min(start+7,magPageItems.length);i++){
+ for(i=start;i<Math.min(start+13,magPageItems.length);i++){
   ch=magPageItems[i];
   h+='<button class="mag-entry row'+(magPane===1&&magRowIndex===i?' mag-selected':'')+'" data-channel="'+escapeHTML(ch.id)+'" onclick="chooseMagChannel('+i+')">'+escapeHTML(ch.number+'. '+ch.name)+'</button>';
  }
@@ -395,12 +423,48 @@ function chooseMagGroup(i){
  renderMagGroups();loadMagChannels();
 }
 window.chooseMagGroup=chooseMagGroup;
+var previewChangeTimer=null,previewMode=false,requestedChannelEpoch=0;
+function selectedChannelInfo(){
+ var ch=magPageItems[magRowIndex],label=elem('magPreviewTitle'),guide=elem('magGuide');
+ if(!ch)return;
+ if(label)label.innerHTML=escapeHTML(ch.number+'. '+ch.name);
+ if(guide)guide.innerHTML='<span class="live-badge">LIVE NOW</span> &nbsp; '+escapeHTML(ch.name)+
+  '<p>Programme schedule unavailable. No verified EPG is currently provided for this station.</p>';
+}
 function chooseMagChannel(i){
  if(!magPageItems[i])return;
- magRowIndex=i;magPane=1;renderMagEntries();
- lastChannelFocus=null;play(magPageItems[i].id);
+ magRowIndex=i;magPane=1;renderMagGroups();renderMagEntries();selectedChannelInfo();
+ lastChannelFocus=null;
+ if(previewMode&&String(playing)===String(magPageItems[i].id)){viewSelectedFull();return;}
+ play(magPageItems[i].id);
 }
 window.chooseMagChannel=chooseMagChannel;
+function schedulePreview(){
+ selectedChannelInfo();
+ if(previewChangeTimer){clearTimeout(previewChangeTimer);previewChangeTimer=null;}
+ if(!previewMode||!magPageItems[magRowIndex])return;
+ previewChangeTimer=setTimeout(function(){
+  previewChangeTimer=null;
+  if(elem('magPreviewVideo')&&elem('videoPanel').style.display!=='block')play(magPageItems[magRowIndex].id);
+ },450);
+}
+function viewSelectedFull(){
+ var ch=magPageItems[magRowIndex];
+ if(!ch)return;
+ if(previewMode&&String(playing)===String(ch.id)&&currentStreams.length){goFullScreen();return;}
+ play(ch.id,true);
+}
+window.viewSelectedFull=viewSelectedFull;
+function togglePreviewMute(){
+ video.muted=!video.muted;
+ var btn=elem('magMuteButton');if(btn)btn.innerHTML=video.muted?'AUDIO MUTED':'AUDIO ON';
+}
+window.togglePreviewMute=togglePreviewMute;
+function magSwitchPage(step){
+ if(page+step<1||page+step>magPages)return;
+ page+=step;magRowIndex=0;loadMagChannels();
+}
+window.magSwitchPage=magSwitchPage;
 function loadMagChannels(){
  var epoch=++contentEpoch;
  message('Loading channels…');
@@ -408,13 +472,13 @@ function loadMagChannels(){
   if(epoch!==contentEpoch)return;
   if(err||!response||response.error){magPageItems=[];message(err||(response&&response.error)||'Cannot load channels');renderMagEntries();return;}
   magPageItems=response.data||[];magPages=Math.max(1,Math.ceil((Number(response.total_items)||0)/50));
-  magRowIndex=0;renderMagEntries();message((Number(response.total_items)||0)+' channels · page '+page+'/'+magPages+' · LEFT/RIGHT: category/channel');
+  magRowIndex=0;renderMagEntries();selectedChannelInfo();message((Number(response.total_items)||0)+' channels · page '+page+'/'+magPages+' · LEFT/RIGHT: category/channel · OK: preview · RED: view');
  });
 }
 function navigateMag(dir){
  if(!magFilteredGroups.length)return;
  if(dir===37)magPane=0;
- else if(dir===39)magPane=1;
+ else if(dir===39){if(magPane===0)chooseMagGroup(magGroupIndex);magPane=1;}
  else if(dir===38){
   if(magPane===0)magGroupIndex=(magGroupIndex-1+magFilteredGroups.length)%magFilteredGroups.length;
   else magRowIndex=Math.max(0,magRowIndex-1);
@@ -423,6 +487,7 @@ function navigateMag(dir){
   else magRowIndex=Math.min(Math.max(magPageItems.length-1,0),magRowIndex+1);
  }
  renderMagGroups();renderMagEntries();
+ if(magPane===1)schedulePreview();
 }
 function renderRows(items,total,current){
  var h='<button id="goBack" onclick="goBack()">← Back to categories</button>',i,c,marked;
@@ -485,8 +550,37 @@ var playbackTimer=null, isTestVideo=false, hlsPlayer=null, playEpoch=0;
 var hlsLoading=false,hlsWaiters=[];
 function videoMessage(text,show){
  elem('message').innerHTML=escapeHTML(text);
- elem('message').style.display=show?'block':'none';
+ elem('message').style.display=show&&elem('videoPanel').style.display==='block'?'block':'none';
  elem('playerStatus').innerHTML=escapeHTML(text);
+ var status=elem('magPreviewStatus'),placeholder=elem('magPreviewPlaceholder');
+ if(status)status.innerHTML=escapeHTML(text);
+ if(placeholder){placeholder.style.display=show?'block':'none';if(show)placeholder.innerHTML=escapeHTML(text);}
+}
+function isVideoVisible(){
+ return elem('videoPanel').style.display==='block'||
+  (!!elem('magPreviewVideo')&&video.parentNode===elem('magPreviewVideo'));
+}
+function placeVideoInPreview(){
+ var slot=elem('magPreviewVideo');if(!slot)return false;
+ slot.appendChild(video);video.controls=false;video.autoplay=true;
+ video.muted=false;video.style.width='100%';video.style.height='100%';
+ var hint=elem('magPreviewPlaceholder');if(hint)hint.style.display='none';
+ previewMode=true;return true;
+}
+function goFullScreen(){
+ var panel=elem('videoPanel');
+ panel.insertBefore(video,elem('playerBottom'));
+ video.controls=true;panel.style.display='block';
+}
+window.goFullScreen=goFullScreen;
+function stopMagPlayback(){
+ if(previewChangeTimer){clearTimeout(previewChangeTimer);previewChangeTimer=null;}
+ ++requestedChannelEpoch;++playEpoch;clearPlayerTimer();
+ try{if(window.stb&&typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}
+ resetBrowserPlayer();
+ if(video.parentNode!==elem('videoPanel'))elem('videoPanel').insertBefore(video,elem('playerBottom'));
+ elem('videoPanel').style.display='none';
+ currentStreams=[];currentStreamIndex=0;playing=null;previewMode=false;
 }
 function clearPlayerTimer(){
  if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}
@@ -497,7 +591,7 @@ function resetBrowserPlayer(){
  video.style.display='block';
 }
 function nextOnFailure(epoch,reason){
- if(epoch!==playEpoch||elem('videoPanel').style.display!=='block')return;
+ if(epoch!==playEpoch||!isVideoVisible())return;
  clearPlayerTimer();
  if(!isTestVideo&&currentStreamIndex+1<currentStreams.length){
   currentStreamIndex++;startSelectedStream();return;
@@ -528,7 +622,7 @@ function startWebStream(source,epoch){
  resetBrowserPlayer();
  clearPlayerTimer();
  playbackTimer=setTimeout(function(){
-  if(epoch!==playEpoch||elem('videoPanel').style.display!=='block')return;
+  if(epoch!==playEpoch||!isVideoVisible())return;
   if(video.readyState<2)nextOnFailure(epoch,'No video received. The stream may be offline, blocked in your region or unsupported by this TV.');
  },18000);
  function directPlay(){
@@ -599,17 +693,24 @@ function startSelectedStream(){
  videoMessage('Connecting to source '+(currentStreamIndex+1)+' of '+currentStreams.length+'…',false);
  if(!playNative(source))startWebStream(source,epoch);
 }
-function play(id){
+function play(id,openFull){
+ var request=++requestedChannelEpoch;
  req('itv','create_link',{ch_id:id},function(err,r){
-  if(err||!r||!r.url){message('This stream is not available: '+(err||'Unknown channel'));return;}
+  if(request!==requestedChannelEpoch)return;
+  if(err||!r||!r.url){
+   var reason='Stream unavailable: '+(err||(r&&r.error)||'Unknown channel');
+   message(reason);if(elem('magPreviewStatus'))elem('magPreviewStatus').innerHTML=escapeHTML(reason);
+   return;
+  }
   var links=[r.url].concat(r.alternatives||[]),deduped=[];
   for(var x=0;x<links.length;x++)if(links[x]&&deduped.indexOf(links[x])===-1)deduped.push(links[x]);
-  currentStreams=deduped;currentStreamIndex=0;
-  playing=String(id);
+  currentStreams=deduped;currentStreamIndex=0;playing=String(id);
   recentIds=[playing].concat(recentIds.filter(function(x){return String(x)!==playing;})).slice(0,40);
   persist();
-  elem('videoPanel').style.display='block';
-  elem('playerTitle').innerHTML='SANTHOS IPTV · CHANNEL '+escapeHTML(playing);
+  var isPreview=!!elem('magPreviewVideo');
+  if(isPreview){placeVideoInPreview();selectedChannelInfo();}
+  if(!isPreview||openFull)goFullScreen();
+  elem('playerTitle').innerHTML='SANTHOS IPTV · '+escapeHTML((magPageItems[magRowIndex]||{}).name||playing);
   startSelectedStream();
  });
 }
@@ -624,6 +725,10 @@ function testMP4Playback(){
 }
 window.testMP4Playback=testMP4Playback;
 function closeVideo(){
+ if(previewMode&&elem('magPreviewVideo')){
+  elem('videoPanel').style.display='none';elem('message').style.display='none';
+  placeVideoInPreview();return;
+ }
  ++playEpoch;clearPlayerTimer();
  try{if(window.stb&&typeof window.stb.Stop==='function')window.stb.Stop();}catch(_){}
  resetBrowserPlayer();
@@ -653,6 +758,7 @@ function emptyPage(name,desc){
 }
 function go(next){
  ++contentEpoch; // Ignore stale responses from a screen we've left.
+ if(elem('magPreviewVideo'))stopMagPlayback();
  if(next!=='home')document.body.className='';
  if(next.indexOf('group:')===0){lastCategory=nav;nav=next;showMode='normal';setNav(lastCategory);loadGroup(next.slice(6));return;}
  nav=next;setNav(next);showMode='normal';
@@ -726,7 +832,7 @@ function handleRemote(ev){
   go('settings');return false;
  }
  if(isInput&&k!==27&&k!==461&&k!==10009&&k!==13&&k!==8)return true;
- if(k!==37&&k!==38&&k!==39&&k!==40&&k!==13&&k!==8&&k!==27&&k!==461&&k!==10009)return true;
+ if(k!==37&&k!==38&&k!==39&&k!==40&&k!==13&&k!==8&&k!==27&&k!==461&&k!==10009&&k!==403&&k!==82&&k!==33&&k!==34)return true;
  try{ev._magHandled=true;}catch(_){}
  if(ev.preventDefault)ev.preventDefault();ev.returnValue=false;
  if(k===8||k===27||k===461||k===10009){goBack();return false;}
@@ -741,6 +847,9 @@ function handleRemote(ev){
  }
  if(nav==='tv'||nav==='tamil'||nav==='entertainment'||nav==='culture'||nav==='movies'||nav==='sports'||nav==='news'||nav==='music'||nav==='kids'){
   if(k===13){if(magPane===0)chooseMagGroup(magGroupIndex);else chooseMagChannel(magRowIndex);}
+  else if(k===403||k===82)viewSelectedFull();
+  else if(k===33)magSwitchPage(-1);
+  else if(k===34)magSwitchPage(1);
   else if(k===37||k===39||k===38||k===40)navigateMag(k);
   return false;
  }
@@ -759,7 +868,7 @@ window.onkeydown=handleRemote;
 video.onerror=function(){
  nextOnFailure(playEpoch,'No playable video from this URL. The stream may be blocked, offline or incompatible with this Samsung TV.');
 };
-video.onplaying=function(){if(playbackTimer){clearTimeout(playbackTimer);playbackTimer=null;}videoMessage(isTestVideo?'Diagnostic video playing':'Live video playing',false);};
+video.onplaying=function(){clearPlayerTimer();videoMessage(isTestVideo?'Diagnostic video playing':'Video signal received · sound depends on TV codec and volume',false);};
 clock();setInterval(clock,60000);
 /* Render the complete home screen before any network handshake. */
 go('home');
