@@ -562,6 +562,7 @@ function isVideoVisible(){
 }
 function placeVideoInPreview(){
  var slot=elem('magPreviewVideo');if(!slot)return false;
+ elem('videoPanel').style.display='none';
  slot.appendChild(video);video.controls=false;video.autoplay=true;
  video.muted=false;video.style.width='100%';video.style.height='100%';
  var hint=elem('magPreviewPlaceholder');if(hint)hint.style.display='none';
