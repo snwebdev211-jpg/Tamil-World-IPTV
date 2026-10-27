@@ -392,7 +392,7 @@ function drawMagBrowser(){
  '<div class="mag-preview" id="magPreview"><div class="mag-preview-screen" id="magPreviewVideo"><div class="mag-preview-placeholder" id="magPreviewPlaceholder">Select a channel and press OK for live picture and sound.</div></div>'+
  '<div class="mag-preview-title" id="magPreviewTitle">LIVE TV PREVIEW</div><div class="mag-preview-status" id="magPreviewStatus">No channel playing</div>'+
  '<div class="mag-guide-title">TV GUIDE · LIVE</div><div class="mag-guide-rows" id="magGuide"><span class="live-badge">LIVE</span> &nbsp; Select a station to see its programme information.<p>Verified programme schedules are not supplied for these public streams.</p></div>'+
- '<div class="mag-preview-actions"><button onclick="viewSelectedFull()">RED · VIEW</button><button onclick="retryStream()">RETRY</button><button onclick="togglePreviewMute()" id="magMuteButton">AUDIO ON</button><button onclick="magSwitchPage(-1)">◀ PAGE</button><button onclick="magSwitchPage(1)">PAGE ▶</button><button onclick="go(&quot;settings&quot;)">TEST</button></div></div></div>';
+ '<div class="mag-preview-actions"><button onclick="viewSelectedFull()">RED · VIEW</button><button onclick="retryStream()">RETRY</button><button onclick="togglePreviewMute()" id="magMuteButton">GREEN · AUDIO ON</button><button onclick="magSwitchPage(-1)">◀ PAGE</button><button onclick="magSwitchPage(1)">PAGE ▶</button><button onclick="go(&quot;settings&quot;)">TEST</button></div></div></div>';
  renderMagGroups();renderMagEntries();
 }
 function renderMagGroups(){
@@ -455,9 +455,23 @@ function viewSelectedFull(){
  play(ch.id,true);
 }
 window.viewSelectedFull=viewSelectedFull;
+function updateAudioButton(){
+ var btn=elem('magMuteButton');
+ if(btn)btn.innerHTML=video.muted?'GREEN · AUDIO OFF (TURN ON)':'GREEN · AUDIO ON';
+}
 function togglePreviewMute(){
  video.muted=!video.muted;
- var btn=elem('magMuteButton');if(btn)btn.innerHTML=video.muted?'AUDIO MUTED':'AUDIO ON';
+ updateAudioButton();
+ if(!video.muted){
+  // A direct remote key/button gesture can unlock sound when autoplay could not.
+  try{
+   var resumed=video.play();
+   if(resumed&&typeof resumed['catch']==='function'){
+    var epoch=playEpoch,source=currentStreams[currentStreamIndex]||video.currentSrc||video.src;
+    resumed['catch'](function(e){handlePlaybackRejection(e,epoch,source);});
+   }
+  }catch(e){handlePlaybackRejection(e,playEpoch,currentStreams[currentStreamIndex]||video.src);}
+ }else videoMessage('Audio muted by user. Press GREEN to turn sound on.',false);
 }
 window.togglePreviewMute=togglePreviewMute;
 function magSwitchPage(step){
@@ -547,7 +561,7 @@ function loadSavedChannels(mode){
 
 window.chooseChannel=chooseChannel;
 var playbackTimer=null, isTestVideo=false, hlsPlayer=null, playEpoch=0;
-var hlsLoading=false,hlsWaiters=[];
+var hlsLoading=false,hlsWaiters=[],mutedRetryEpoch=-1,lastMediaFailure='';
 function videoMessage(text,show){
  elem('message').innerHTML=escapeHTML(text);
  elem('message').style.display=show&&elem('videoPanel').style.display==='block'?'block':'none';
@@ -564,7 +578,7 @@ function placeVideoInPreview(){
  var slot=elem('magPreviewVideo');if(!slot)return false;
  elem('videoPanel').style.display='none';
  slot.appendChild(video);video.controls=false;video.autoplay=true;
- video.muted=false;video.style.width='100%';video.style.height='100%';
+ updateAudioButton();video.style.width='100%';video.style.height='100%';
  var hint=elem('magPreviewPlaceholder');if(hint)hint.style.display='none';
  previewMode=true;
  positionNativeVideo(false);
@@ -594,6 +608,39 @@ function resetBrowserPlayer(){
  if(hlsPlayer){try{hlsPlayer.destroy();}catch(_){ }hlsPlayer=null;}
  try{video.pause();video.removeAttribute('src');video.load();}catch(_){}
  video.style.display='block';
+}
+function describePlaybackError(e,source){
+ var name=String(e&&e.name||'UnknownError');
+ var isHls=/\.m3u8(?:[?#]|$)/i.test(source||'');
+ if(name==='NotSupportedError'||(video.error&&video.error.code===4)){
+  var canHls=false;
+  try{canHls=!!video.canPlayType('application/vnd.apple.mpegurl');}catch(_){}
+  if(isHls&&!canHls&&!window.MediaSource&&!nativePlayer())
+   return 'UNSUPPORTED HLS: This TV browser has no detected HLS or MSE decoder, and no MAG player API. The stream cannot play in this browser. A compatible native player or H.264/AAC source is required.';
+  return 'UNSUPPORTED MEDIA (NotSupportedError): Stream container, HLS variant, or video/audio codec is not supported by this player.';
+ }
+ if(name==='NotAllowedError'||name==='SecurityError')
+  return 'AUTOPLAY BLOCKED ('+name+'): Press GREEN for audio or OK to attempt playback after a remote-key action.';
+ if(name==='AbortError')return 'Playback interrupted while switching channels. Retry if it does not start.';
+ if(name==='NetworkError')return 'NETWORK ERROR: TV cannot fetch the channel media. Stream host, geoblocking, or network restrictions may be involved.';
+ return 'PLAYBACK REJECTED ('+name+'): Decoder, source, or browser restriction. MP4/HLS tests in Settings can isolate the issue.';
+}
+function handlePlaybackRejection(e,epoch,source){
+ if(epoch!==playEpoch||!isVideoVisible())return;
+ var name=String(e&&e.name||'UnknownError');
+ if((name==='NotAllowedError'||name==='SecurityError')&&!video.muted&&mutedRetryEpoch!==epoch){
+  mutedRetryEpoch=epoch;video.muted=true;updateAudioButton();
+  videoMessage('TV blocked autoplay with sound. Trying a muted preview; press GREEN to enable audio.',false);
+  try{
+   var retry=video.play();
+   if(retry&&typeof retry['catch']==='function')
+    retry['catch'](function(err){nextOnFailure(epoch,describePlaybackError(err,source));});
+  }catch(err){nextOnFailure(epoch,describePlaybackError(err,source));}
+  return;
+ }
+ var reason=describePlaybackError(e,source);
+ lastMediaFailure=reason;
+ nextOnFailure(epoch,reason);
 }
 function nextOnFailure(epoch,reason){
  if(epoch!==playEpoch||!isVideoVisible())return;
@@ -636,10 +683,10 @@ function startWebStream(source,epoch){
   video.load();
   try{
    var p=video.play();
-   if(p&&typeof p['catch']==='function')p['catch'](function(){
-    nextOnFailure(epoch,'The player rejected this stream. Check supported HLS/MP4 formats or try another channel.');
+   if(p&&typeof p['catch']==='function')p['catch'](function(e){
+    handlePlaybackRejection(e,epoch,source);
    });
-  }catch(_){nextOnFailure(epoch,'The TV player could not open this stream.');}
+  }catch(e){handlePlaybackRejection(e,epoch,source);}
  }
  var hls=/\.m3u8(?:[?#]|$)/i.test(source),nativeHls=false;
  try{nativeHls=!!(video.canPlayType&&video.canPlayType('application/vnd.apple.mpegurl'));}catch(_){}
@@ -657,8 +704,8 @@ function startWebStream(source,epoch){
    hlsPlayer.on(window.Hls.Events.MANIFEST_PARSED,function(){
     if(epoch!==playEpoch)return;
     var p=video.play();
-    if(p&&typeof p['catch']==='function')p['catch'](function(){
-     nextOnFailure(epoch,'The browser blocked HLS playback.');
+    if(p&&typeof p['catch']==='function')p['catch'](function(e){
+     handlePlaybackRejection(e,epoch,source);
     });
    });
    hlsPlayer.on(window.Hls.Events.ERROR,function(_event,data){
@@ -709,6 +756,7 @@ function playNative(source){
  }catch(_){video.style.display='block';return false;}
 }
 function playUrl(source,label,isDiagnostic){
+ mutedRetryEpoch=-1;
  isTestVideo=!!isDiagnostic;
  elem('videoPanel').style.display='block';
  elem('playerTitle').innerHTML=escapeHTML(label);
@@ -718,6 +766,7 @@ function playUrl(source,label,isDiagnostic){
  if(!playNative(source))startWebStream(source,playEpoch);
 }
 function startSelectedStream(){
+ mutedRetryEpoch=-1;
  isTestVideo=false;
  playEpoch++;
  clearPlayerTimer();resetBrowserPlayer();
@@ -757,6 +806,17 @@ function testMP4Playback(){
  playUrl('https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4','MP4 DIAGNOSTIC · TEST VIDEO',true);
 }
 window.testMP4Playback=testMP4Playback;
+function showDecoderStatus(){
+ var target=elem('decoderStatus');if(!target)return;
+ var nativeHls='',h264='';
+ try{nativeHls=video.canPlayType('application/vnd.apple.mpegurl')||'no';}catch(_){nativeHls='unknown';}
+ try{h264=video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"')||'no';}catch(_){h264='unknown';}
+ target.innerHTML='<b>Reported by TV:</b> Native MAG player: '+(nativePlayer()?'detected':'not exposed')+
+  ' · Native HLS: '+escapeHTML(nativeHls)+' · MSE: '+(window.MediaSource?'present':'not available')+
+  ' · H.264/AAC MP4: '+escapeHTML(h264)+
+  '<p>These are capability hints, not proof of actual TV playback.</p>';
+}
+window.showDecoderStatus=showDecoderStatus;
 function closeVideo(){
  if(previewMode&&elem('magPreviewVideo')){
   elem('videoPanel').style.display='none';elem('message').style.display='none';
@@ -818,8 +878,8 @@ function go(next){
  if(next==='guide')return emptyPage('TV Guide','EPG schedules have not been supplied by the broadcasters. Live channel browsing is available under TV.');
  if(next==='settings'){
   title('Santhos IPTV · Settings','Powered by SNWD');
-  elem('cards').innerHTML='<div class="empty"><b>SANTHOS IPTV · SNWD DIAGNOSTICS</b><p>Test your TV decoder separately from live channels using the sample video below. If that fails too, old TV codec support, TLS/HTTPS or network settings may be responsible.</p><button class="row" onclick="testMP4Playback()">▶ TEST MP4 VIDEO (CHECK BASIC TV DECODING)</button><button class="row" onclick="testPlayback()">▶ TEST HLS VIDEO (CHECK LIVE-STREAM FORMAT)</button><button class="row" onclick="retryPortal()">↻ RECONNECT MAG PORTAL</button><p>If the sample works but live TV does not, broadcaster links or regional restrictions are more likely.</p><p><b>NO SOUND ON SMART-STB?</b> In the Smart-STB app, if available, open Settings → Advanced Settings → Alternative Audio Decoder → Enabled, then reboot the app. This cannot correct an unsupported video codec or dead link.</p><p>Original playlist remains on GitHub. Back = previous screen. OK = select. Full on-demand movies and EPG are not yet populated.</p></div>';
-  resetFocus();return;
+  elem('cards').innerHTML='<div class="empty"><b>SANTHOS IPTV · SNWD DIAGNOSTICS</b><p>Test your TV decoder separately from live channels using the sample video below. If that fails too, old TV codec support, TLS/HTTPS or network settings may be responsible.</p><div id="decoderStatus">Checking decoder capabilities…</div><button class="row" onclick="showDecoderStatus()">CHECK TV PLAYER CAPABILITIES</button><button class="row" onclick="testMP4Playback()">▶ TEST MP4 VIDEO (CHECK BASIC TV DECODING)</button><button class="row" onclick="testPlayback()">▶ TEST HLS VIDEO (CHECK LIVE-STREAM FORMAT)</button><button class="row" onclick="retryPortal()">↻ RECONNECT MAG PORTAL</button><p>If the sample works but live TV does not, broadcaster links or regional restrictions are more likely.</p><p><b>NO SOUND ON SMART-STB?</b> In the Smart-STB app, if available, open Settings → Advanced Settings → Alternative Audio Decoder → Enabled, then reboot the app. This cannot correct an unsupported video codec or dead link.</p><p>Original playlist remains on GitHub. Back = previous screen. OK = select. Full on-demand movies and EPG are not yet populated.</p></div>';
+  showDecoderStatus();resetFocus();return;
  }
  if(next==='search'){
   title('Channel Search','Enter a channel name and press Search.');
@@ -865,7 +925,7 @@ function handleRemote(ev){
   go('settings');return false;
  }
  if(isInput&&k!==27&&k!==461&&k!==10009&&k!==13&&k!==8)return true;
- if(k!==37&&k!==38&&k!==39&&k!==40&&k!==13&&k!==8&&k!==27&&k!==461&&k!==10009&&k!==403&&k!==82&&k!==33&&k!==34)return true;
+ if(k!==37&&k!==38&&k!==39&&k!==40&&k!==13&&k!==8&&k!==27&&k!==461&&k!==10009&&k!==403&&k!==82&&k!==33&&k!==34&&k!==404&&k!==71)return true;
  try{ev._magHandled=true;}catch(_){}
  if(ev.preventDefault)ev.preventDefault();ev.returnValue=false;
  if(k===8||k===27||k===461||k===10009){goBack();return false;}
@@ -881,6 +941,7 @@ function handleRemote(ev){
  if(nav==='tv'||nav==='tamil'||nav==='entertainment'||nav==='culture'||nav==='movies'||nav==='sports'||nav==='news'||nav==='music'||nav==='kids'){
   if(k===13){if(magPane===0)chooseMagGroup(magGroupIndex);else chooseMagChannel(magRowIndex);}
   else if(k===403||k===82)viewSelectedFull();
+  else if(k===404||k===71)togglePreviewMute();
   else if(k===33)magSwitchPage(-1);
   else if(k===34)magSwitchPage(1);
   else if(k===37||k===39||k===38||k===40)navigateMag(k);
@@ -899,9 +960,16 @@ if(document.addEventListener)document.addEventListener('keydown',handleRemote,tr
 window.onkeydown=handleRemote;
 
 video.onerror=function(){
- nextOnFailure(playEpoch,'No playable video from this URL. The stream may be blocked, offline or incompatible with this Samsung TV.');
+ var code=video.error&&video.error.code||0;
+ var errorName=code===2?'NETWORK':code===3?'DECODE':code===4?'FORMAT/NOT SUPPORTED':'MEDIA';
+ nextOnFailure(playEpoch,errorName+' ERROR ('+code+'): The TV cannot load or decode this stream. Try MP4 and HLS tests in Settings.');
 };
-video.onplaying=function(){clearPlayerTimer();videoMessage(isTestVideo?'Diagnostic video playing':'Video signal received · sound depends on TV codec and volume',false);};
+video.onplaying=function(){
+ clearPlayerTimer();updateAudioButton();
+ videoMessage(video.muted?'Playing muted after autoplay restriction. Press GREEN for audio.':
+  isTestVideo?'Diagnostic playback started; verify picture and sound.':
+  'Playback started; confirm both picture and sound on the television.',false);
+};
 clock();setInterval(clock,60000);
 /* Render the complete home screen before any network handshake. */
 go('home');
