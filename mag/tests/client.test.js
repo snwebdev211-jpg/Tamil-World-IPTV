@@ -29,7 +29,7 @@ function mockWindow(w){
    else if(action==='get_genres')data=type==='vod'?[]:groups;
    else if(action==='get_all_channels')data={data:list,total_items:list.length};
    else if(action==='get_ordered_list'){
-    let items=type==='vod'?[]:list.filter(x=>p.get('genre')==='*'||x.genre_id===p.get('genre'));
+    let items=type==='vod'?[]:list.filter(x=>p.get('genre')==='*'||(p.get('genre')==='__tamil__'?/Tamil/i.test(x.name):x.genre_id===p.get('genre')));
     if(p.get('search'))items=items.filter(x=>x.name.toLowerCase().includes(p.get('search').toLowerCase()));
     data={data:items,total_items:items.length,cur_page:1,max_page_items:50};
    }
@@ -219,5 +219,19 @@ test('unsupported HLS is diagnosed as decoder limitation rather than generic rej
   w.go('settings');
   assert.match(d.getElementById('decoderStatus').textContent,/Native MAG player: not exposed/);
   assert.match(d.getElementById('decoderStatus').textContent,/MSE: not available/);
+ }finally{dom.window.close();}
+});
+
+test('Tamil TV opens all Tamil channels together and visibly distinguishes absent Sun Network stations',async()=>{
+ const dom=new JSDOM(html,{url:'https://santhos-iptv.vercel.app/stalker_portal/c/index.html',runScripts:'dangerously',pretendToBeVisual:true,beforeParse:mockWindow});
+ try{
+  const w=dom.window,d=w.document;await pause(30);
+  w.go('tamil');await pause(15);
+  assert.equal(d.querySelector('.mag-group').textContent,'ALL TAMIL');
+  assert.equal(d.querySelector('.mag-group').getAttribute('data-group'),'__tamil__');
+  assert.equal(d.querySelectorAll('.mag-entry').length,2,'Tamil channels from distinct genres are collected');
+  assert.match(d.querySelector('#status').textContent,/Sun TV \/ KTV \/ Sun Music are not in this public catalogue/);
+  w.go('settings');
+  assert.match(d.querySelector('#cards').textContent,/legacy-tamil\.m3u/);
  }finally{dom.window.close();}
 });
