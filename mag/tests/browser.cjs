@@ -78,10 +78,16 @@ async function main(){
   await sendOrsay(page,5); // RIGHT
   assert.equal(await page.locator('.mag-entry.mag-selected').count(),1,'Orsay RIGHT selects channel pane');
   await sendOrsay(page,29443); // OK
+  await page.locator('#magPreviewVideo #video').waitFor({state:'attached'});
+  assert.ok(await page.locator('#magPreview').isVisible(),'Live preview pane is visible');
+  assert.equal(await page.locator('#videoPanel').isVisible(),false,'Channel list remains visible during preview');
+  assert.ok((await page.locator('#magGuide').innerText()).includes('Programme schedule unavailable'));
+  await page.screenshot({path:path.join('mag/browser-shots','mag-tv-with-live-preview.png'),fullPage:true});
+  await sendOrsay(page,29443); // OK again -> fullscreen
   await page.locator('#videoPanel').waitFor({state:'visible'});
-  await sendOrsay(page,88); // RETURN
-  await page.locator('.mag-browser').waitFor({state:'visible'});
-  await sendOrsay(page,88);
+  await sendOrsay(page,88); // RETURN -> picture-in-guide
+  await page.locator('#magPreviewVideo #video').waitFor({state:'attached'});
+  await sendOrsay(page,88); // RETURN -> Home
   await page.locator('.classic-home').waitFor({state:'visible'});
   await page.locator('.classic-tile[data-module="0"]').click();
   await page.locator('#mediaUrl').waitFor({state:'visible'});
@@ -90,7 +96,7 @@ async function main(){
   await page.locator('#vodContent').waitFor({state:'visible'});
   await page.getByText('No on-demand titles are configured.',{exact:false}).waitFor();
   assert.equal(errors.length,0,'No browser JS exceptions: '+errors.join('; '));
-  console.log('PASS screenshot-style MAG photo Home, 2-pane TV, Orsay DOWN/RIGHT/OK/RETURN, Media Browser and distinct empty Video Club. Physical Orsay and live media NOT tested.');
+  console.log('PASS classic MAG Home, three-area TV preview, guide placeholder, fullscreen/RETURN and simulated remote. Live physical Samsung video/audio NOT tested.');
  }finally{await browser.close();}
 }
 main().catch(e=>{console.error(e);process.exit(1);});
