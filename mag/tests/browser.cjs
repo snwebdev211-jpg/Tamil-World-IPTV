@@ -23,7 +23,7 @@ function api(url){
  if(action==='get_all_channels')return {data:CHANNELS,total_items:CHANNELS.length};
  if(action==='get_ordered_list'){
   if(type==='vod')return {data:[],total_items:0};
-  let data=CHANNELS.filter(c=>!q.get('genre')||q.get('genre')==='*'||q.get('genre')===c.genre_id);
+  let data=CHANNELS.filter(c=>!q.get('genre')||q.get('genre')==='*'||(q.get('genre')==='__tamil__'?/Tamil/i.test(c.name):q.get('genre')===c.genre_id));
   if(q.get('search'))data=data.filter(c=>c.name.toLowerCase().includes(q.get('search').toLowerCase()));
   return {data,total_items:data.length,max_page_items:50,cur_page:1};
  }
