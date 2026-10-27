@@ -72,6 +72,14 @@ test('resolve known source and reject arbitrary injected host',async()=>{
   const blocked=await query('itv','create_link','&cmd='+encodeURIComponent('ffmpeg http://127.0.0.1/private')+'&ch_id=100');
   assert.equal(blocked.body.url,'');
 });
+test('ALL TAMIL resolves all Tamil stream groups without including general Sports',async()=>{
+  const listing=await query('itv','get_ordered_list','&genre=__tamil__&p=1');
+  assert.equal(listing.body.total_items,3);
+  assert.ok(listing.body.data.some(c=>c.name==='Tamil Family HD'));
+  assert.ok(listing.body.data.some(c=>c.name==='Tamil Cinema'));
+  assert.ok(listing.body.data.some(c=>c.name==='Tamil Cartoon'));
+  assert.ok(!listing.body.data.some(c=>c.name==='World Sports'));
+});
 test('vod intentionally empty without authorized movies',async()=>{
   const vod=await query('vod','get_ordered_list');
   assert.equal(vod.body.total_items,0);
