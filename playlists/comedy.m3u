@@ -176,6 +176,8 @@ https://jmp2.uk/plu-5f1abce155a03d0007718834.m3u8
 https://jmp2.uk/plu-655b5d865812e80008843bd1.m3u8
 #EXTINF:-1 tvg-id="PlutoTVComediesCultes.de@FR" tvg-logo="https://images.pluto.tv/channels/67b4b2d976a934282e92d71c/colorLogoPNG.png" group-title="Comedy",Pluto TV Comedies Cultes
 https://jmp2.uk/plu-67b4b2d976a934282e92d71c.m3u8
+#EXTINF:-1 tvg-id="PlutoTVComedy.us@US" tvg-logo="https://images.pluto.tv/channels/62e92178946c8000079a3160/colorLogoPNG.png" group-title="Comedy",Pluto TV Comedy
+https://jmp2.uk/plu-5a4d3a00ad95e4718ae8d8db.m3u8
 #EXTINF:-1 tvg-id="PlutoTVComedy.us@CA" tvg-logo="https://images.pluto.tv/channels/62e92178946c8000079a3160/colorLogoPNG.png" group-title="Comedy",Pluto TV Comedy CA
 https://jmp2.uk/plu-62e92178946c8000079a3160.m3u8
 #EXTINF:-1 tvg-id="PlutoTVComedyMovies.us@CA" tvg-logo="https://images.pluto.tv/channels/62ea3d24b8e02600071fa296/colorLogoPNG.png" group-title="Comedy",Pluto TV Comedy Movies

@@ -9,8 +9,6 @@ https://dai.google.com/linear/hls/event/JUr94WL2QAiVpGNHY5n5dA/master.m3u8
 https://jmp2.uk/plu-62e925bc68d18a00077bb990.m3u8
 #EXTINF:-1 tvg-id="5Cops.us@UK" tvg-logo="https://i.imgur.com/QFPRaXK.png" group-title="Series",5 Cops
 https://jmp2.uk/plu-5d2c571faeb3e2738ae27933.m3u8
-#EXTINF:-1 tvg-id="5minuttishiny.ru@SD" tvg-logo="https://cdn2-static.ntv.ru/home/promo/24740/5minut_live.jpg" group-title="Series",5 minut tishiny (1080p)
-https://cdn-dvr.ntv.ru/5_minut_tishiny/index.m3u8
 #EXTINF:-1 tvg-id="7thHeaven.se@SE" tvg-logo="https://images.pluto.tv/channels/6728c9c85534bb0008b320a4/colorLogoPNG.png" group-title="Series",7th Heaven
 https://jmp2.uk/plu-6728cab6e482950008b76d8c.m3u8
 #EXTINF:-1 tvg-id="7thHeaven.se@DK" tvg-logo="https://images.pluto.tv/channels/6728c9c85534bb0008b320a4/colorLogoPNG.png" group-title="Series",7th Heaven DK
@@ -147,8 +145,6 @@ https://jmp2.uk/plu-692edc78d52ea9e4858cf78f.m3u8
 https://jmp2.uk/plu-692edcff77f0147d69f19498.m3u8
 #EXTINF:-1 tvg-id="DealorNoDeal.us@SD" tvg-logo="https://i.imgur.com/lZvNXA1.png" group-title="Series",Deal or No Deal (1080p)
 https://amg00627-banijaygroup-dealornodeal-samsungau-si7xg.amagi.tv/playlist/amg00627-banijaygroup-dealornodeal-samsungau/playlist.m3u8
-#EXTINF:-1 tvg-id="Degrassi.us@US" tvg-logo="https://i.imgur.com/vhSzfDC.png" group-title="Series",Degrassi (720p)
-https://d3537vnymvfque.cloudfront.net/playlist.m3u8
 #EXTINF:-1 tvg-id="DesignatedSurvivor.us@SD" tvg-logo="https://provider-static.plex.tv/epg/cms/production/6f31f52b-2b65-49eb-91e5-52e07edd1927/DesignatedSurvivor_Plex_1500x1000_Logo_Dark.png" group-title="Series",Designated Survivor (1080p) [Geo-blocked]
 https://amg00353-amg00353c40-xumo-us-4839.playouts.now.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="DiffrentStrokesArnold.us@Brazil" tvg-logo="https://i.imgur.com/jkmouY3.png" group-title="Series",Diff'rent Strokes Arnold
