@@ -209,7 +209,9 @@ module.exports=async function handler(req,res) {
     if(action==='get_all_channels')return output(res,{data:channels.map(mappedChannel),total_items:channels.length,max_page_items:channels.length,cur_page:1});
     if(action==='get_ordered_list') {
       const genre=String(p.genre||p.category||'*');
-      let list=(genre==='*'||genre==='0'||genre==='all')?channels:channels.filter(c=>c.genre_id===genre);
+      let list=(genre==='*'||genre==='0'||genre==='all')?channels:
+        (genre==='__tamil__'?channels.filter(c=>c.group.toLowerCase().indexOf('tamil |')===0):
+        channels.filter(c=>c.genre_id===genre));
       const search=String(p.search||'').trim().toLowerCase().slice(0,80);
       if(search)list=list.filter(c=>c.name.toLowerCase().includes(search));
       return output(res,ordered(list,p));
