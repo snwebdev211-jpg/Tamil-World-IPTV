@@ -69,9 +69,15 @@ test('Santhos screenshot-based MAG Home, TV and Orsay remote navigation',async()
   orsay(w,5);
   assert.ok(d.querySelector('.mag-entry.mag-selected'),'Orsay RIGHT selects a channel');
   orsay(w,29443);
-  assert.equal(d.querySelector('#videoPanel').style.display,'block','Orsay OK launches playback');
+  assert.ok(d.querySelector('#magPreviewVideo #video'),'OK puts video in the right-hand preview pane');
+  assert.equal(d.querySelector('#videoPanel').style.display,'none','Preview keeps the channel list visible');
+  assert.match(d.querySelector('#magGuide').textContent,/Programme schedule unavailable/,'EPG is not fabricated');
+  assert.equal(d.querySelector('#video').muted,false,'Preview audio is not deliberately muted');
+  orsay(w,29443);
+  assert.equal(d.querySelector('#videoPanel').style.display,'block','Second OK opens fullscreen');
   orsay(w,88);
-  assert.equal(d.querySelector('#videoPanel').style.display,'none','Orsay RETURN closes playback');
+  assert.equal(d.querySelector('#videoPanel').style.display,'none','RETURN restores preview');
+  assert.ok(d.querySelector('#magPreviewVideo #video'),'Same video element returns to preview');
   orsay(w,88);
   assert.ok(d.querySelector('.classic-home'),'Orsay RETURN restores MAG Home');
   d.querySelector('.classic-tile[data-module="0"]').click();
@@ -132,7 +138,8 @@ test('HLS in an MSE-capable browser uses a media engine rather than assigning a 
   assert.equal(engine.loaded,'https://media.example.org/tamil.m3u8');
   assert.equal(engine.media,d.getElementById('video'));
   assert.equal(d.getElementById('video').getAttribute('src'),null,'Raw HLS URL was not assigned to the video tag');
-  assert.equal(d.getElementById('videoPanel').style.display,'block');
+  assert.equal(d.getElementById('videoPanel').style.display,'none');
+  assert.ok(d.getElementById('magPreviewVideo').contains(d.getElementById('video')));
  }finally{dom.window.close();}
 });
 test('a rejected HTML video play reports a genuine playback error rather than a fake success',async()=>{
@@ -143,8 +150,8 @@ test('a rejected HTML video play reports a genuine playback error rather than a 
   const w=dom.window,d=w.document;await pause(30);
   w.go('tv');w.chooseMagChannel(0);
   await pause(30);
-  assert.equal(d.getElementById('message').style.display,'block');
-  assert.match(d.getElementById('message').textContent,/rejected this stream/i);
+  assert.equal(d.getElementById('message').style.display,'none','Errors stay inside the preview pane');
+  assert.match(d.getElementById('magPreviewStatus').textContent,/rejected this stream/i);
   assert.doesNotMatch(d.getElementById('playerStatus').textContent,/Live video playing/);
  }finally{dom.window.close();}
 });
