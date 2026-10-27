@@ -43,3 +43,9 @@ The TV directory returning channels does not prove the videos play. The custom p
 In the Settings screen, **MP4 TEST** checks basic browser video playback and **HLS TEST** checks the live-stream format separately. If MP4 works but HLS does not, likely HLS/codec or cross-origin/TLS compatibility; if both work but channels fail, investigate broadcaster sources and regional access. GitHub Actions use simulated player behavior; real Samsung decoding remains unverified. No channel stream is proxied or transcoded by Vercel.
 
 **Remote diagnostics:** From the classic Home press **0** (numeric zero) or Samsung BLUE to open the Settings/Stream Test screen. A visible STREAM TEST/SETTINGS button is also in the Home information area. RETURN closes it.
+
+## MAG live TV preview and programme guide panel (October 26, 2026)
+
+The custom TV screen now displays categories on the left, a 13-row channel list in the middle, and a picture-in-guide preview on the right with audio enabled by default. Press OK on a channel to attempt playback in the right panel; press OK again or RED to expand it fullscreen. RETURN restores preview and then exits TV to Home. Page Up/Page Down keys and PAGE buttons navigate 50-channel pages. A short debounce helps remote channel switching after preview starts. A separate HLS/MP4 Stream Test is in Settings.
+
+**EPG:** Real programme titles and times are not available in the source catalogue. The interface explicitly reports that no verified EPG schedule is available instead of inventing shows. **Physical playback remains unverified.** The app cannot supply missing codecs, overcome geographic/source restrictions, or guarantee Smart-STB's proprietary native player can be embedded inside a web video element. Source URLs continue to play directly without Vercel media transcoding.
