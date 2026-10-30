@@ -144,10 +144,10 @@ https://jmp2.uk/plu-65cba798d77d450008d056e5.m3u8
 https://jmp2.uk/plu-65cba715dc10a40008034917.m3u8
 #EXTINF:-1 tvg-id="KeyPeele.se@NO" tvg-logo="https://images.pluto.tv/channels/65cba715dc10a40008034917/colorLogoPNG.png" group-title="Comedy",Key & Peele NO
 https://jmp2.uk/plu-65cba7573ba51e00084d76e1.m3u8
-#EXTINF:-1 tvg-id="Kinokomedija.ru@SD" tvg-logo="https://i.imgur.com/dVjtth0.png" group-title="Comedy",Kinokomedija (576p)
-http://stream.mcquack.net/265/index.m3u8
 #EXTINF:-1 tvg-id="Klovn.se@SE" tvg-logo="https://images.pluto.tv/channels/65a63ff00d9ab400080b101c/colorLogoPNG.png" group-title="Comedy",Klovn
 https://jmp2.uk/plu-65a63ff00d9ab400080b101c.m3u8
+#EXTINF:-1 tvg-id="Komediynoe.ru@HD" tvg-logo="https://i.imgur.com/cEKe8XC.png" group-title="Comedy",Komediynoe HD (1080p)
+http://stream.mcquack.net/74/index.m3u8
 #EXTINF:-1 tvg-id="KVNTV.ru@SD" tvg-logo="https://i.imgur.com/Vw3LFLX.png" group-title="Comedy",KVN TV (576p)
 http://178.124.179.122:8080/KVN-TV/index.m3u8
 #EXTINF:-1 tvg-id="Laff.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/LAFF_logo.png/960px-LAFF_logo.png" group-title="Comedy",Laff (576p)
