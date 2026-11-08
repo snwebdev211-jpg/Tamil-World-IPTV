@@ -63,8 +63,6 @@ https://streamcdnr6-dddfac816632463dac50b21109dc1bb3.msvdn.net/live/S58803518/OO
 https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI/amarbanglatv.stream/playlist.m3u8
 #EXTINF:-1 tvg-id="ABCTVPlus.au@Sydney" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/ABC_TV_Plus_logo_2021.svg/500px-ABC_TV_Plus_logo_2021.svg.png" group-title="Entertainment",ABC TV Plus (720p)
 https://c.mjh.nz/abc-tv-plus.m3u8
-#EXTINF:-1 tvg-id="AbejalesTV.ve@HD" tvg-logo="https://blogger.googleusercontent.com/img/a/AVvXsEgao1fVZ7tV_ExJErlM5JsI8Rxv5TXJSU7ZE6p-g_qSXOiRKrAjCmX650Aw1PYv6cPqML3eKDQGZ_Z5BPYpeLwwAbZay3g4mpTVBW9Xs5D9nEVPD1i9xfOKQsRCFrOJhBgRt9L9yhfLimbu7S4Ozio2tiZ5uc45lRtyS6RjMpI-Ts1n2m_THG8K19R4STns=w800" group-title="Entertainment",AbejalesTV (720p)
-https://183.bozztv.com/giatv/giatv-AbejalesTV/AbejalesTV/playlist.m3u8
 #EXTINF:-1 tvg-id="AbsoluteRealitybyWETV.us@SD" tvg-logo="https://i.imgur.com/Gtwk8ic.png" group-title="Entertainment",Absolute Reality by WE TV (1080p)
 https://amc-absolutereality-1-us.plex.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="AccesDirect.ro@SD" tvg-logo="https://assets.antenaplay.ro/2026/05/07/BBOXtLtkSKfKAK5pSBag.png" group-title="Entertainment",Acces Direct (576p)
@@ -89,6 +87,8 @@ https://d3c7vdfq3tyeyw.cloudfront.net/v1/master/071c0467fcd02420cdf0d8a1ca3524b9
 https://video.hostingcaaguazu.com:19360/altmedia/altmedia.m3u8
 #EXTINF:-1 tvg-id="AmarinTV.th@SD" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/f/ff/Amarin_TV_2015.svg/revision/latest/scale-to-width-down/512" group-title="Entertainment",Amarin TV (576p)
 https://live-us1.thaimomo.com/live-as/chamarin-3/playlist.m3u8
+#EXTINF:-1 tvg-id="AmericaTeVe.pr@SD" tvg-logo="https://i.imgur.com/K9o3mLP.png" group-title="Entertainment",America TeVe (1080p)
+https://live.gideo.video/americateve2/master.m3u8
 #EXTINF:-1 tvg-id="AmericasNextTopModel.us@SD" tvg-logo="https://images.pluto.tv/channels/68679fc6bb46d0bdd38ac9a4/colorLogoPNG_1756466390265.png" group-title="Entertainment",America's Next Top Model
 https://jmp2.uk/plu-68757c45759366af05b3b199.m3u8
 #EXTINF:-1 tvg-id="AmericasNextTopModel.us@CA" tvg-logo="https://images.pluto.tv/channels/68679fc6bb46d0bdd38ac9a4/colorLogoPNG_1756466390265.png" group-title="Entertainment",America's Next Top Model CA
@@ -222,8 +222,6 @@ https://videostream.chileservidores.com:8081/chiloe2/index.m3u8
 https://movil.ejeserver.com/live/nets.m3u8
 #EXTINF:-1 tvg-id="CanalPulpoTV.ar@SD" tvg-logo="https://new.opencaster.com/uploads/logos/logo_306_1756336707.png" group-title="Entertainment",Canal Pulpo TV
 https://vs20.live.opencaster.com/canalpulpotv_bdeee6e2/index.m3u8
-#EXTINF:-1 tvg-id="CanalWomtv.co@SD" tvg-logo="https://i.imgur.com/Nr4muMP.jpeg" group-title="Entertainment",Canal Womtv (720p)
-https://live.amelbatv.co:81/womtvlive/index.m3u8
 #EXTINF:-1 tvg-id="CanicaTV.co@SD" tvg-logo="https://i.imgur.com/RuQDwTt.jpeg" group-title="Entertainment",Canica TV (240p)
 https://stmv4.voxtvhd.com.br/canicatv/canicatv/playlist.m3u8
 #EXTINF:-1 tvg-id="CarChase.us@SD" tvg-logo="https://images.pluto.tv/channels/65244c403fd33c0008ffff31/colorLogoPNG.png" group-title="Entertainment",Car Chase (United States) (720p)
@@ -244,3 +242,5 @@ https://unlimited1-us.dps.live/carastv/carastv.smil/playlist.m3u8
 https://jmp2.uk/plu-668c5cb4f01dbe0008dd4082.m3u8
 #EXTINF:-1 tvg-id="CGEntertainment.it@SD" tvg-logo="https://i.imgur.com/XeWzy7e.png" group-title="Entertainment",CG Entertainment (720p)
 https://cgentertainment-cgtv-1-it.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="Charterfeber.se@NO" tvg-logo="https://images.pluto.tv/channels/61c1dda0fe470d00080f85b8/colorLogoPNG.png" group-title="Entertainment",Charterfeber
+https://jmp2.uk/plu-61c1dda0fe470d00080f85b8.m3u8

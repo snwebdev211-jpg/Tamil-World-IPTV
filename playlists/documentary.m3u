@@ -19,8 +19,6 @@ https://jmp2.uk/plu-5f984f4a09e92d0007d74647.m3u8
 https://stream8.cinerama.uz/1414/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="AsharqDiscovery.sa@SD" tvg-logo="https://i.imgur.com/Czxi7yk.png" group-title="Documentary",Asharq Discovery (1080p)
 https://svs.itworkscdn.net/asharqdiscoverylive/asharqd.smil/playlist_dvr.m3u8
-#EXTINF:-1 tvg-id="AsharqDocumentary.sa@SD" tvg-logo="https://i.imgur.com/v6VsFEt.png" group-title="Documentary",Asharq Documentary (1080p)
-https://svs.itworkscdn.net/asharqdocumentarylive/asharqdocumentary.smil/playlist_dvr.m3u8
 #EXTINF:-1 tvg-id="Atlas.us@SD" tvg-logo="https://whiplash.cc/assets/img/channels/atlas.png" group-title="Documentary",Atlas (480p)
 https://cdn.whiplash.cc/whiplash-atlas/index.m3u8
 #EXTINF:-1 tvg-id="AutenticHistory.de@SD" tvg-logo="https://d3b6luslimvglo.cloudfront.net/images/79/rlaxximages/channels-rescaled/icon-white/autentichistory_white.png" group-title="Documentary",Autentic History (1080p)
@@ -244,3 +242,7 @@ https://jmp2.uk/plu-61fb9907b1b78d000717ed9f.m3u8
 https://jmp2.uk/plu-61fb988e032c0100077d5252.m3u8
 #EXTINF:-1 tvg-id="SmithsonianChannelSelects.us@SD" tvg-logo="https://i.imgur.com/Kt5j8Vr.png" group-title="Documentary",Smithsonian Channel Selects (United States)
 https://jmp2.uk/plu-5f21ea08007a49000762d349.m3u8
+#EXTINF:-1 tvg-id="Smotrim100Fakty.ru@SD" tvg-logo="https://i.imgur.com/dB3cJzO.png" group-title="Documentary",Smotrim 100% Fakty (720p)
+https://stream.smotrim.ru/hls/fasttv06/playlist_3.m3u8
+#EXTINF:-1 tvg-id="SpikePlutoTV.us@SD" tvg-logo="https://i.imgur.com/woY8Ecb.png" group-title="Documentary",Spike Pluto TV
+https://jmp2.uk/plu-5812bcc8237a6ff45d16c407.m3u8
