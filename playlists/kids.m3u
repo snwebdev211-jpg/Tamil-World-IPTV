@@ -1,12 +1,6 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="CartoonNetwork.in@SD" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_CARTOON_NETWORK/images/LOGO_HD/image.png" group-title="Tamil | Kids",Cartoon Network (India) (720p)
-https://drk6xq0vhn.gpcdn.net/live/cn_sd_abr/index.m3u8
 #EXTINF:-1 tvg-id="Chithiram.in@SD" tvg-logo="https://i.imgur.com/xv9cWSh.png" group-title="Tamil | Kids",Chithiram (576p)
 https://cdn.pishow.tv/ott/live/1243/master.m3u8
-#EXTINF:-1 tvg-id="DiscoveryKids.in@SD" tvg-logo="https://i.imgur.com/0iNQvoL.png" group-title="Tamil | Kids",Discovery Kids (720p)
-https://drk6xq0vhn.gpcdn.net/live/discovery_kids_abr/index.m3u8
-#EXTINF:-1 tvg-id="Pogo.in@SD" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_POGO/images/LOGO_HD/image.png" group-title="Tamil | Kids",Pogo (720p)
-https://drk6xq0vhn.gpcdn.net/live/pogo_sd_abr/index.m3u8
 #EXTINF:-1 tvg-id="WOWKidz.in@Hindi" tvg-logo="https://d229kpbsb5jevy.cloudfront.net/yupptvnew/content/common/channel/logos/mjvezt.png" group-title="Tamil | Kids",WOW Kidz (720p)
 https://yuppparoriglin.akamaized.net/181224/smil:wowkidzhindi.smil/playlist.m3u8?hdnts=st=1735898689~exp=1835898688~acl=*~hmac=f5fe24724fe05481e3841f9eb5ab8efdee0a3dd83645ae9dcf45703f525bab7b
 #EXTINF:-1 tvg-id="WOWKidz.in@Tamil" tvg-logo="https://d229kpbsb5jevy.cloudfront.net/yupptvnew/content/common/channel/logos/mjvezt.png" group-title="Tamil | Kids",WOW Kidz Tamil (720p)
@@ -15,8 +9,6 @@ https://yuppparoriglin.akamaized.net/181224/smil:wowkidztam.smil/playlist.m3u8?h
 https://yuppparoriglin.akamaized.net/181224/smil:wowkidztelgu.smil/playlist.m3u8?hdnts=st=1735898689~exp=1835898688~acl=*~hmac=f5fe24724fe05481e3841f9eb5ab8efdee0a3dd83645ae9dcf45703f525bab7b
 #EXTINF:-1 tvg-id="13Kids.cl@SD" tvg-logo="https://i.imgur.com/8WJUbSD.png" group-title="Kids",13 Kids (1080p)
 https://origin.dpsgo.com/ssai/event/LhHrVtyeQkKZ-Ye_xEU75g/master.m3u8
-#EXTINF:-1 tvg-id="3ABNKids.us@SD" tvg-logo="https://i.imgur.com/z3npqO1.png" group-title="Kids",3ABN Kids (720p)
-https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="4FunKids.pl@SD" tvg-logo="https://i.imgur.com/2JO5Y8c.png" group-title="Kids",4 Fun Kids (576i)
 https://stream.4fun.tv:8889/hls/4fk.m3u8
 #EXTINF:-1 tvg-id="90sKids.us@SD" tvg-logo="https://images.pluto.tv/channels/6452c814939a590008567a3b/colorLogoPNG_1731836283044.png" group-title="Kids",90's Kids
@@ -59,8 +51,6 @@ https://newidco-babysharktv-1-us.roku.wurl.tv/playlist.m3u8
 https://cdn.fast.jwp.services/v1/channel/1_jB6940Ei_TvhvIHDL/manifest.m3u8
 #EXTINF:-1 tvg-id="Balapan.kz@HD" tvg-logo="https://vote.rtrk.kz/img/balapan-logo.png" group-title="Kids",Balapan HD (1080p)
 https://balapantv-stream.qazcdn.com/balapantv/balapantv/playlist.m3u8
-#EXTINF:-1 tvg-id="BalapanInternational.kz@SD" tvg-logo="https://otv.server-img.lfstrm.tv/images/channel_logos/logo_638108d82e47243302bc81f1.png" group-title="Kids",Balapan International (1080p)
-https://live-3.otcnet.ru/Balapan/index.m3u8
 #EXTINF:-1 tvg-id="BeJoykids.it@HD" tvg-logo="https://bejoy.kids/wp-content/uploads/2025/09/Logo_Bejoy.png" group-title="Kids",BeJoy.kids (1080p)
 https://stream.paroledivita.org/bejoy.m3u8
 #EXTINF:-1 tvg-id="BobEsponja.de@ES" tvg-logo="https://images.pluto.tv/channels/5f1aca0b4e448e00075e7c5e/colorLogoPNG.png" group-title="Kids",Bob Esponja (720p)
@@ -110,10 +100,11 @@ https://s.emisoras.tv:8081/diostevekids/index.m3u8
 https://s6.hopslan.com/disneyX/index.m3u8
 #EXTINF:-1 tvg-id="DoraTV.us@CA" tvg-logo="https://i.imgur.com/zJuSbmU.png" group-title="Kids",Dora TV
 https://jmp2.uk/plu-62e951258a26d40007b3034c.m3u8
-#EXTINF:-1 tvg-id="Doraemon.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/01/Doraemon_Merch_EN_Logo.svg" group-title="Kids",Doraemon (720p)
-https://live20.bozztv.com/giatvplayout7/giatv-209902/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 tvg-id="DrakeJosh.de@DACH" tvg-logo="https://images.pluto.tv/channels/65a67c494a10d800085cab06/colorLogoPNG.png" group-title="Kids",Drake & Josh
 https://jmp2.uk/plu-65a67c494a10d800085cab06.m3u8
+#EXTINF:-1 tvg-id="DreamWorksChannelLatinAmerica.us@Panregional" tvg-logo="" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Kids",DreamWorks Channel Latin America (1080p)
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36
+https://barinaslive1.boldmss.com/DREAMWORKS/DREAMWORKS.isml/index.m3u8
 #EXTINF:-1 tvg-id="DreikoTV.pa@SD" tvg-logo="https://i.imgur.com/k8U0e0b.png" group-title="Kids",Dreiko TV (720p) [Not 24/7]
 https://cloudvideo.servers10.com:8081/8020/index.m3u8
 #EXTINF:-1 tvg-id="ducktv.sk@HD" tvg-logo="https://i.imgur.com/gRFQ35W.png" group-title="Kids",ducktv HD
@@ -124,8 +115,6 @@ https://dash3.antik.sk/live/test_duck_plus/playlist.m3u8
 https://livetv.shamon-cable.net:8443/Duronto/index.m3u8
 #EXTINF:-1 tvg-id="EBSKids.kr@SD" tvg-logo="https://i.imgur.com/62oo8Bx.png" group-title="Kids",EBS Kids (400p) [Not 24/7]
 https://ebsonair.ebs.co.kr/ebsufamilypc/familypc1m/playlist.m3u8
-#EXTINF:-1 tvg-id="ElChavoTV.mx@HD" tvg-logo="https://gia.tv/streams/pptv/211465.png" group-title="Kids",El Chavo TV (720p)
-https://live20.bozztv.com/giatvplayout7/giatv-211465/playlist.m3u8
 #EXTINF:-1 tvg-id="EpicKids.in@Digital" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_GUBBARE/images/LOGO_HD/image.png" group-title="Kids",Epic Kids Digital (1080p)
 https://cc-t8lqe1o99pszu.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-t8lqe1o99pszu/playlist.m3u8
 #EXTINF:-1 tvg-id="eSportsMaxTV.ve@SD" tvg-logo="https://i.imgur.com/OprRgQN.png" group-title="Kids",eSports Max TV

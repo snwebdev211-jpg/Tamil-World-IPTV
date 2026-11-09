@@ -3,8 +3,6 @@
 https://d3arbp6l7f096k.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-gv6wgpbb4mgwk/playlist.m3u8?ads.ads_cdn=cf&ads.app_domain=APP_DOMAIN&ads.cdn=cf
 #EXTINF:-1 tvg-id="RajDigitalPlus.in@SD" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_RAJ_DIGITAL_PLUS/images/LOGO_HD/image.png" group-title="Tamil | Movies",Raj Digital Plus (1080p)
 https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
-#EXTINF:-1 tvg-id="StarMoviesSelect.in@HD" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_STAR_MOVIES_SELECT_HD/images/LOGO_HD/image.png" group-title="Tamil | Movies",Star Movies Select HD (1080p)
-https://livetv.shamon-cable.net:8443/Star-movies-select/index.m3u8
 #EXTINF:-1 tvg-id="SuriyanTV.in@SD" tvg-logo="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/transparentImages/Suriyan-tv-logo_2000_X_1125_Transpharent.png" group-title="Tamil | Movies",Suriyan TV (576p)
 https://hlslive.olidigital.in/suriyantv/suriyantv/index.m3u8
 #EXTINF:-1 tvg-id="ThalaaTV.in@HD" tvg-logo="https://d229kpbsb5jevy.cloudfront.net/yuppfast/content/common/channel/logos/thalaa-tv.png" group-title="Tamil | Movies",Thalaa TV (1080p)
@@ -42,8 +40,6 @@ https://fta.ektv.in/live/54/54_0.m3u8
 https://d1yl6bf4hrzbr0.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-5km3zs4zs9sp0/allo.m3u8
 #EXTINF:-1 tvg-id="AsianetMovies.in@SD" tvg-logo="https://i.imgur.com/cps67hs.png" group-title="Movies",Asianet Movies (396p)
 https://da86m1sqpm3o0.cloudfront.net/28072023/smil:asianetmovies.smil/chunklist_b1928000.m3u8
-#EXTINF:-1 tvg-id="AuroraMediaFilms.gt@SD" tvg-logo="https://i.imgur.com/DVC5w6H.png" group-title="Movies",Aurora Media Films (720p)
-https://cdn.streamhispanatv.net:3417/live/auroramflive.m3u8
 #EXTINF:-1 tvg-id="B4UBhojpuri.in@SD" tvg-logo="https://i.imgur.com/NwOQUDp.png" group-title="Movies",B4U Bhojpuri (1080p)
 https://cdnb4u.wiseplayout.com/B4U_Bhojpuri/master.m3u8
 #EXTINF:-1 tvg-id="B4UBhojpuri.in@Plus" tvg-logo="https://i.imgur.com/NwOQUDp.png" group-title="Movies",B4U Bhojpuri Plus (1080p)
@@ -126,18 +122,24 @@ https://hls02ns.antenaplay.ro/hls/cinemaraton-plus-hd/index.m3u8
 https://streaming.onnethn.com/CINEMAX/playlist.m3u8
 #EXTINF:-1 tvg-id="CineWow.ro@SD" tvg-logo="https://cdn.gamma.app/tfnglu66dwji8hw/d36b2d5c45a544749b3739d46fb119cc/original/CineWow.png" group-title="Movies",CineWow (576i)
 https://hls01ns.antenaplay.ro/hls/cinewow-sd/index.m3u8
+#EXTINF:-1 tvg-id="CityEdenKinoAction.ru@HD" tvg-logo="https://i.imgur.com/uuzuvD0.png" group-title="Movies",City Eden KinoAction [Not 24/7]
+https://cityeden.catcast.tv/content/41333/index.m3u8
+#EXTINF:-1 tvg-id="CityEdenKinoArt.ru@HD" tvg-logo="https://i.imgur.com/67CWCtz.png" group-title="Movies",City Eden KinoArt [Not 24/7]
+https://cityeden.catcast.tv/content/38398/index.m3u8
 #EXTINF:-1 tvg-id="CityEdenKinoAsia.ru@HD" tvg-logo="https://i.imgur.com/gaket4B.png" group-title="Movies",City Eden KinoAsia [Not 24/7]
 https://cityeden.catcast.tv/content/34393/index.m3u8
 #EXTINF:-1 tvg-id="CityEdenKinoDetektiv.ru@HD" tvg-logo="https://i.imgur.com/9rKHwBV.png" group-title="Movies",City Eden KinoDetektiv [Not 24/7]
 https://cityeden.catcast.tv/content/41327/index.m3u8
+#EXTINF:-1 tvg-id="CityEdenKinoDrama.ru@HD" tvg-logo="https://i.imgur.com/29ddffh.png" group-title="Movies",City Eden KinoDrama [Not 24/7]
+https://cityeden.catcast.tv/content/45269/index.m3u8
 #EXTINF:-1 tvg-id="CityEdenKinoFantastika.ru@HD" tvg-logo="https://i.imgur.com/I64FeIO.png" group-title="Movies",City Eden KinoFantastika [Not 24/7]
 https://cityeden.catcast.tv/content/45268/index.m3u8
+#EXTINF:-1 tvg-id="CityEdenKinoKlassika.ru@HD" tvg-logo="https://i.imgur.com/0qGCS1S.png" group-title="Movies",City Eden KinoKlassika [Not 24/7]
+https://cityeden.catcast.tv/content/34185/index.m3u8
 #EXTINF:-1 tvg-id="CityEdenKinoKomediya.ru@HD" tvg-logo="https://i.imgur.com/Aga2XVA.png" group-title="Movies",City Eden KinoKomediya [Not 24/7]
 https://cityeden.catcast.tv/content/41331/index.m3u8
 #EXTINF:-1 tvg-id="CityEdenKinoMistika.ru@HD" tvg-logo="https://i.imgur.com/s1Pid0K.png" group-title="Movies",City Eden KinoMistika [Not 24/7]
 https://cityeden.catcast.tv/content/40783/index.m3u8
-#EXTINF:-1 tvg-id="ClassicCinema.us@SD" tvg-logo="https://i.imgur.com/FJoPnTb.png" group-title="Movies",Classic Cinema (240p) [Not 24/7]
-https://rpn.bozztv.com/gusa/gusa-classiccinema/index.m3u8
 #EXTINF:-1 tvg-id="ClassicMovieWesterns.us@SD" tvg-logo="https://images.pluto.tv/channels/61f33318210549000806a530/colorLogoPNG.png" group-title="Movies",Classic Movie Westerns
 https://jmp2.uk/plu-61f33318210549000806a530.m3u8
 #EXTINF:-1 tvg-id="ClassicMoviesChannel.us@SD" tvg-logo="https://i.imgur.com/pQJxov2.png" group-title="Movies",Classic Movies Channel
@@ -154,8 +156,6 @@ https://canaletaplus.com:3922/live/cosmoslive.m3u8
 https://dqi7ayt2o24fn.cloudfront.net/playlist.m3u8
 #EXTINF:-1 tvg-id="EbonyTVbyLionsgate.us@SD" tvg-logo="https://provider-static.plex.tv/epg/cms/production/234d5377-ab07-41bf-acd6-34c17c1c051a/EbonyTV_Plex_Logo_Light_1500x1000.png" group-title="Movies",Ebony TV by Lionsgate (1080p)
 https://aegis-cloudfront-1.tubi.video/a0ad4b53-ab3a-48dd-be12-bc7f533c372c/playlist.m3u8
-#EXTINF:-1 tvg-id="EBSCinema.us@SD" tvg-logo="https://i.imgur.com/fewPTFE.png" group-title="Movies",EBS Cinema (720p)
-https://rpn.bozztv.com/ebstv/ebscinema/index.m3u8
 #EXTINF:-1 tvg-id="EmotionL.fr@SD" tvg-logo="https://i.imgur.com/MP34aaj.png" group-title="Movies",Emotion L (1080p)
 https://rakutenaa-zylo-emotional-rakuten-r1zkm.amagi.tv/playlist/rakutenAA-zylo-emotional-rakuten/playlist.m3u8
 #EXTINF:-1 tvg-id="EpicBhojpuri.in@SD" tvg-logo="https://dtil.tmsimg.com/assets/GNLZZGG0032BVJ8.png?lock=720x540" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36" group-title="Movies",Epic Bhojpuri (576p)
@@ -220,12 +220,8 @@ https://amogonetworx-grjngo-3-dk.samsung.wurl.tv/playlist.m3u8
 https://dbrb49pjoymg4.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/master.m3u8?ads.xumo_channelId=99991709
 #EXTINF:-1 tvg-id="HarbinMovieChannel.cn@SD" tvg-logo="https://www.tvchinese.net/uploads/tv/haerbin.jpg" group-title="Movies",Harbin Movie Channel
 https://stream.hrbtv.net/yspd/playlist.m3u8
-#EXTINF:-1 tvg-id="Hero.fi@SD" tvg-logo="https://i.imgur.com/4t5JQLY.png" group-title="Movies",Hero (720p) [Not 24/7]
-https://live-fi.tvkaista.net/hero/live.m3u8?hd=true
 #EXTINF:-1 tvg-id="HorosheeKino.ru@SD" tvg-logo="https://i.imgur.com/ZbOqfy4.png" group-title="Movies",Horoshee Kino (720p)
 https://live-rian.cdnvideo.ru/rian/rus-radio/playlist.m3u8
-#EXTINF:-1 tvg-id="HTVCMovies.vn@SD" tvg-logo="https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/HTVC%20Phim%20HD.png" group-title="Movies",HTVC Movies (720p)
-https://dethich.pw/htvcphim/index.m3u8
 #EXTINF:-1 tvg-id="iFilm2.ir@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/fa/c/ce/Ifilm2logo.png" group-title="Movies",iFilm 2
 https://live.presstv.co.uk/hls/ifilm2.m3u8
 #EXTINF:-1 tvg-id="iFilmArabic.ir@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b9/IFILM.png" group-title="Movies",iFilm Arabic
@@ -238,7 +234,5 @@ https://live.presstv.co.uk/hls/ifilmfa.m3u8
 https://samitaorigin.tangotv.in/INDIATALKIES/SAMITAORIGIN/index.m3u8
 #EXTINF:-1 tvg-id="IndywoodTV.in@SD" tvg-logo="https://i.ibb.co/jT3NCPp/logo-tv.png" group-title="Movies",Indywood TV (720p)
 https://43wrzjnpqoxe-hls-live.wmncdn.net/indywood/indywoodtv/index.m3u8
-#EXTINF:-1 tvg-id="ItageTV.ng@SD" tvg-logo="https://i.imgur.com/FP1aUPw.jpg" group-title="Movies",Itage TV (480p)
-https://viewmedia7219.bozztv.com/wmedia/viewmedia100/web_011/Stream/playlist.m3u8
 #EXTINF:-1 tvg-id="JalshaMovies.in@SD" tvg-logo="https://i.imgur.com/25eWjX2.png" group-title="Movies",Jalsha Movies (1080p)
 https://box.bbaria.net:8083/Jalsha_Movie/tracks-v1a1/mono.m3u8

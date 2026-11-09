@@ -33,8 +33,6 @@ https://jmp2.uk/plu-65cba7b1ec452d0008acbed8.m3u8
 https://jmp2.uk/plu-65cba73611ced700082123bc.m3u8
 #EXTINF:-1 tvg-id="BroadCity.se@NO" tvg-logo="https://images.pluto.tv/channels/65cba73611ced700082123bc/colorLogoPNG.png" group-title="Comedy",Broad City NO
 https://jmp2.uk/plu-65cba778ec452d0008acbe86.m3u8
-#EXTINF:-1 tvg-id="CameraSmileTV.us@SD" tvg-logo="https://i.imgur.com/V5h4R83.png" group-title="Comedy",Camera Smile TV (480p)
-https://rpn.bozztv.com/gusa/gusa-camerasmile/index.m3u8
 #EXTINF:-1 tvg-id="CarolineintheCity.se@SE" tvg-logo="https://images.pluto.tv/channels/66a7aa44cd0d31000843942b/colorLogoPNG.png" group-title="Comedy",Caroline in the City
 https://jmp2.uk/plu-66a7ab4dcd0d3100084395b4.m3u8
 #EXTINF:-1 tvg-id="CarolineintheCity.se@DK" tvg-logo="https://images.pluto.tv/channels/66a7aa44cd0d31000843942b/colorLogoPNG.png" group-title="Comedy",Caroline in the City DK
@@ -237,8 +235,6 @@ https://jmp2.uk/plu-67882c1c7b11714b795c2008.m3u8
 https://d4whmvwm0rdvi.cloudfront.net/10007/99993017/hls/master.m3u8?ads.xumo_channelId=99993017
 #EXTINF:-1 tvg-id="TakeshisCastle.de@DACH" tvg-logo="https://images.pluto.tv/channels/6054a9f4bc8a5f000771504c/colorLogoPNG.png" group-title="Comedy",Takeshi's Castle
 https://jmp2.uk/plu-6054a9f4bc8a5f000771504c.m3u8
-#EXTINF:-1 tvg-id="Telecyan.us@HD" tvg-logo="https://i.imgur.com/9BnHCj5.png" group-title="Comedy",Telecyan (720p)
-https://live20.bozztv.com/giatvplayout7/giatv-211227/playlist.m3u8
 #EXTINF:-1 tvg-id="TheChatShowChannel.uk@SD" tvg-logo="https://yt3.googleusercontent.com/aQ_vvywmcBt4X1SmeEMgT3uf7bb1Z__I9XVwabeg7RrSSEuIhswMlvwhyi0Wl4PlLHwXufLgOg=s900-c-k-c0x00ffffff-no-rj" group-title="Comedy",The Chat Show Channel (1080p)
 https://amg00426-littledotstudio-thechatshow-samsungnz-uqmtt.amagi.tv/playlist/amg00426-littledotstudio-thechatshow-samsungnz/playlist.m3u8
 #EXTINF:-1 tvg-id="TheConners.us@SD" tvg-logo="https://provider-static.plex.tv/epg/cms/production/3acd803e-a5e3-430c-a34e-508123d2bd95/TheConners_1500x1000_Logo_Dark.png" group-title="Comedy",The Conners
@@ -251,7 +247,5 @@ https://jmp2.uk/plu-65e977042873090008b48be9.m3u8
 https://jmp2.uk/plu-65e977c48b24c8000805b9ef.m3u8
 #EXTINF:-1 tvg-id="TVLandSitcoms.us@SD" tvg-logo="https://i.imgur.com/phHHs7l.png" group-title="Comedy",TV Land Sitcoms
 https://jmp2.uk/plu-5c2d64ffbdf11b71587184b8.m3u8
-#EXTINF:-1 tvg-id="TVSComedyNetwork.us@SD" tvg-logo="https://i.imgur.com/rXORbti.png" group-title="Comedy",TVS Comedy Network (720p)
-https://rpn.bozztv.com/gusa/gusa-tvscomedy/index.m3u8
 #EXTINF:-1 tvg-id="Vayasemanita.us@Spain" tvg-logo="https://i.imgur.com/0bCLNUG.png" group-title="Comedy",Vaya semanita
 https://jmp2.uk/plu-5f28009b150b2500077766b8.m3u8
