@@ -33,6 +33,8 @@ https://jmp2.uk/plu-65cba7b1ec452d0008acbed8.m3u8
 https://jmp2.uk/plu-65cba73611ced700082123bc.m3u8
 #EXTINF:-1 tvg-id="BroadCity.se@NO" tvg-logo="https://images.pluto.tv/channels/65cba73611ced700082123bc/colorLogoPNG.png" group-title="Comedy",Broad City NO
 https://jmp2.uk/plu-65cba778ec452d0008acbe86.m3u8
+#EXTINF:-1 tvg-id="CameraSmileTV.us@SD" tvg-logo="https://i.imgur.com/V5h4R83.png" group-title="Comedy",Camera Smile TV (480p)
+https://rpn.bozztv.com/gusa/gusa-camerasmile/index.m3u8
 #EXTINF:-1 tvg-id="CarolineintheCity.se@SE" tvg-logo="https://images.pluto.tv/channels/66a7aa44cd0d31000843942b/colorLogoPNG.png" group-title="Comedy",Caroline in the City
 https://jmp2.uk/plu-66a7ab4dcd0d3100084395b4.m3u8
 #EXTINF:-1 tvg-id="CarolineintheCity.se@DK" tvg-logo="https://images.pluto.tv/channels/66a7aa44cd0d31000843942b/colorLogoPNG.png" group-title="Comedy",Caroline in the City DK
@@ -247,5 +249,7 @@ https://jmp2.uk/plu-65e977042873090008b48be9.m3u8
 https://jmp2.uk/plu-65e977c48b24c8000805b9ef.m3u8
 #EXTINF:-1 tvg-id="TVLandSitcoms.us@SD" tvg-logo="https://i.imgur.com/phHHs7l.png" group-title="Comedy",TV Land Sitcoms
 https://jmp2.uk/plu-5c2d64ffbdf11b71587184b8.m3u8
+#EXTINF:-1 tvg-id="TVSComedyNetwork.us@SD" tvg-logo="https://i.imgur.com/rXORbti.png" group-title="Comedy",TVS Comedy Network (720p)
+https://rpn.bozztv.com/gusa/gusa-tvscomedy/index.m3u8
 #EXTINF:-1 tvg-id="Vayasemanita.us@Spain" tvg-logo="https://i.imgur.com/0bCLNUG.png" group-title="Comedy",Vaya semanita
 https://jmp2.uk/plu-5f28009b150b2500077766b8.m3u8
