@@ -1,4 +1,6 @@
 #EXTM3U
+#EXTINF:-1 tvg-id="HistoryTV18.in@HD" tvg-logo="https://dtil.tmsimg.com/assets/s143133_ld_h15_aa.png?lock=720x540" group-title="Tamil | Documentary",History TV18 HD (1080p) [Geo-blocked]
+https://amg01448-amg01448c16-samsung-in-3495.playouts.now.amagi.tv/playlist/amg01448-samsungindia-historychannelenglish-samsungin/playlist.m3u8
 #EXTINF:-1 tvg-id="30ALoomeredTV.us@SD" tvg-logo="https://cbs12.com/resources/media/0c1ecad8-fb09-4bb2-beaa-fc561dfe624a-small21x9_LoomerStill.jpg?1603419052801" group-title="Documentary",30A Loomered TV
 https://30a-tv.com/loomer.m3u8
 #EXTINF:-1 tvg-id="AdventureEarth.de@SD" tvg-logo="https://d3b6luslimvglo.cloudfront.net/images/79/rlaxximages/channels-rescaled/icon-white/adventureearth_white.png" group-title="Documentary",Adventure Earth (1080p)
@@ -208,7 +210,7 @@ https://jmp2.uk/plu-677d397b60fbeb00084b0bff.m3u8
 https://jmp2.uk/plu-677d3a424bd63600082f7baf.m3u8
 #EXTINF:-1 tvg-id="PopularScience.us@SD" tvg-logo="https://provider-static.plex.tv/epg/cms/production/c6bfca5e-58fe-4ed4-a87d-5e2ccde7f085/Logo_Art_-_Popular_Science_Dark_Backgrounds.png" group-title="Documentary",Popular Science (1080p) [Geo-blocked]
 https://amg13231-actve-amg13231c5-vizio-us-6143.playouts.now.amagi.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="RLPROTV.cd@SD" tvg-logo="https://i.imgur.com/PIBtCEN.jpeg" group-title="Documentary",RL PRO TV
+#EXTINF:-1 tvg-id="RLPROTV.cd@SD" tvg-logo="https://i.imgur.com/PIBtCEN.jpeg" group-title="Documentary",RL PRO TV (480p)
 https://stream.berosat.live:19360/rlpro-tv/rlpro-tv.m3u8
 #EXTINF:-1 tvg-id="RTDocumentary.ru@English" tvg-logo="https://i.imgur.com/aeu5zIC.png" group-title="Documentary",RT Documentary (1080p) [Geo-blocked]
 https://rt-rtd.rttv.com/dvr/rtdoc/playlist.m3u8

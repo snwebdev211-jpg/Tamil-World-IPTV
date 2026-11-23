@@ -9,6 +9,8 @@ https://segment.yuppcdn.net/140622/isaiaruvi/playlist.m3u8
 https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/Raj_Musix/master_1.m3u8
 #EXTINF:-1 tvg-id="SanaPlus.in@SD" tvg-logo="https://i.imgur.com/N6tKUZv.png" group-title="Tamil | Music",Sana Plus (1080p)
 https://mumbai-edge.smartplaytv.in/SanaPlusHD/index.m3u8
+#EXTINF:-1 tvg-id="Tunes6.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Tunes_6.png" group-title="Tamil | Music",Tunes 6 (720p)
+https://stream.d6-pro.com/Tunes6music/live/video.m3u8
 #EXTINF:-1 tvg-id="UltimateTV.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/utvtamil.png" group-title="Tamil | Music",Ultimate TV (1080p)
 https://stream.ottlive.co.in/utvtamil/index.m3u8
 #EXTINF:-1 tvg-id="VaanavilTV.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Vaanavil_TV.png" group-title="Tamil | Music",Vaanavil TV (720p)
@@ -39,12 +41,12 @@ https://stream.sen-gt.com/A2iMusic/myStream/playlist.m3u8
 https://2-fss-1.streamhoster.com/pl_122/206858-4412960-1/playlist.m3u8
 #EXTINF:-1 tvg-id="ActivaTV.es@SD" tvg-logo="https://i.imgur.com/VCUZKiw.png" group-title="Music",Activa TV (720p)
 https://streamtv.mediasector.es/hls/activatv/index.m3u8
-#EXTINF:-1 tvg-id="AFNTV.ir@SD" tvg-logo="https://i.imgur.com/LctanF8.png" group-title="Music",AFN TV (720p)
-https://bozztv.com/1gbw5/tintv2/tintv2/playlist.m3u8
 #EXTINF:-1 tvg-id="AfrobeatTVEntertainment.uk@SD" tvg-logo="https://i.imgur.com/232ndRK.png" group-title="Music",Afrobeat TV Entertainment (1080p)
 https://stream.ecable.tv/afrobeats/index.m3u8
 #EXTINF:-1 tvg-id="AlbKanaleMusicTV.al@HD" tvg-logo="https://i.imgur.com/JdKxscs.png" group-title="Music",AlbKanale Music TV HD (1080p)
 https://albportal.net/albkanalemusic.m3u8
+#EXTINF:-1 tvg-id="AlcanceFMPLAYTV.py@SD" tvg-logo="https://i.imgur.com/ymcWecA.png" group-title="Music",Alcance FM PLAY TV
+https://video.wilohosting.com:19360/alcancefmtv/alcancefmtv.m3u8
 #EXTINF:-1 tvg-id="AntenneKaernten.at@SD" tvg-logo="https://i.imgur.com/nUKFDsb.jpeg" group-title="Music",Antenne Kaernten (720p)
 https://60efd7a2b4d02.streamlock.net/a_kaernten/ngrp:livestream_all/playlist.m3u8
 #EXTINF:-1 tvg-id="AntenneSteiermark.at@SD" tvg-logo="https://i.imgur.com/qnappvd.jpeg" group-title="Music",Antenne Steiermark (720p)
@@ -61,5 +63,3 @@ https://hls.avang.live/hls/stream.m3u8
 https://tvsen3.aynaott.com/P2fJzfsg/index.m3u8
 #EXTINF:-1 tvg-id="AzaharesRadiovisualMultimedia.ar@SD" tvg-logo="https://i.imgur.com/g1BFoSs.png" group-title="Music",Azahares Radiovisual Multimedia (720p)
 https://streamyes.alsolnet.com/azaharesfm/live/playlist.m3u8
-#EXTINF:-1 tvg-id="B4UMusic.in@India" tvg-logo="https://dtil.tmsimg.com/assets/s158141_ld_h15_aa.png?lock=720x540" group-title="Music",B4U Music (1080p)
-https://amg00877-b4unew-amg00877c3-xiaomi-in-5474.playouts.now.amagi.tv/720p/index.m3u8

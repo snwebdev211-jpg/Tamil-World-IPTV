@@ -35,9 +35,9 @@ https://amg02159-kcglobal-amg02159c1-samsung-in-521.playouts.now.amagi.tv/playli
 https://jmp2.uk/plu-6793eaa4bc03978b9bc63db1.m3u8
 #EXTINF:-1 tvg-id="AniplusAsia.sg@SD" tvg-logo="https://i.imgur.com/Im3MePy.png" group-title="Kids",Aniplus Asia (720p) [Geo-blocked]
 https://amg18481-amg18481c1-amgplt0352.playout.now3.amagi.tv/playlist/amg18481-amg18481c1-amgplt0352/playlist.m3u8
-#EXTINF:-1 tvg-id="Aqlvoy.uz@SD" tvg-logo="https://i.imgur.com/ekF5cAi.png" group-title="Kids",Aqlvoy
+#EXTINF:-1 tvg-id="Aqlvoy.uz@SD" tvg-logo="https://i.imgur.com/ekF5cAi.png" group-title="Kids",Aqlvoy (1080p)
 https://stream8.cinerama.uz/1205/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-id="ArutzHaYeladim.il@SD" tvg-logo="https://i.imgur.com/n1KusFW.png" group-title="Kids",Arutz HaYeladim
+#EXTINF:-1 tvg-id="ArutzHaYeladim.il@SD" tvg-logo="https://i.imgur.com/n1KusFW.png" group-title="Kids",Arutz HaYeladim (720p)
 https://r.il.cdn-redge.media/livehls/oil/freetv/live/kids_channel/live.livx/playlist.m3u8
 #EXTINF:-1 tvg-id="AtfalMawahebTV.sa@SD" tvg-logo="https://i.imgur.com/Y2BqP9m.png" group-title="Kids",Atfal & Mawaheb TV (1080p)
 https://5aafcc5de91f1.streamlock.net/atfal1.com/atfal2/playlist.m3u8
@@ -77,6 +77,8 @@ https://hls.botflix.tv/tv/index.m3u8
 https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/04072b68-dc6a-4d5e-98af-f356ba8d5063/playlist.m3u8
 #EXTINF:-1 tvg-id="CampSpoopy.us@SD" tvg-logo="https://img2.static-ottera.com/prod/tg/linear_channel/logo/640x360/camp-spoopy-2021_1920-x-1080_option-5.jpg" group-title="Kids",Camp Spoopy (576p)
 https://stream.ads.ottera.tv/playlist.m3u8?network_id=269
+#EXTINF:-1 tvg-id="CartoonCartoons.us@SD" tvg-logo="https://cartooncartoons.thatsoretro.com/logo" group-title="Kids",Cartoon Cartoons (720p)
+https://cartooncartoons.thatsoretro.com/hls/stream.m3u8
 #EXTINF:-1 tvg-id="CartoonNetwork.pk@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cartoon_Network_2010_logo.svg/960px-Cartoon_Network_2010_logo.svg.png" group-title="Kids",Cartoon Network (Pakistan)
 https://vodzong.mjunoon.tv:8087/streamtest/cartoon-network-87/live/87H/chunks.m3u8
 #EXTINF:-1 tvg-id="CartoonNetwork.us@East" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cartoon_Network_2010_logo.svg/960px-Cartoon_Network_2010_logo.svg.png" group-title="Kids",Cartoon Network (United States) [Not 24/7;Geo-blocked]
@@ -122,7 +124,7 @@ https://ebsonair.ebs.co.kr/ebsufamilypc/familypc1m/playlist.m3u8
 https://183.giatvcdn.com/giatvplayout7/giatv-211465/playlist.m3u8
 #EXTINF:-1 tvg-id="EpicKids.in@Digital" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_GUBBARE/images/LOGO_HD/image.png" group-title="Kids",Epic Kids Digital (1080p)
 https://cc-t8lqe1o99pszu.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-t8lqe1o99pszu/playlist.m3u8
-#EXTINF:-1 tvg-id="eSportsMaxTV.ve@SD" tvg-logo="https://i.imgur.com/OprRgQN.png" group-title="Kids",eSports Max TV
+#EXTINF:-1 tvg-id="eSportsMaxTV.ve@SD" tvg-logo="https://i.imgur.com/OprRgQN.png" group-title="Kids",eSports Max TV (1080p)
 https://cdnlive.klicgo.net/esportsmax/live/playlist_dvr.m3u8
 #EXTINF:-1 tvg-id="ExtremaKidsTV.cr@HD" tvg-logo="https://www.vivalivetv.com/public/files/shows/0/1/3027-294x165-FFFFFF.jpg" group-title="Kids",Extrema Kids TV (1080p) [Not 24/7]
 https://627bb251f23c7.streamlock.net:444/ExtremaKids/ExtremaKids/playlist.m3u8
@@ -132,8 +134,6 @@ https://jmp2.uk/plu-56171fafada51f8004c4b40f.m3u8
 https://r.eu.cdn-redge.media/livehls/oeu/mt/live/france_4/live.livx/playlist.m3u8
 #EXTINF:-1 tvg-id="GarfieldandFriends.us@US" tvg-logo="https://i.imgur.com/evzfe9C.png" group-title="Kids",Garfield and Friends
 https://jmp2.uk/plu-677f927554f43dad4b3258aa.m3u8
-#EXTINF:-1 tvg-id="GiggleMug.us@SD" tvg-logo="https://i.imgur.com/NbNHJXo.png" group-title="Kids",Giggle Mug (576p)
-https://tvsen3.aynaott.com/uYpFg3RV/index.m3u8
 #EXTINF:-1 tvg-id="GikTVMX.mx@SD" tvg-logo="https://i.imgur.com/Gwz78jZ.png" group-title="Kids",GikTVMX (720p)
 https://pistream.ddns.net/hls/stream.m3u8
 #EXTINF:-1 tvg-id="GodStandsKidsClubTV.pk@English" tvg-logo="https://i.imgur.com/FxDBbpz.jpeg" group-title="Kids",God Stands Kids Club TV
@@ -158,13 +158,13 @@ https://amg02713-amg02713c11-amgplt0852.playout.now3.amagi.tv/ts-us-e2-n2/playli
 https://jmp2.uk/plu-66c79221b1a34600087e264d.m3u8
 #EXTINF:-1 tvg-id="InazumaEleven.us@France" tvg-logo="https://i.imgur.com/pLv0T3D.png" group-title="Kids",Inazuma Eleven
 https://jmp2.uk/plu-632c6df43d2bc5000751f621.m3u8
-#EXTINF:-1 tvg-id="IRIBOmid.ir@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/IRIB_Omid.svg/500px-IRIB_Omid.svg.png" group-title="Kids",IRIB Omid
+#EXTINF:-1 tvg-id="IRIBOmid.ir@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/IRIB_Omid.svg/500px-IRIB_Omid.svg.png" group-title="Kids",IRIB Omid (1080p)
 https://ncdn.telewebion.ir/omid/live/playlist.m3u8
 #EXTINF:-1 tvg-id="IuniorTV.it@SD" tvg-logo="https://i.imgur.com/FBOJnfT.png" group-title="Kids",Iunior TV (1080p)
 https://5f22d76e220e1.streamlock.net/iuniortv/iuniortv/chunklist_w774879328.m3u8
 #EXTINF:-1 tvg-id="JapanimTV.be@SD" tvg-logo="https://static-cdn.jtvnw.net/jtv_user_pictures/6b97e19f-4243-4d48-b794-ff8cf54d795f-profile_image-300x300.png" group-title="Kids",JapanimTV (1080p)
 https://foxkidstv.be:3369/stream/play.m3u8
-#EXTINF:-1 tvg-id="Junior.il@SD" tvg-logo="https://i.imgur.com/w8fYTnw.png" group-title="Kids",Junior
+#EXTINF:-1 tvg-id="Junior.il@SD" tvg-logo="https://i.imgur.com/w8fYTnw.png" group-title="Kids",Junior (720p)
 https://r.il.cdn-redge.media/livehls/oil/freetv/live/junior/live.livx/playlist.m3u8
 #EXTINF:-1 tvg-id="KartoonChannel.us@SD" tvg-logo="https://i.imgur.com/1luzP3T.png" group-title="Kids",Kartoon Channel! (1080p)
 https://lightning-fnf-samsungaus.amagi.tv/playlist.m3u8
@@ -219,6 +219,8 @@ https://amg00627-amg00627c30-rakuten-es-3990.playouts.now.amagi.tv/playlist/amg0
 https://amg00627-amg00627c31-rakuten-fr-3991.playouts.now.amagi.tv/playlist/amg00627-banijayfast-mrbeanfrcc-rakutenfr/playlist.m3u8
 #EXTINF:-1 tvg-id="MrBeanAnimated.uk@IT" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/2/25/Mr._Bean_Animated_Series_stacked_logo.png" group-title="Kids",Mr Bean Animated IT (1080p)
 https://amg00627-amg00627c29-rakuten-it-3989.playouts.now.amagi.tv/playlist/amg00627-banijayfast-mrbeanitcc-rakutenit/playlist.m3u8
+#EXTINF:-1 tvg-id="Multilandia.ru@SD" tvg-logo="https://i.imgur.com/ccwijY0.png" group-title="Kids",Multilandia (1080p)
+https://stream8.cinerama.uz/1440/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="Naruto.us@Brazil" tvg-logo="https://i.imgur.com/M8X3Kvc.png" group-title="Kids",Naruto Brazil
 https://jmp2.uk/plu-5f6df5a173d7340007c559f7.m3u8
 #EXTINF:-1 tvg-id="Narutoenespanol.us@SD" tvg-logo="https://i.imgur.com/hG8F0RY.png" group-title="Kids",Naruto en espanol
@@ -235,5 +237,3 @@ https://jmp2.uk/plu-6824ce95f09106f4b18f4114.m3u8
 https://jmp2.uk/plu-5ddd7cb2cbb9010009b4fe32.m3u8
 #EXTINF:-1 tvg-id="NickJrLatinAmerica.us@Panregional" tvg-logo="https://i.imgur.com/KT4tdQs.png" group-title="Kids",Nick Jr. Latin America (1080p)
 https://streaming.onnethn.com/NICK_JR/playlist.m3u8
-#EXTINF:-1 tvg-id="NickJrPlutoTV.us@US" tvg-logo="https://images.pluto.tv/channels/62bdb75c3afd1200079146a6/colorLogoPNG.png" group-title="Kids",Nick Jr. Pluto TV (720p)
-https://jmp2.uk/plu-5ca6748a37b88b269472dad9.m3u8

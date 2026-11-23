@@ -3,19 +3,19 @@
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
 #EXTINF:-1 tvg-id="30AGolfKingdom.us@SD" tvg-logo="https://i.imgur.com/Lv53nh4.png" group-title="Sports",30A Golf Kingdom (720p)
 https://30a-tv.com/feeds/vidaa/golf.m3u8
-#EXTINF:-1 tvg-id="5Gold.il@SD" tvg-logo="https://i.imgur.com/zFLRfXh.png" group-title="Sports",5Gold
+#EXTINF:-1 tvg-id="5Gold.il@SD" tvg-logo="https://i.imgur.com/zFLRfXh.png" group-title="Sports",5Gold (1080p)
 https://r.il.cdn-redge.media/livehls/oil/freetv/live/sport_5_gold/live.livx/playlist.m3u8
-#EXTINF:-1 tvg-id="5Live.il@SD" tvg-logo="https://i.imgur.com/0yr3yvd.png" group-title="Sports",5Live
+#EXTINF:-1 tvg-id="5Live.il@SD" tvg-logo="https://i.imgur.com/0yr3yvd.png" group-title="Sports",5Live (1080p)
 https://r.il.cdn-redge.media/livehls/oil/freetv/live/sport_5_live/live.livx/playlist.m3u8
-#EXTINF:-1 tvg-id="5Max.il@SD" tvg-logo="https://i.postimg.cc/XNmh01pH/5sport-max-il.png" group-title="Sports",5Max
+#EXTINF:-1 tvg-id="5Max.il@SD" tvg-logo="https://i.postimg.cc/XNmh01pH/5sport-max-il.png" group-title="Sports",5Max (1080p)
 https://r.il.cdn-redge.media/livehls/oil/freetv/live/sport_5_max/live.livx/playlist.m3u8
-#EXTINF:-1 tvg-id="5Plus.il@SD" tvg-logo="https://i.imgur.com/L3RA9Lv.png" group-title="Sports",5Plus
+#EXTINF:-1 tvg-id="5Plus.il@SD" tvg-logo="https://i.imgur.com/L3RA9Lv.png" group-title="Sports",5Plus (1080p)
 https://r.il.cdn-redge.media/livehls/oil/freetv/live/sport_5_plus/live.livx/playlist.m3u8
 #EXTINF:-1 tvg-id="5Sport.il@SD" tvg-logo="https://i.imgur.com/dRVsB89.png" group-title="Sports",5Sport
 https://r.il.cdn-redge.media/livehls/oil/freetv/live/sport_5/live.livx/playlist.m3u8
-#EXTINF:-1 tvg-id="5Sport4K.il@SD" tvg-logo="https://i.imgur.com/Msfhpqd.png" group-title="Sports",5Sport 4K
+#EXTINF:-1 tvg-id="5Sport4K.il@SD" tvg-logo="https://i.imgur.com/Msfhpqd.png" group-title="Sports",5Sport 4K (1080p)
 https://r.il.cdn-redge.media/livehls/oil/freetv/live/sport_5_4k_avc/live.livx/playlist.m3u8
-#EXTINF:-1 tvg-id="5Stars.il@SD" tvg-logo="https://i.imgur.com/IQtAKIa.png" group-title="Sports",5Stars
+#EXTINF:-1 tvg-id="5Stars.il@SD" tvg-logo="https://i.imgur.com/IQtAKIa.png" group-title="Sports",5Stars (1080p)
 https://r.il.cdn-redge.media/livehls/oil/freetv/live/sport_5_starz/live.livx/playlist.m3u8
 #EXTINF:-1 tvg-id="ASpor.tr@SD" tvg-logo="https://i.imgur.com/ZhkZzLf.png" group-title="Sports",A Spor SD (1080p)
 https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aspor/aspor.m3u8
@@ -27,6 +27,8 @@ https://imn-live.esite-lab.com/hls/iraqia-sports-1.m3u8
 https://d4whmvwm0rdvi.cloudfront.net/10007/99951318/hls/master.m3u8?ads._fw_app_bundle=web.xumo.com&ads._fw_app_store_url=&ads._fw_content_category=&ads._fw_content_genre=&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_coppa=0&ads._fw_deviceMake=GitHubAction&ads._fw_deviceType=3-Connected_TV&ads._fw_device_model=PythonScript&ads._fw_did=a5090924-15b1-4b7f-b6cd-2f06e2ba51e1&ads._fw_is_lat=0&ads._fw_us_privacy=&ads._fw_vcid2=512116:a5090924-15b1-4b7f-b6cd-2f06e2ba51e1&ads.afid=405342864&ads.appName=XumoPlay&ads.appVersion=1.0.0&ads.asnw=169843&ads.channelId=99951318&ads.csid=xumo_web_NBCUAmericanNinjaWarrior_ssai_cro&ads.sfid=19647852&ads.xumo_channelId=99951318&ads.xumo_contentId=4063&ads.xumo_contentName=NBCUAmericanNinjaWarrior&ads.xumo_providerId=4063&ads.xumo_providerName=NBCUAmericanNinjaWarrior
 #EXTINF:-1 tvg-id="AntenaPlayEvents.ro@SD" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/8/87/Antena_Play_symbol_white_2022.svg/revision/latest/scale-to-width-down/1000?cb=20251128201145" group-title="Sports",AntenaPlay Events (576p) [Not 24/7]
 https://live77cdn2.antenaplay.ro/live2_sdi03/live2_sdi03_3000k.m3u8
+#EXTINF:-1 tvg-id="AntenaSport.ro@SD" tvg-logo="https://cdn.as.ro/wp-content/themes/antenasport/images/icons-as/as.svg" group-title="Sports",AntenaSport
+https://stream1.antenaplay.ro/as/AS.ro/chunklist.m3u8
 #EXTINF:-1 tvg-id="AS3SportTV.ve@SD" tvg-logo="https://i.ibb.co/bRmGbsyV/A3-SPORTTV.jpg" group-title="Sports",AS3 Sport TV (1080p)
 https://streamtv.as3sport.online:3394/hybrid/play.m3u8
 #EXTINF:-1 tvg-id="AstrahanRuSport.ru@SD" tvg-logo="https://i.imgur.com/BKaEtqL.png" group-title="Sports",Astrahan.Ru Sport (720p)
@@ -37,8 +39,6 @@ https://kanal75xto-llhls.akamaized.net/live/Data/atg-kanal-15-02a-rr/HLS-Legacy-
 https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8
 #EXTINF:-1 tvg-id="BahrainSports2.bh@SD" tvg-logo="https://i.imgur.com/ZkuZmIo.png" group-title="Sports",Bahrain Sports 2 (720p) [Not 24/7]
 https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8
-#EXTINF:-1 tvg-id="beINSportsUSA.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/BeIN_Sports_logo_%28vertical_version%29.svg/500px-BeIN_Sports_logo_%28vertical_version%29.svg.png" group-title="Sports",beIN Sports USA (576p)
-https://tvsen6.aynaott.com/beinsports/index.m3u8
 #EXTINF:-1 tvg-id="beINSPORTSXTRA.us@SD" tvg-logo="https://i.ibb.co/HT49GPmB/XTRA-2.png" group-title="Sports",beIN SPORTS XTRA (1080p)
 https://bein-xtra-bein.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="beINSPORTSXTRAenEspanol.us@SD" tvg-logo="https://i.imgur.com/V562tpO.png" group-title="Sports",beIN SPORTS XTRA en Espanol (1080p)
@@ -49,10 +49,6 @@ https://cdn3.wowza.com/5/ZWQ1K2NYTmpFbGsr/BEK-WOWZA-1/smil:BEKPRIMEW.smil/playli
 https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="BicolorPlus.pe@SD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2026/09/24/00/1790182833200/6a8e1eb7f5d6_640_360.png" group-title="Sports",Bicolor+ (720p)
 https://live-evg10.tv360.bitel.com.pe/bitel/bicolorfree_abr/playlist.m3u8
-#EXTINF:-1 tvg-id="BicolorPlusPremium2.pe@SD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2026/09/24/03/1790194132371/1e57475a9a6b_640_360.png" group-title="Sports",Bicolor+ Premium 2 (720p)
-https://live-evg10.tv360.bitel.com.pe/bitel/bicolorpremium2_abr/playlist.m3u8
-#EXTINF:-1 tvg-id="BicolorPlusPremium3.pe@SD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2026/09/24/03/1790194198636/d91910da3254_640_360.png" group-title="Sports",Bicolor+ Premium 3 (720p)
-https://live-evg10.tv360.bitel.com.pe/bitel/bicolorpremium3_abr/playlist.m3u8
 #EXTINF:-1 tvg-id="BicolorPlusPremium.pe@SD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2026/09/24/00/1790183086681/1dff7002a22a_640_360.png" group-title="Sports",Bicolor+ Premium [Geo-blocked]
 https://live-evg10.tv360.bitel.com.pe/bitel/bicolorpremium_abr/bitel/bicolorpremium_720p/chunks.m3u8
 #EXTINF:-1 tvg-id="BilliardTV.us@SD" tvg-logo="https://i.imgur.com/BZijfKh.png" group-title="Sports",Billiard TV (1080p) [Geo-blocked]
