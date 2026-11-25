@@ -118,8 +118,6 @@ https://bridgemedia-hls.cdnvideo.ru/hls/live/6aff0d2a81d78600017e02c2/720p.m3u8
 https://bridgemedia-hls.cdnvideo.ru/hls/live/6aff1b6881d78600017e02c5/720p.m3u8
 #EXTINF:-1 tvg-id="BTATV.ve@SD" tvg-logo="https://i.imgur.com/vygOosC.png" group-title="Music",BTA TV (720p)
 https://cloud.fastchannel.es/manifiest/hls/prog9/btatv.m3u8
-#EXTINF:-1 tvg-id="BuenisimaRadioTV.co@SD" tvg-logo="https://i.imgur.com/URKDlOZ.png" group-title="Music",Buenisima Radio TV
-https://canal.mediaserver.com.co/live/buenisimatv.m3u8
 #EXTINF:-1 tvg-id="CaliforniaMusicChannel.us@SD" tvg-logo="https://i.imgur.com/FyNot5W.png" group-title="Music",California Music Channel (1080p)
 https://cmc-cmctv-cineverse.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="ChamameTV.ar@SD" tvg-logo="https://i.imgur.com/JigzJck.png" group-title="Music",Chamame TV
@@ -154,8 +152,6 @@ https://5929b138b139d.streamlock.net/CompanyTV/smil:CompanyTV.smil/master.m3u8
 https://stream8.mexiserver.com:19360/conectatvx/conectatvx.m3u8
 #EXTINF:-1 tvg-id="CoolFM989.aw@SD" tvg-logo="https://i.imgur.com/uGE6lZ2.png" group-title="Music",Cool FM 98.9 (720p)
 https://live2.tensila.com/cool-v-1.arubara/hls/master.m3u8
-#EXTINF:-1 tvg-id="CumbiaMix.ar@HD" tvg-logo="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6901dfd41a05195b77301d7b/b306e57e4_Logo-TV-C.png" group-title="Music",Cumbia Mix (720p)
-https://cloud.tvomix.com/CUMBIAMIX/index.m3u8
 #EXTINF:-1 tvg-id="DanceFM.cl@SD" tvg-logo="https://i2.paste.pics/ff3e1e1045a1968dcdbcda3824a94eb3.png" group-title="Music",Dance FM (720p)
 https://5eaccbab48461.streamlock.net:1936/dancefm_1/dancefm_1/playlist.m3u8
 #EXTINF:-1 tvg-id="DanceTelevision.nl@SD" tvg-logo="https://pbs.twimg.com/profile_images/1268129322730127364/OJlQBZpS_400x400.jpg" group-title="Music",Dance Television (1080p)
@@ -178,8 +174,12 @@ https://sdn-global-live-streaming-packager-cache.3qsdn.com/64733/64733_264_live.
 https://sdn-global-live-streaming-packager-cache.3qsdn.com/13456/13456_264_live.m3u8
 #EXTINF:-1 tvg-id="DeluxeRap.de@SD" tvg-logo="https://i.imgur.com/s3h67hx.png" group-title="Music",Deluxe Rap (1080p)
 https://sdn-global-live-streaming-packager-cache.3qsdn.com/65183/65183_264_live.m3u8
+#EXTINF:-1 tvg-id="DGRadio.au@HD" tvg-logo="https://cdn.dg.church/media/objects/tile-dgradio.jpg" group-title="Music",DG:Radio (1080p)
+https://mdn.dg.church/683c0cb036885-1/index.m3u8
 #EXTINF:-1 tvg-id="DhoomMusic.in@SD" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_DHOOM_MUSIC/images/LOGO_HD/image.png" group-title="Music",Dhoom Music (720p)
 https://cdn.pishow.tv/ott/live/1456/master.m3u8
+#EXTINF:-1 tvg-id="DismarRadioTV.py@SD" tvg-logo="https://i.imgur.com/KOuxdMD.png" group-title="Music",Dismar Radio TV (720p)
+https://rds3.desdeparaguay.net/dismartv/dismartv/playlist.m3u8
 #EXTINF:-1 tvg-id="DMF.de@SD" tvg-logo="https://i.imgur.com/sJaBU7X.jpeg" group-title="Music",DMF (1080p) [Not 24/7]
 https://d-m-f.iptv-playoutcenter.de/dmf/dmf1/playlist.m3u8
 #EXTINF:-1 tvg-id="DreamTurk.tr@SD" tvg-logo="https://i.imgur.com/vJ8VaZi.png" group-title="Music",Dream Turk (720p)
@@ -214,12 +214,8 @@ https://rp.tactivemedia.com/palestiniantv_source/live/playlist.m3u8
 https://rjrfame-ioriver-cdn.encoders.immergo.tv/master.m3u8
 #EXTINF:-1 tvg-id="FiestaTV.co@SD" tvg-logo="https://i.imgur.com/42wImV2.png" group-title="Music",Fiesta TV
 https://panelvideo1.intermediahost.co:3286/live/ruzfpkqklive.m3u8
-#EXTINF:-1 tvg-id="FinestTV.de@SD" tvg-logo="https://i.imgur.com/1uoP10V.png" group-title="Music",Finest TV (288p) [Not 24/7]
-https://media.finest.tv/hls/live.m3u8
 #EXTINF:-1 tvg-id="FMITALIA.it@SD" tvg-logo="https://i.imgur.com/54CO2u9.png" group-title="Music",FM ITALIA (1080p)
 https://stream2.xdevel.com/video0s975817-1183/stream/playlist.m3u8
-#EXTINF:-1 tvg-id="FMMundo.ec@SD" tvg-logo="https://i.imgur.com/1nNnYQO.png" group-title="Music",FM Mundo (1080p)
-https://video2.makrodigital.com/fmmundo/fmmundo/playlist.m3u8
 #EXTINF:-1 tvg-id="FMPlusTV.cl@SD" tvg-logo="https://i.imgur.com/1UokOyN.png" group-title="Music",FM Plus TV (720p)
 https://v2.tustreaming.cl/fmplus/index.m3u8
 #EXTINF:-1 tvg-id="FMTV.uk@SD" tvg-logo="https://i.imgur.com/vPxvbVv.png" group-title="Music",FMTV [Not 24/7]

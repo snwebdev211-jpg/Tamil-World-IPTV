@@ -37,8 +37,6 @@ https://da86m1sqpm3o0.cloudfront.net/28072023/smil:zeetamil1.smil/playlist.m3u8
 https://stream.ichibansys.com:3230/hybrid/play.m3u8
 #EXTINF:-1 tvg-id="13Realities.cl@SD" tvg-logo="https://i.imgur.com/m0SuwMU.png" group-title="Entertainment",13 Realities (1080p)
 https://origin.dpsgo.com/ssai/event/g7_JOM0ORki9SR5RKHe-Kw/master.m3u8
-#EXTINF:-1 tvg-id="13E.cl@SD" tvg-logo="https://i.imgur.com/utI1tJV.png" group-title="Entertainment",13E (720p)
-https://origin.dpsgo.com/ssai/event/BBp0VeP6QtOOlH8nu3bWTg/master.m3u8
 #EXTINF:-1 tvg-id="16AnnieIncinta.de@IT" tvg-logo="https://images.pluto.tv/channels/60940a07d88ba90007b9cb71/colorLogoPNG.png" group-title="Entertainment",16 Anni e Incinta
 https://jmp2.uk/plu-60940a07d88ba90007b9cb71.m3u8
 #EXTINF:-1 tvg-id="1KZNTV.za@SD" tvg-logo="https://admango.cdn.mangomolo.com/analytics/uploads/188/6544bebaae.jpg" group-title="Entertainment",1KZN TV (576p)
@@ -65,8 +63,6 @@ https://cdn.pishow.tv/ott/live/969/master.m3u8
 https://r.eu.cdn-redge.media/livehls/oeu/mt/live/ab1/live.livx/playlist.m3u8
 #EXTINF:-1 tvg-id="ABCTVPlus.au@Sydney" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/ABC_TV_Plus_logo_2021.svg/500px-ABC_TV_Plus_logo_2021.svg.png" group-title="Entertainment",ABC TV Plus (720p)
 https://c.mjh.nz/abc-tv-plus.m3u8
-#EXTINF:-1 tvg-id="AbejalesTV.ve@HD" tvg-logo="https://blogger.googleusercontent.com/img/a/AVvXsEgao1fVZ7tV_ExJErlM5JsI8Rxv5TXJSU7ZE6p-g_qSXOiRKrAjCmX650Aw1PYv6cPqML3eKDQGZ_Z5BPYpeLwwAbZay3g4mpTVBW9Xs5D9nEVPD1i9xfOKQsRCFrOJhBgRt9L9yhfLimbu7S4Ozio2tiZ5uc45lRtyS6RjMpI-Ts1n2m_THG8K19R4STns=w800" group-title="Entertainment",AbejalesTV (720p)
-https://183.giatvcdn.com/giatv/giatv-AbejalesTV/AbejalesTV/playlist.m3u8
 #EXTINF:-1 tvg-id="AbsoluteRealitybyWETV.us@SD" tvg-logo="https://i.imgur.com/Gtwk8ic.png" group-title="Entertainment",Absolute Reality by WE TV (1080p)
 https://amc-absolutereality-1-us.plex.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="AccesDirect.ro@SD" tvg-logo="https://assets.antenaplay.ro/2026/05/07/BBOXtLtkSKfKAK5pSBag.png" group-title="Entertainment",Acces Direct (576p)
@@ -79,6 +75,8 @@ https://2-fss-1.streamhoster.com/pl_154/amlst:205432-2055980/playlist.m3u8
 https://turnerlive.warnermediacdn.com/hls/live/2023185/aswest/noslate/VIDEO_1_5128000.m3u8
 #EXTINF:-1 tvg-id="AfroLandTV.us@SD" tvg-logo="https://i.imgur.com/jvnkrEF.png" group-title="Entertainment",AfroLandTV (1080p)
 https://alt-al.otteravision.com/alt/al/al.m3u8
+#EXTINF:-1 tvg-id="AguacateTV.ve@SD" tvg-logo="https://i.ibb.co/wpWBsgf/IMG-20230705-154622.jpg" group-title="Entertainment",Aguacate TV (1080p)
+https://stream.aguacatetv.com:3949/hybrid/play.m3u8
 #EXTINF:-1 tvg-id="AlegreTVRD.do@SD" tvg-logo="https://i.imgur.com/O6USO8r.png" group-title="Entertainment",Alegre TV RD (720p) [Not 24/7]
 https://streamunoapp.com:3149/live/alegretvlive.m3u8
 #EXTINF:-1 tvg-id="AlfoldTV.hu@SD" tvg-logo="https://i.imgur.com/W6jg8iM.png" group-title="Entertainment",Alfold TV (1080p)
@@ -221,6 +219,8 @@ https://617c5175c970b.streamlock.net:4444/9linklivert/smil:9linkmultibr.smil/pla
 https://videostream.chileservidores.com:8081/chiloe2/index.m3u8
 #EXTINF:-1 tvg-id="CanalNets.co@SD" tvg-logo="https://i.imgur.com/edaAexc.png" group-title="Entertainment",Canal Nets (720p) [Not 24/7]
 https://movil.ejeserver.com/live/nets.m3u8
+#EXTINF:-1 tvg-id="CanalPulpoTV.ar@SD" tvg-logo="https://new.opencaster.com/uploads/logos/logo_306_1756336707.png" group-title="Entertainment",Canal Pulpo TV
+https://vs20.live.opencaster.com/canalpulpotv_bdeee6e2/index.m3u8
 #EXTINF:-1 tvg-id="CanalWomtv.co@SD" tvg-logo="https://i.imgur.com/Nr4muMP.jpeg" group-title="Entertainment",Canal Womtv (720p)
 https://live.amelbatv.co:81/womtvlive/index.m3u8
 #EXTINF:-1 tvg-id="Canale5.it@HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Canale_5_-_2018_logo.svg/960px-Canale_5_-_2018_logo.svg.png" group-title="Entertainment",Canale 5 HD (1080p)
@@ -247,13 +247,13 @@ https://jmp2.uk/plu-668c5cb4f01dbe0008dd4082.m3u8
 https://96vd9q4kyxq7-hls-live.5centscdn.com/livestream/f25aeb3e9210967d546a077de6e105e4.sdp/playlist.m3u8
 #EXTINF:-1 tvg-id="CGEntertainment.it@SD" tvg-logo="https://i.imgur.com/XeWzy7e.png" group-title="Entertainment",CG Entertainment (720p)
 https://cgentertainment-cgtv-1-it.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="ChandelTV.tg@SD" tvg-logo="https://i.imgur.com/jQO7dVE.png" group-title="Entertainment",Chandel TV (720p)
+https://kali.vdopanel.com:3660/live/vj6jlam1rlive.m3u8
 #EXTINF:-1 tvg-id="Charterfeber.se@NO" tvg-logo="https://images.pluto.tv/channels/61c1dda0fe470d00080f85b8/colorLogoPNG.png" group-title="Entertainment",Charterfeber
 https://jmp2.uk/plu-61c1dda0fe470d00080f85b8.m3u8
 #EXTINF:-1 tvg-id="ChileChannel.cl@SD" tvg-logo="https://i.imgur.com/F1it6fh.png" group-title="Entertainment",Chile Channel (720p)
 https://v2.tustreaming.cl/chilechannel/index.m3u8
 #EXTINF:-1 tvg-id="ChromaTV.br@SD" tvg-logo="https://i.imgur.com/SnaIMgj.png" group-title="Entertainment",Chroma TV (480p)
 https://5c483b9d1019c.streamlock.net/8054/8054/playlist.m3u8
-#EXTINF:-1 tvg-id="CibaenaTV.do@SD" tvg-logo="https://i.imgur.com/iHjdckl.png" group-title="Entertainment",Cibaena TV (720p)
-https://streamunoapp.com:3958/live/cibaenatvlive.m3u8
 #EXTINF:-1 tvg-id="CinCin.de@IT" tvg-logo="https://images.pluto.tv/channels/65cb78b83a116800079e2e35/colorLogoPNG.png" group-title="Entertainment",Cin Cin
 https://jmp2.uk/plu-65cb78b83a116800079e2e35.m3u8

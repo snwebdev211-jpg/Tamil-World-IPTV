@@ -27,8 +27,6 @@ https://fta.ektv.in/live/228/master.m3u8
 #EXTINF:-1 tvg-id="VendharTV.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Vendhar_TV.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36" group-title="Tamil | Entertainment",Vendhar TV (576p)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36
 https://fta.ektv.in/live/223/master.m3u8
-#EXTINF:-1 tvg-id="ZeeTamil.in@HD" tvg-logo="https://dtil.tmsimg.com/assets/GNLZZGG00233WCL.png?lock=720x540" group-title="Tamil | Entertainment",Zee Tamil HD (720p)
-https://da86m1sqpm3o0.cloudfront.net/28072023/smil:zeetamil1.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="PlusMaisUm.br@HD" tvg-logo="https://i.ibb.co/ZRDvqJcf/Logo-Mais-Um-original-sem-fundo.png" group-title="Entertainment",+MaisUm (720p)
 https://stream.ichibansys.com:3230/hybrid/play.m3u8
 #EXTINF:-1 tvg-id="13Realities.cl@SD" tvg-logo="https://i.imgur.com/m0SuwMU.png" group-title="Entertainment",13 Realities (1080p)
@@ -53,14 +51,14 @@ https://r.eu.cdn-redge.media/livehls/oeu/mt/live/6ter_fr/live.livx/playlist.m3u8
 https://streamcdnr6-dddfac816632463dac50b21109dc1bb3.msvdn.net/live/S58803518/OOZape6Nxp4H/playlist.m3u8
 #EXTINF:-1 tvg-id="AB1.fr@SD" tvg-logo="https://i.imgur.com/9C7UsOe.png" group-title="Entertainment",AB1 (720p)
 https://r.eu.cdn-redge.media/livehls/oeu/mt/live/ab1/live.livx/playlist.m3u8
-#EXTINF:-1 tvg-id="AbejalesTV.ve@HD" tvg-logo="https://blogger.googleusercontent.com/img/a/AVvXsEgao1fVZ7tV_ExJErlM5JsI8Rxv5TXJSU7ZE6p-g_qSXOiRKrAjCmX650Aw1PYv6cPqML3eKDQGZ_Z5BPYpeLwwAbZay3g4mpTVBW9Xs5D9nEVPD1i9xfOKQsRCFrOJhBgRt9L9yhfLimbu7S4Ozio2tiZ5uc45lRtyS6RjMpI-Ts1n2m_THG8K19R4STns=w800" group-title="Entertainment",AbejalesTV (720p)
-https://183.giatvcdn.com/giatv/giatv-AbejalesTV/AbejalesTV/playlist.m3u8
 #EXTINF:-1 tvg-id="AbsoluteRealitybyWETV.us@SD" tvg-logo="https://i.imgur.com/Gtwk8ic.png" group-title="Entertainment",Absolute Reality by WE TV (1080p)
 https://amc-absolutereality-1-us.plex.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="AccesDirect.ro@SD" tvg-logo="https://assets.antenaplay.ro/2026/05/07/BBOXtLtkSKfKAK5pSBag.png" group-title="Entertainment",Acces Direct (576p)
 https://live77cdn2.antenaplay.ro/live2_fast/ch6/stream.m3u8
 #EXTINF:-1 tvg-id="AfroLandTV.us@SD" tvg-logo="https://i.imgur.com/jvnkrEF.png" group-title="Entertainment",AfroLandTV (1080p)
 https://alt-al.otteravision.com/alt/al/al.m3u8
+#EXTINF:-1 tvg-id="AguacateTV.ve@SD" tvg-logo="https://i.ibb.co/wpWBsgf/IMG-20230705-154622.jpg" group-title="Entertainment",Aguacate TV (1080p)
+https://stream.aguacatetv.com:3949/hybrid/play.m3u8
 #EXTINF:-1 tvg-id="AlegreTVRD.do@SD" tvg-logo="https://i.imgur.com/O6USO8r.png" group-title="Entertainment",Alegre TV RD (720p) [Not 24/7]
 https://streamunoapp.com:3149/live/alegretvlive.m3u8
 #EXTINF:-1 tvg-id="AlfoldTV.hu@SD" tvg-logo="https://i.imgur.com/W6jg8iM.png" group-title="Entertainment",Alfold TV (1080p)

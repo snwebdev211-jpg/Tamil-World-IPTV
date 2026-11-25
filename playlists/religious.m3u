@@ -57,6 +57,8 @@ https://livemtaasia.akamaized.net/hls/live/2039224/mtaasia2/playlist.m3u8
 https://cdn.pishow.tv/ott/live/1389/master.m3u8
 #EXTINF:-1 tvg-id="NijamTV.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/nijamtv.png" group-title="Tamil | Religious",Nijam TV (1080p)
 https://nijamtv.indiamatrix.in/nijamtv/nijamtv.m3u8
+#EXTINF:-1 tvg-id="OMTV.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/OM_TV.png" group-title="Tamil | Religious",OM TV (576p)
+https://mumt01.tangotv.in/O5aw8Zn3OMTV/index.m3u8
 #EXTINF:-1 tvg-id="SairamTV.in@SD" tvg-logo="" group-title="Tamil | Religious",Sairam TV (576p)
 https://cdn.pishow.tv/ott/live/1611/master.m3u8
 #EXTINF:-1 tvg-id="SankaraTV.in@SD" tvg-logo="https://i.imgur.com/2z0bDRD.png" group-title="Tamil | Religious",Sankara TV (576p)
@@ -223,6 +225,8 @@ https://d2gvyg6lvauoko.cloudfront.net/230226/awakeningtv/playlist.m3u8?hdnts=st=
 https://dbcanada.sonarbanglatv.com/azantv/atv/index.m3u8
 #EXTINF:-1 tvg-id="BahrainQuran.bh@SD" tvg-logo="https://i.imgur.com/er5hOK4.png" group-title="Religious",Bahrain Quran (720p) [Not 24/7]
 https://5c7b683162943.streamlock.net/live/ngrp:bahrainquran_all/playlist.m3u8
+#EXTINF:-1 tvg-id="BAMOSTV.mx@SD" tvg-logo="https://i.imgur.com/ntK4D64.png" group-title="Religious",BAMOS TV (1080p) [Not 24/7]
+https://video2.getstreamhosting.com:19360/8092/8092.m3u8
 #EXTINF:-1 tvg-id="BeautifulLifeTV.tw@SD" tvg-logo="https://i.imgur.com/hkwcBM9.png" group-title="Religious",Beautiful Life TV (720p)
 https://5ddce30eb4b55.streamlock.net/bltvhd/bltv1/playlist.m3u8
 #EXTINF:-1 tvg-id="BeitolAbbasTVChannel.iq@SD" tvg-logo="https://i.imgur.com/s8PfUQy.png" group-title="Religious",BeitolAbbas TV Channel (720p)
