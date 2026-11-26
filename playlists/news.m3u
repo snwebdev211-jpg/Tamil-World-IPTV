@@ -62,8 +62,6 @@ https://edge-tv-ll.facecast.io/evacoder_hls_hi/UBZfFgtKB1JwTwoDERNQVGGs/index.m3
 https://3awlive.akamaized.net/hls/live/2032295/3AW/index.m3u8
 #EXTINF:-1 tvg-id="3CatInfo.es@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/3CatInfo_logo.svg/960px-3CatInfo_logo.svg.png" group-title="News",3CatInfo (1080p)
 https://directes-tv-int.3catdirectes.cat/live-origin/canal324-hls/master.m3u8
-#EXTINF:-1 tvg-id="4DmasNoticiasTV.py@SD" tvg-logo="https://i.ibb.co/1fb5BtN/unnamed.png" group-title="News",4Dmas Noticias TV (1080p) [Not 24/7]
-https://rds3.desdeparaguay.net/4dmasnoticiastv/4dmasnoticiastv/playlist.m3u8
 #EXTINF:-1 tvg-id="4TVNews.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/4_TV.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36" group-title="News",4TV News (576p)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36
 https://fta.ektv.in/live/647/master.m3u8
@@ -87,8 +85,10 @@ https://d1rc86nwwc9fag.cloudfront.net/vglive-sk-791258/master.m3u8
 https://feeds.intoday.in/aajtak/api/aajtakhd/master.m3u8
 #EXTINF:-1 tvg-id="AbanteTV.ph@HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d9/Abante_masthead.svg" group-title="News",Abante TV (1080p)
 https://amg19223-amg19223c12-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c12-amgplt0352/playlist.m3u8
-#EXTINF:-1 tvg-id="ABCNews.au@Sydney" tvg-logo="https://i.imgur.com/BrW7gk8.png" group-title="News",ABC News (720p)
+#EXTINF:-1 tvg-id="ABCNews.au@Sydney" tvg-logo="https://i.imgur.com/BrW7gk8.png" group-title="News",ABC News (Australia) (720p)
 https://abc-news-dmd-streams-1.akamaized.net/out/v1/701126012d044971b3fa89406a440133/index.m3u8
+#EXTINF:-1 tvg-id="ABCNews.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/ABC_News.png" group-title="News",ABC News (India) (1080p)
+https://stream.ottlive.co.in/abcnews/index.m3u8
 #EXTINF:-1 tvg-id="ABCNewsLive.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/ABC_News_Live_logo_2021.svg/960px-ABC_News_Live_logo_2021.svg.png" group-title="News",ABC News Live (720p)
 https://jmp2.uk/plu-6508be683a0d700008c534e4.m3u8
 #EXTINF:-1 tvg-id="ABCNewsLive1.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/ABC_News_Live_logo_2021.svg/960px-ABC_News_Live_logo_2021.svg.png" group-title="News",ABC News Live 1 (720p)
@@ -130,6 +130,8 @@ https://fta.ektv.in/live/641/master.m3u8
 https://livestream.telvue.com/accvision2/f7b44cfafd5c52223d5498196c8a2e7b.sdp/playlist.m3u8
 #EXTINF:-1 tvg-id="AccuWeatherNOW.us@SD" tvg-logo="https://i.imgur.com/M8wbVYK.png" group-title="News",AccuWeather NOW (1080p)
 https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00684-accuweather-accuweather-plex/playlist.m3u8
+#EXTINF:-1 tvg-id="ACNTV.cm@SD" tvg-logo="https://i.imgur.com/aZyKsyN.png" group-title="News",ACN TV (1080p)
+https://cdn.acnlive.net/LiveApp/streams/hold_the_line.m3u8
 #EXTINF:-1 tvg-id="Actualidad360.es@SD" tvg-logo="https://i.imgur.com/3YeTu0n.png" group-title="News",Actualidad 360
 https://jmp2.uk/plu-67517fae5534bb0008187997.m3u8
 #EXTINF:-1 tvg-id="ACTV.us@SD" tvg-logo="https://i.imgur.com/Z6lB0Ww.png" group-title="News",ACTV (United States) (720p)
@@ -188,8 +190,12 @@ https://live-hls-apps-ajm2-fa.getaj.net/AJM2/index.m3u8
 https://starmenajo.com/hls/almasar/index.m3u8
 #EXTINF:-1 tvg-id="AlMashhad.ae@SD" tvg-logo="https://i.imgur.com/6G6fxs5.png" group-title="News",Al Mashhad (1080p)
 https://amg30483-amg30483c23-amgplt0794.playout.now3.amagi.tv/ts-ap-s1-n1/playlist/amg30483-amg30483c23-amgplt0794/playlist.m3u8?ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.appversion=[APP_VERSION]&ads.bundleid=[APP_BUNDLE]&ads.coppa=0&ads.country=[COUNTRY]&ads.deviceid=[DEVICE_ID]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.devicetype=[DEVICE_TYPE]&ads.donotsell=[DNS]&ads.fck=[FCK]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.givn=[NONCE]&ads.ic=[IC]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.ip=[IP]&ads.lat=[LMT]&ads.network_name=[networkname]&ads.targetad=[TARGETAD_ALLOWED]&ads.ua=[UA]&ads.usprivacy=[US_PRIVACY]&ads.viewsize=[VIEWSIZE]
+#EXTINF:-1 tvg-id="AlMasirah.ye@SD" tvg-logo="https://i.imgur.com/V055t5e.png" group-title="News",Al Masirah (720p) [Not 24/7]
+https://live.cdnbridge.tv/Almasirah/Almasirah_all/playlist.m3u8
 #EXTINF:-1 tvg-id="AlMasirahMubacher.ye@SD" tvg-logo="https://i.imgur.com/0xHb3XM.jpg" group-title="News",Al Masirah Mubacher (642p) [Not 24/7]
 https://live2.cdnbridge.tv/AlmasirahMubasher/Mubasher_All/playlist.m3u8
+#EXTINF:-1 tvg-id="AlMayadeenTV.lb@SD" tvg-logo="https://i.imgur.com/GtQOKeW.png" group-title="News",Al Mayadeen TV (576p)
+https://mdnlv.cdn.octivid.com/almdn/smil:mpegts.stream.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="AlNajahNews.ps@SD" tvg-logo="https://i.imgur.com/c2bwn4G.png" group-title="News",Al Najah News (720p)
 https://streaming.najah.edu:8443/hls/AlNajah.m3u8
 #EXTINF:-1 tvg-id="AlSharqiyaNews.iq@SD" tvg-logo="https://i.imgur.com/PeAcXB9.png" group-title="News",Al Sharqiya News (1080p)
@@ -208,8 +214,6 @@ https://stream-aleph.m.ro/Aleph/ngrp:Alephnewsmain.stream_all/playlist.m3u8
 https://itv.streams.ovh/ALEERT/ALEERT/playlist.m3u8
 #EXTINF:-1 tvg-id="AlghadeerTV.iq@SD" tvg-logo="https://i.imgur.com/YPj6kXq.png" group-title="News",Alghadeer TV (1080p)
 https://sd343444.vodu.store:3356/live/Alghadeer/index.m3u8
-#EXTINF:-1 tvg-id="AlhaqeqaAldawlia.jo@SD" tvg-logo="" group-title="News",Alhaqeqa Aldawlia (1080p) [Not 24/7]
-https://ghaasiflu.online/alhqeqa/index.m3u8
 #EXTINF:-1 tvg-id="AlmahriahTV.tr@SD" tvg-logo="https://i.imgur.com/GgEeTNr.png" group-title="News",Almahriah TV (576p)
 https://starmenajo.com/hls/almahriah/index.m3u8
 #EXTINF:-1 tvg-id="AltaghierTV.jo@SD" tvg-logo="https://i.imgur.com/YTyCBvB.png" group-title="News",Altaghier TV (1080p)
@@ -251,6 +255,8 @@ https://d1msejlow1t3l4.cloudfront.net/fta/argusnews/playlist.m3u8
 https://amdlive-ch02-ctnd-com.akamaized.net/arirang_2ch/smil:arirang_2ch.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="ArmyTV.ua@SD" tvg-logo="https://i.imgur.com/pGByjbh.png" group-title="News",Army TV (1080p)
 https://api-tv.ipnet.ua/api/v1/manifest/2118742632.m3u8
+#EXTINF:-1 tvg-id="ARTV.pt@SD" tvg-logo="https://i.imgur.com/y00t9hr.png" group-title="News",ARTV (720p) [Not 24/7]
+https://playout172.livextend.cloud/liveiframe/_definst_/liveartvabr/playlist.m3u8
 #EXTINF:-1 tvg-id="ASTV.tr@SD" tvg-logo="https://asset.artidijitalmedya.com/image/188x188/channels/v1/logo_13.png" group-title="News",AS TV (Turkiye) (900p)
 https://live.artidijitalmedya.com/artidijital_astv/astv/playlist.m3u8
 #EXTINF:-1 tvg-id="AshwaveegaNews24x7.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Ashwaveega_News_24x7.png" group-title="News",Ashwaveega News 24x7 (720p)
@@ -271,11 +277,7 @@ https://streaming.astrakhan.ru/astrakhan24/playlist.m3u8
 https://v2.tustreaming.cl/atacamanoticias/index.m3u8
 #EXTINF:-1 tvg-id="ATL26.us@SD" tvg-logo="https://i.imgur.com/s4fqNMt.png" group-title="News",ATL 26
 https://securestream11.champds.com/LIVE/AtlantaGALIVE/AtlantaGALIVE.m3u8
-#EXTINF:-1 tvg-id="ATNSamachar.in@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/ATN_Samachar.png" group-title="News",ATN Samachar (1080p)
-https://newsliveindia.com:4433/atn/index.m3u8
 #EXTINF:-1 tvg-id="ATXN1.us@SD" tvg-logo="https://i.imgur.com/tSMtDlz.png" group-title="News",ATXN1 (1080p)
 https://cdn-atxn-01.vos360.video/Content/HLS/Live/channel(616d6f49-eaec-6f7e-7186-2bbaf66c69c0)/index.m3u8
 #EXTINF:-1 tvg-id="AwaazIndiaTV.in@SD" tvg-logo="https://i.imgur.com/eKQs51V.png" group-title="News",Awaaz India TV (720p) [Not 24/7]
 https://awaazindia.livebox.co.in/AwaazIndaTVhls/Live.m3u8
-#EXTINF:-1 tvg-id="B1.ro@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/B1_TV_logo.svg/960px-B1_TV_logo.svg.png" group-title="News",B1
-https://hls02ns.antenaplay.ro/hls/b1-tv-hd/index.m3u8

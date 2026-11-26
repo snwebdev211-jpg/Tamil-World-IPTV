@@ -151,6 +151,8 @@ https://nl.livekadeh.com/hls2/alwilayah_tv.m3u8
 https://alaimma.tv/live/index.m3u8
 #EXTINF:-1 tvg-id="AlFadyTV.us@SD" tvg-logo="https://i.imgur.com/7L0l0iY.png" group-title="Religious",Al-Fady TV (1080p) [Not 24/7]
 https://5d658d7e9f562.streamlock.net/alfadytv.tv/alfadytv.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="AlImanTV.lb@SD" tvg-logo="https://i.imgur.com/4WKQppG.png" group-title="Religious",Al-Iman TV (Lebanon) (240p) [Not 24/7]
+https://svs.itworkscdn.net/alimanlive/imantv.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="AlJawadainTV.iq@SD" tvg-logo="https://i.imgur.com/Eo3UYCK.png" group-title="Religious",Al-Jawadain TV (1080p) [Not 24/7]
 https://live.aljawadain.org/live/aljawadaintv/playlist.m3u8
 #EXTINF:-1 tvg-id="AlMahdiTV.us@SD" tvg-logo="https://i.imgur.com/S1YM83i.png" group-title="Religious",Al-Mahdi TV (1080p)
@@ -187,8 +189,6 @@ https://5aafcc5de91f1.streamlock.net/alkarmatv.com/alkarmaus.smil/playlist.m3u8
 https://597f64b67707a.streamlock.net/almagd.tv/almagd.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="AlmagdTVNorthAmerica.us@SD" tvg-logo="https://i.imgur.com/3pUik3b.png" group-title="Religious",Almagd TV North America (1080p)
 https://5aafcc5de91f1.streamlock.net/almagd.tv/almagd.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="AlphaDigital.ug@SD" tvg-logo="https://i.imgur.com/sLt242H.png" group-title="Religious",Alpha Digital (480p)
-https://streamfi-alphatvdgtl1.zettawiseroutes.com:8181/hls/stream.m3u8
 #EXTINF:-1 tvg-id="Alquran.iq@SD" tvg-logo="https://i.imgur.com/lqVwrAF.png" group-title="Religious",Alquran (1080p)
 https://ktvlive.online/stream/hls/ch1.m3u8
 #EXTINF:-1 tvg-id="AmazingDiscoveriesTV.ca@SD" tvg-logo="https://i.imgur.com/I0oPFTj.png" group-title="Religious",Amazing Discoveries TV (720p)
@@ -309,8 +309,6 @@ https://d2p4mrcwl6ly4.cloudfront.net/out/v1/8d50f69fdbbf411a8d302743e4263716/CGN
 https://ch14.tv/live/ch4teendoc/playlist.m3u8
 #EXTINF:-1 tvg-id="ChannelDivya.in@SD" tvg-logo="https://dtil.tmsimg.com/assets/s143010_ld_h15_aa.png?lock=720x540" group-title="Religious",Channel Divya (1080p)
 https://d2lk5u59tns74c.cloudfront.net/out/v1/40f46fa036df45ee9d28b6eda42eb27c/index.m3u8
-#EXTINF:-1 tvg-id="ChannelWIN.in@SD" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_CHANNEL_WIN/images/LOGO_HD/image.png" group-title="Religious",Channel WIN (720p)
-https://cdn.smartstream.video/smartstream-us/channelwinlive/channelwinlive/playlist.m3u8
 #EXTINF:-1 tvg-id="CharityTV.lb@SD" tvg-logo="https://i.imgur.com/U9z8WBY.png" group-title="Religious",Charity TV (1080p)
 https://652930de05533.streamlock.net/live/ngrp:livestream_all/playlist.m3u8
 #EXTINF:-1 tvg-id="ChhayaChitramTelugu.in@SD" tvg-logo="https://papaji.freetvindia.com/media/channels/Chhaya_Chitram_Telugu.png" group-title="Religious",Chhaya Chitram Telugu (360p)

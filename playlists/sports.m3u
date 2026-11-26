@@ -39,8 +39,6 @@ https://kanal75xto-llhls.akamaized.net/live/Data/atg-kanal-15-02a-rr/HLS-Legacy-
 https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8
 #EXTINF:-1 tvg-id="BahrainSports2.bh@SD" tvg-logo="https://i.imgur.com/ZkuZmIo.png" group-title="Sports",Bahrain Sports 2 (720p) [Not 24/7]
 https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8
-#EXTINF:-1 tvg-id="beINSportsUSA.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/BeIN_Sports_logo_%28vertical_version%29.svg/500px-BeIN_Sports_logo_%28vertical_version%29.svg.png" group-title="Sports",beIN Sports USA (576p)
-https://tvsen6.aynaott.com/beinsports/index.m3u8
 #EXTINF:-1 tvg-id="beINSPORTSXTRA.us@SD" tvg-logo="https://i.ibb.co/HT49GPmB/XTRA-2.png" group-title="Sports",beIN SPORTS XTRA (1080p)
 https://bein-xtra-bein.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="beINSPORTSXTRAenEspanol.us@SD" tvg-logo="https://i.imgur.com/V562tpO.png" group-title="Sports",beIN SPORTS XTRA en Espanol (1080p)
@@ -92,9 +90,6 @@ https://jmp2.uk/plu-64afe50c5dc16600087f3227.m3u8
 https://na.linear.zype.com/e0bd0e23-a958-4e43-8164-4f2fef8876a8/fd3614bd-90bf-4530-a277-65ae3a1720c8-zype/live.m3u8
 #EXTINF:-1 tvg-id="Equidia.fr@SD" tvg-logo="https://i.imgur.com/QPpbRcZ.png" group-title="Sports",Equidia (1080p)
 https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/equidia/live2.m3u8
-#EXTINF:-1 tvg-id="ESPNLatinAmerica.us@Mexico" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/960px-ESPN_wordmark.svg.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" group-title="Sports",ESPN Latin America Mexico
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
-https://lilac19.pontiscloud.com/live/gt/ESPN/index.m3u8
 #EXTINF:-1 tvg-id="Eurosport1.fr@France" tvg-logo="https://i.imgur.com/olQJgm7.png" group-title="Sports",Eurosport 1 (1080p)
 https://r.eu.cdn-redge.media/livehls/oeu/mt/live/eurosport_1/live.livx/playlist.m3u8
 #EXTINF:-1 tvg-id="Eurosport1.fr@Italy" tvg-logo="https://i.imgur.com/olQJgm7.png" group-title="Sports",Eurosport 1 Italy (720p)
@@ -149,8 +144,6 @@ https://amg02278-amg02278c1-flosports-worldwide-7592.playouts.now.amagi.tv/playl
 https://fonstreams.mediacdn.ru/stream/fontvclear/playlist.m3u8
 #EXTINF:-1 tvg-id="Formula1AntenaPlay.ro@SD" tvg-logo="https://assets.antenaplay.ro/2024/02/23/XUKfJwir4MxNeP4nHtG7.png" group-title="Sports",Formula 1 AntenaPlay (576p) [Not 24/7]
 https://stream1.antenaplay.ro/promo/formula-1-qatar-27-2911/chunklist.m3u8
-#EXTINF:-1 tvg-id="FOX.mx@HD" tvg-logo="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/25/FOX_wordmark.svg/960px-FOX_wordmark.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail" group-title="Sports",FOX
-https://lilac19.pontiscloud.com/live/gt/FOX/index.m3u8
 #EXTINF:-1 tvg-id="FTFSports.us@SD" tvg-logo="https://i.imgur.com/yvUjOI3.png" group-title="Sports",FTF Sports (720p)
 https://1593604785.rsc.cdn77.org/FTF/FTF_SCTE.m3u8
 #EXTINF:-1 tvg-id="FTV.bo@SD" tvg-logo="https://i.imgur.com/YOr1Oac.png" group-title="Sports",FTV (Bolivia) (720p)
@@ -171,8 +164,6 @@ https://6f972d29.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdX
 https://jmp2.uk/plu-63a0e33a45264d000850ed7e.m3u8
 #EXTINF:-1 tvg-id="GolfChannel.cz@SD" tvg-logo="https://www.sms.cz/kategorie/televize/bmp/loga/velka/golfchannel.png" group-title="Sports",Golf Channel (Czech Republic)
 https://dash4.antik.sk/live/test_golf_channel/playlist.m3u8
-#EXTINF:-1 tvg-id="GolfChannel.us@SD" tvg-logo="https://i.imgur.com/Lgux6Ik.png" group-title="Sports",Golf Channel (United States) (576p)
-https://tvsen6.aynaott.com/golfchannel/index.m3u8
 #EXTINF:-1 tvg-id="HBCUGOSports.us@SD" tvg-logo="https://i.imgur.com/TY6sx5W.png" group-title="Sports",HBCU-GO Sports (720p)
 https://a-cdn.klowdtv.com/live3/hbcugo_720p/playlist.m3u8
 #EXTINF:-1 tvg-id="HorseTV.it@SD" tvg-logo="https://i.imgur.com/nK4UUX4.png" group-title="Sports",Horse TV (720p)

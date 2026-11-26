@@ -63,5 +63,5 @@ https://atomic.streamnet.ro/atomictv.m3u8
 https://master.tucableip.com/audiokisstv/index.m3u8
 #EXTINF:-1 tvg-id="AvangTV.us@SD" tvg-logo="https://i.imgur.com/3I1n7fO.png" group-title="Music",Avang TV (1080p)
 https://hls.avang.live/hls/stream.m3u8
-#EXTINF:-1 tvg-id="AXSTV.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/AXS_TV_logo.svg/960px-AXS_TV_logo.svg.png" group-title="Music",AXS TV (576p)
-https://tvsen3.aynaott.com/P2fJzfsg/index.m3u8
+#EXTINF:-1 tvg-id="AzaharesRadiovisualMultimedia.ar@SD" tvg-logo="https://i.imgur.com/g1BFoSs.png" group-title="Music",Azahares Radiovisual Multimedia (720p)
+https://streamyes.alsolnet.com/azaharesfm/live/playlist.m3u8
