@@ -115,6 +115,8 @@ https://failarmy-international-gb.samsung.wurl.tv/playlist.m3u8
 https://jmp2.uk/plu-580e87ff497c73ba2f321dd3.m3u8
 #EXTINF:-1 tvg-id="HAHATV.sk@SD" tvg-logo="" group-title="Comedy",HAHA TV
 https://dash3.antik.sk/live/test_haha_tv/playlist.m3u8
+#EXTINF:-1 tvg-id="HBOPopLatinAmerica.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/HBO_Pop.svg/960px-HBO_Pop.svg.png" group-title="Comedy",HBO Pop Latin America (1080p) [Geo-blocked]
+http://15.204.246.24:8080/HBOPOPHD/index.m3u8
 #EXTINF:-1 tvg-id="InPuiiMei.ro@SD" tvg-logo="https://assets.antenaplay.ro/2026/05/07/aUyRzOHx0tkHM6SXjA9K.png" group-title="Comedy",In Puii Mei (576p)
 https://live77cdn2.antenaplay.ro/live2_fast/ch7/stream.m3u8
 #EXTINF:-1 tvg-id="iRoast.ro@SD" tvg-logo="https://assets.antenaplay.ro/2026/05/07/1CKR5EoJo1qeSZCe9lkT.png" group-title="Comedy",iRoast (576p)
